@@ -1,6 +1,7 @@
  $(function () {
  		//when histo : ?
- 		var histograms = ["total_hh",'propotion_oc'];
+ 		var histograms = ["total_hh",'propotion_oc','propotion_obc',
+ 				'propotion_sc','propotion_st','caste_domination_idx'];
  		var proportions = ["propotion_oc"];
 
         //Initialize Select2 Elements
