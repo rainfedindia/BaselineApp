@@ -1,6 +1,6 @@
  $(function () {
  		//when histo : ?
- 		var histograms = ["total_hh"];
+ 		var histograms = ["total_hh",'propotion_oc'];
  		var proportions = ["propotion_oc"];
 
         //Initialize Select2 Elements
@@ -40,11 +40,16 @@
         	{
         		var dataHisto = [];
 				data.forEach(function(d, i){
-					dataHisto.push(d[id])
+					if(+d[id]!=0)
+					{
+
+						dataHisto.push(+d[id]);
+					}
+
 				});
 					
 				
-        		$("#histoSelector").html('Select the number of class you want to see : </br><input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1"> : <span id="rangeValue">10</span> classes.');
+        		$("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
         		$("#histoSelectorRange").on("change",function(){
 	        		$("#rangeValue").html(this.value);
 	        		draw(this.value);
@@ -60,8 +65,9 @@
 					    width = 960 - margin.left - margin.right,
 					    height = 500 - margin.top - margin.bottom;
 
+					    
 					var x = d3.scale.linear()
-					    .domain([0, 1000])
+					    .domain([0, d3.max(dataHisto)])
 					    .range([0, width]);
 
 					// Generate a histogram using twenty uniformly-spaced bins.
