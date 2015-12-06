@@ -3,7 +3,7 @@
  		var histograms = ["total_hh",'propotion_oc','propotion_obc',
  				'propotion_sc','propotion_st','caste_domination_idx'];
  		var proportions = ["propotion_oc"];
-
+ 		var yesNo = ['road_present_y/n']
         //Initialize Select2 Elements
         d3.csv('static/data/dataV1.csv',function(e,data){
         	//get all the keys
@@ -33,7 +33,11 @@
         	
         			histogram(idAttribute,data);
         		}
-
+        		if($.inArray(idAttribute, yesNo) >= 0)
+        		{
+        	
+        			pieChart(idAttribute,data);
+        		}
         		
         	}
         
@@ -113,8 +117,18 @@
 					    .attr("class", "x axis")
 					    .attr("transform", "translate(0," + height + ")")
 					    .call(xAxis);
-        		}
+        		}//end Draw histo
         		
+        	}//End Histo
+
+        	function pieChart(id,data)
+        	{
+        		var dataPie = [0,0];
+				data.forEach(function(d, i){
+					dataPie[(+d[id])]+=1;
+				});
+				console.log(dataPie);
+					
         	}
 
         });
