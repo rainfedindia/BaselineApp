@@ -1,8 +1,9 @@
  $(function () {
  		//when histo : ?
  		var histograms = ["total_hh",'propotion_oc','propotion_obc',
- 				'propotion_sc','propotion_st','caste_domination_idx'];
+ 				'propotion_sc','propotion_st','caste_domination_idx','amenities_0-5kms_no'];
  		var proportions = ["propotion_oc"];
+ 		var zeros = ['amenities_0-5kms_no'];
  		var yesNo = ['road_present_y/n','angw_present_y/n','elec_present_y/n','pds_present_y/n',
  			'drnkwtr_present_y/n','mblrcep_present_y/n']
         //Initialize Select2 Elements
@@ -47,25 +48,38 @@
         		var dataHisto = [];
         		var nb0 = 0;
 				data.forEach(function(d, i){
-					if(+d[id]!=0)
+					if($.inArray(id, zeros) >= 0)
 					{
-
 						dataHisto.push(+d[id]);
 					}
 					else
 					{
-						nb0 +=1;
+
+						if(+d[id]!=0)
+						{
+
+							dataHisto.push(+d[id]);
+						}
+						else
+						{
+							nb0 +=1;
 					}
+						}
 
 				});
+				
+				if(nb0!=0)
+				{
+        			$("#nb0").html('There are '+nb0+' zeros in the set, this explain why 100% couldn\'t be reached');
 					
-        		$("#nb0").html('There are '+nb0+' zeros in the set, this explain why 100% couldn\'t be reached');
+				}	
 				
         		$("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
         		$("#histoSelectorRange").on("change",function(){
 	        		$("#rangeValue").html(this.value);
 	        		draw(this.value);
 	        	});	
+				var lineCoord = [];
         		draw(10);
         		function draw(nb)
         		{
@@ -86,12 +100,25 @@
 					var data = d3.layout.histogram()
 					    .bins(x.ticks(nb))
 					    (dataHisto);
+
+					var line = d3.svg.line()
+					    .x(function(d) { return x(d.x); })
+					    .y(function(d) { return y(d.y); })
+					    .interpolate('monotone');
+
+					
+					if(nb==10)
+					{
+						data.forEach(function(d,i){
+							lineCoord.push({x:d.x,y:d.y})
+						});
+						
+					}
 					
 					
 					var y = d3.scale.linear()
 					    .domain([0, d3.max(data, function(d) { return d.y; })])
 					    .range([height, 0]);
-
 					var xAxis = d3.svg.axis()
 					    .scale(x)
 					    .orient("bottom");
@@ -112,7 +139,7 @@
 					    .call(yAxis)				    
 					    .append("text")
 		            .attr("transform", "rotate(-90)")
-		            .attr("y", -32)
+		            .attr("y", -35)
 		            
 		            .attr("dy", ".71em")
 		            .style("text-anchor", "end")
@@ -135,12 +162,21 @@
 					    .attr("font-size",240/nb)
 					    .attr("x", x(data[0].dx) / 2)
 					    .attr("text-anchor", "middle")
-					    .text(function(d) { return Math.floor(formatCount(d.y)/.120)/10 +"%"; });
+					    .text(function(d) { return Math.floor(formatCount(d.y)/.124)/10 +"%"; });
 
 					svg.append("g")
 					    .attr("class", "x axis")
 					    .attr("transform", "translate(0," + height + ")")
 					    .call(xAxis);
+
+					  svg.append("path")
+					  	.attr("class","density")
+					    .datum(lineCoord)
+					    .attr("class", "line")
+					    .attr("fill",'none')
+					    .attr("stroke",'red')
+					    .attr("d", line);
+					    
         		}//end Draw histo
         		
         	}//End Histo

@@ -27,3 +27,9 @@
 {
 	opacity: 0;
 }
+.density
+{
+  fill: none;
+  stroke: red;
+  shape-rendering:;
+}
