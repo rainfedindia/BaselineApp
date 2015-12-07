@@ -45,15 +45,21 @@
         	function histogram(id,data)
         	{
         		var dataHisto = [];
+        		var nb0 = 0;
 				data.forEach(function(d, i){
 					if(+d[id]!=0)
 					{
 
 						dataHisto.push(+d[id]);
 					}
+					else
+					{
+						nb0 +=1;
+					}
 
 				});
 					
+        		$("#nb0").html('There are '+nb0+' zeros in the set, this explain why 100% couldn\'t be reached');
 				
         		$("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
         		$("#histoSelectorRange").on("change",function(){
@@ -106,7 +112,8 @@
 					    .call(yAxis)				    
 					    .append("text")
 		            .attr("transform", "rotate(-90)")
-		            .attr("y", 6)
+		            .attr("y", -32)
+		            
 		            .attr("dy", ".71em")
 		            .style("text-anchor", "end")
 		            .text("Number of village");
@@ -125,6 +132,7 @@
 					bar.append("text")
 					    .attr("dy", ".75em")
 					    .attr("y", 6)
+					    .attr("font-size",240/nb)
 					    .attr("x", x(data[0].dx) / 2)
 					    .attr("text-anchor", "middle")
 					    .text(function(d) { return Math.floor(formatCount(d.y)/.120)/10 +"%"; });
@@ -141,7 +149,8 @@
         	{
 
         		$("#histoSelector").html('');	
-        		var dataPie = [0,0];
+        		$("#nb0").html('');
+        		var dataPie = [0,0];	
 				data.forEach(function(d, i){
 					dataPie[(+d[id])]+=1;
 				});
