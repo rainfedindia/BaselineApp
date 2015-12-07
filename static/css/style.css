@@ -15,3 +15,15 @@
 {
 	width: 300px;
 }
+.arc path {
+  stroke: #fff;
+}
+
+.tick line
+{
+	opacity: .3;
+}
+.domain 
+{
+	opacity: 0;
+}

@@ -3,7 +3,8 @@
  		var histograms = ["total_hh",'propotion_oc','propotion_obc',
  				'propotion_sc','propotion_st','caste_domination_idx'];
  		var proportions = ["propotion_oc"];
- 		var yesNo = ['road_present_y/n']
+ 		var yesNo = ['road_present_y/n','angw_present_y/n','elec_present_y/n','pds_present_y/n',
+ 			'drnkwtr_present_y/n','mblrcep_present_y/n']
         //Initialize Select2 Elements
         d3.csv('static/data/dataV1.csv',function(e,data){
         	//get all the keys
@@ -66,7 +67,7 @@
 					// A formatter for counts.
 					var formatCount = d3.format(",.0f");
 
-					var margin = {top: 10, right: 30, bottom: 30, left: 30},
+					var margin = {top: 10, right: 30, bottom: 30, left: 50},
 					    width = 960 - margin.left - margin.right,
 					    height = 500 - margin.top - margin.bottom;
 
@@ -89,11 +90,26 @@
 					    .scale(x)
 					    .orient("bottom");
 
+
+					   var yAxis = d3.svg.axis()
+						    .scale(y)
+						    .tickSize(-width)
+						    .orient("left"); 
+					
 					var svg = d3.select("#vizOne").append("svg")
 					    .attr("width", width + margin.left + margin.right)
 					    .attr("height", height + margin.top + margin.bottom)
 					  .append("g")
 					    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+					svg.append("g")
+					    .attr("class", "y axis")
+					    .call(yAxis)				    
+					    .append("text")
+		            .attr("transform", "rotate(-90)")
+		            .attr("y", 6)
+		            .attr("dy", ".71em")
+		            .style("text-anchor", "end")
+		            .text("Number of village");
 
 					var bar = svg.selectAll(".bar")
 					    .data(data)
@@ -102,7 +118,7 @@
 					    .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
 
 					bar.append("rect")
-					    .attr("x", 1)
+					    .attr("x", 2)
 					    .attr("width", x(data[0].dx) - 2)
 					    .attr("height", function(d) { return height - y(d.y); });
 
@@ -111,7 +127,7 @@
 					    .attr("y", 6)
 					    .attr("x", x(data[0].dx) / 2)
 					    .attr("text-anchor", "middle")
-					    .text(function(d) { return formatCount(d.y); });
+					    .text(function(d) { return Math.floor(formatCount(d.y)/.120)/10 +"%"; });
 
 					svg.append("g")
 					    .attr("class", "x axis")
@@ -123,11 +139,67 @@
 
         	function pieChart(id,data)
         	{
+
+        		$("#histoSelector").html('');	
         		var dataPie = [0,0];
 				data.forEach(function(d, i){
 					dataPie[(+d[id])]+=1;
 				});
+				dataPie[0]/=124;
+				dataPie[1]/=124;
 				console.log(dataPie);
+				draw();
+				function draw()
+        		{
+        			$("#vizOne").html("");
+
+        			var data = [{'response':'NO','value':dataPie[0]},{'response':'YES','value':dataPie[1]}];
+
+
+        			var width = 960,
+					    height = 500,
+					    radius = Math.min(width, height) / 2;
+
+					var color = ['#FF3300','lightgreen'];
+
+					var arc = d3.svg.arc()
+					    .outerRadius(radius - 10)
+					    .innerRadius(0);
+
+					var labelArc = d3.svg.arc()
+					    .outerRadius(radius - 40)
+					    .innerRadius(radius - 40);
+
+					var pie = d3.layout.pie()
+					    .sort(null)
+					    .value(function(d) { return d.value; });
+
+					var svg = d3.select("#vizOne").append("svg")
+					    .attr("width", width)
+					    .attr("height", height)
+					  .append("g")
+					    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+					  var g = svg.selectAll(".arc")
+					      .data(pie(data))
+					    .enter().append("g")
+					      .attr("class", "arc");
+
+					  g.append("path")
+					      .attr("d", arc)
+					      .style("fill", function(d,i) { return color[i]; });
+
+					  g.append("text")
+					      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+					      .attr("dy", ".35em")
+					      .attr('fill','white')
+					      .attr('font-size',24)
+					      .style('text-anchor','middle')
+					      .text(function(d) { return d.data.response; });
+	
+
+
+        		}
 					
         	}
 
