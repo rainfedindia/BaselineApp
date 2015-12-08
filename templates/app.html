@@ -38,7 +38,7 @@
             <div class="docs-section" style="margin-top: 10%, margin-bottom: 10%">
                 <div class="three columns">
 
-                    <h5>Choose one or two attribute</h5>
+                    <h5>Choose one attribute</h5>
 
 
 
@@ -47,9 +47,17 @@
                     <select id="attributeOne" class="form-control select2" style="width: 100%;">
 
                     </select>
+                    <h5>And compare it with another one</h5>
+                    <select disabled  id="attributeTwo" class="form-control select2" style="width: 100%;">
+
+                    </select>
                 </div>
                 <div class="nine columns">
-                <button class="reduce">-</button>
+                <div class="reduceDiv">
+                    <span id="graphTitle1">
+                    </span>
+                    <button class="reduce">-</button>
+                </div>
                 <div class="content">
                     <div class="" id="nb0">
                     </div>
@@ -57,6 +65,17 @@
                     </div>
                     <div class="" id="histoSelector">
                     </div>
+                    </div>
+                </div>
+                <div class="reduceDiv">
+                    <h4 id="graphTitle2"></h4>
+                    <button class="reduce">-</button>
+                </div>
+                <div class="content">
+                    
+                    <div class="" id="vizTwo">
+                    </div>
+                    
                     </div>
                 </div>
             </div>

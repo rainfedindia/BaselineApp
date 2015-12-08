@@ -7,7 +7,7 @@
 	    else{
 	        $(this).html("-");
 	    }
-	    $(this).parent().find(".content").slideToggle();
+	    $(this).parent().parent().find(".content").slideToggle();
 	});
 
      //when histo : ?
@@ -17,30 +17,54 @@
      var proportions = ["propotion_oc"];
      var zeros = ['amenities_0-5kms_no'];
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
-             'drnkwtr_present_y/n', 'mblrcep_present_y/n'
-         ]
-         //Initialize Select2 Elements
+             'drnkwtr_present_y/n', 'mblrcep_present_y/n']
+
+      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
          //get all the keys
          var keys = data[0];
-         var options = '';
+         var attribute1 = '';
+         var attribute2 = '';
+         var options = '<option id="none">none</option>';
          for (a in keys) {
              options += '<option id="' + a + '"">' + a + '</option>';
 
          }
          $(".select2#attributeOne").html(options);
+         $(".select2#attributeTwo").html(options);
+         
          $(".select2").select2();
 
          $(".select2#attributeOne").on("change", function() {
              //from string to numeric
-
+             attribute1 = this.value;
+             if(attribute1 != "none")
+             {
+             	$('#attributeTwo').select2('enable');
+             }
+             else
+             {
+             	
+             	$('#attributeTwo').select2("enable",false);
+             	
+             }
              data.forEach(function(d, i) {
                  d[this.value] = +d[this.value];
              });
-             visualize(this.value);
+             visualizeOne(this.value);
+         });
+         $(".select2#attributeTwo").on("change", function() {
+             //from string to numeric
+             attribute2 = this.value;
+             data.forEach(function(d, i) {
+                 d[this.value] = +d[this.value];
+             });
+             visualizeOneVsOne(this.attribute1,attribute2);
          });
 
-         function visualize(idAttribute) {
+         function visualizeOne(idAttribute) {
+         	$('#graphTitle1').html(idAttribute);
+         	 clear();
              if ($.inArray(idAttribute, histograms) >= 0) {
 
                  histogram(idAttribute, data);
@@ -50,9 +74,16 @@
                  pieChart(idAttribute, data);
              }
 
+         } // End vizualize
+
+         function visualizeOneVsOne(id1,id2)
+         {
+
          }
 
+
          function histogram(id, data) {
+         	clear();
              var dataHisto = [];
              var nb0 = 0;
              data.forEach(function(d, i) {
@@ -84,7 +115,7 @@
              draw(10);
 
              function draw(nb) {
-                 $("#vizOne").html("");
+                 $("#vizOne").html('');
                  // A formatter for counts.
                  var formatCount = d3.format(",.0f");
 
@@ -206,8 +237,7 @@
 
          function pieChart(id, data) {
 
-             $("#histoSelector").html('');
-             $("#nb0").html('');
+            clear();
              var dataPie = [0, 0];
              data.forEach(function(d, i) {
                  dataPie[(+d[id])] += 1;
@@ -282,9 +312,16 @@
 
              }
 
-         }
+         }//End pie chart
 
-     });
+     });// End csv
 
+ 	function clear()
+ 	{
+ 		 $("#histoSelector").html('');
+ 		 $("#vizOne").html('');
+ 		 $("#vizTwo").html('');
+         $("#nb0").html('');
+ 	}
 
  });
