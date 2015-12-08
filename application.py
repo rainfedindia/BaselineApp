@@ -8,7 +8,7 @@ application = flask.Flask(__name__)
 @application.route("/", methods=['POST','GET'])
 
 def index():
-	return flask.render_template("index.html")
+	return flask.render_template("app.html")
 		
 			
 	# run the app.
