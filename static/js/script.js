@@ -326,7 +326,7 @@
          }//End pie chart
          function scatterPlot(id1,id2, data) {
 
-         	
+         	$('#graphTitle2').html(id1 +" vs "+id2);
          	$("#vizTwo").html('');
             
 			var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -358,7 +358,16 @@
 			 draw()
 			 function draw()
 			 {
-			
+				
+			 	checkBoxes = "NGO's : ";
+			 	checkBoxes += '<input class="cb" type="checkbox" id="cb1" > 1 ';
+			 	checkBoxes += '<input class="cb" type="checkbox" id="cb2" > 2 ';
+			 	checkBoxes += '<input class="cb" type="checkbox" id="cb3" > 3 ';
+			 	checkBoxes += '<input class="cb" type="checkbox" id="cb5" > 5 ';
+			 	checkBoxes += '<input class="cb" type="checkbox" id="cb6" > 6 ';
+			 	checkBoxes += '<input class="cb" type="checkbox" id="cb7" > 7 ';
+				$("#ngos").html(checkBoxes);
+				
 			  data.forEach(function(d) {
 			    d.y = +d[id2];
 			    d.x = +d[id1];
@@ -391,7 +400,8 @@
 			      .style("text-anchor", "end")
 			      .text(id2)
 
-			  var previousColor = "lightgrey";
+			  var previousColor = ["lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey"]
+			  var previousSize = 5;
 			  svg.selectAll(".dot")
 			      .data(data)
 			    .enter().append("circle")
@@ -401,12 +411,44 @@
 			      .attr("cy", function(d) { return y(d.y); })
 			      .style("fill", "lightgrey")
 			  	  .on("mouseenter",function(d,i){
-			  	  	previousColor = svg.select(".ngo"+d.ngo).style("fill");
-			  	  	svg.selectAll(".ngo"+d.ngo).style("fill", "#FF6633")
+			  
+			  
+			  	  	svg.selectAll(".ngo"+d.ngo)
+			  	  	.transition()
+			  	  	.duration(200)
+			  	  	.style("fill", "#FF6633")
+			  	  	.attr("r", 10);
 			  	  })
 			  	  .on("mouseout",function(d,i){
-			  	  	svg.selectAll(".ngo"+d.ngo).style("fill", previousColor)
+			  	  	svg.selectAll(".ngo"+d.ngo)
+			  	  	.transition()
+			  	  	.duration(200)
+			  	  	.style("fill", function(d){return previousColor[d.ngo];})
+			  	  	.attr("r", 5);
 			  	  });
+
+			  	$(".cb").on("change",function(){
+						var id = this.id.split('cb')[1]
+			  		if(this.checked == true)
+			  		{
+						svg.selectAll(".ngo"+id)
+						.transition()
+				  	  	.duration(200)
+				  	  	.style("fill", function(d){return color(id);});
+				  	  	previousColor[id] = color(id);
+			  			
+			  		}
+			  		else
+			  		{
+			  			
+						svg.selectAll(".ngo"+id)
+						.transition()
+				  	  	.duration(200)
+				  	  	.style("fill","lightgrey");
+				  	  	previousColor[id] = "lightgrey";
+							
+			  		}
+				});
 			}
              
 
