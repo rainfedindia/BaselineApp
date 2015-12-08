@@ -1,254 +1,290 @@
- $(function () {
- 		//when histo : ?
- 		var histograms = ["total_hh",'propotion_oc','propotion_obc',
- 				'propotion_sc','propotion_st','caste_domination_idx','amenities_0-5kms_no'];
- 		var proportions = ["propotion_oc"];
- 		var zeros = ['amenities_0-5kms_no'];
- 		var yesNo = ['road_present_y/n','angw_present_y/n','elec_present_y/n','pds_present_y/n',
- 			'drnkwtr_present_y/n','mblrcep_present_y/n']
-        //Initialize Select2 Elements
-        d3.csv('static/data/dataV1.csv',function(e,data){
-        	//get all the keys
-        	var keys = data[0];
-        	var options = '';
-        	for(a in keys)
-        	{
-        		options+='<option id="'+a+'"">'+a+'</option>';
-        	
-        	}
-        	$(".select2#attributeOne").html(options);
-        	$(".select2").select2();
+ $(function() {
 
-        	$(".select2#attributeOne").on("change",function(){
-        		//from string to numeric
+ 	$(".reduce").click(function(){
+	    if($(this).html() == "-"){
+	        $(this).html("+");
+	    }
+	    else{
+	        $(this).html("-");
+	    }
+	    $(this).parent().find(".content").slideToggle();
+	});
 
-        		data.forEach(function(d, i){
-        			d[this.value] = +d[this.value];
-        		});
-        		visualize(this.value);
-        	});	
+     //when histo : ?
+     var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
+         'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no'
+     ];
+     var proportions = ["propotion_oc"];
+     var zeros = ['amenities_0-5kms_no'];
+     var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
+             'drnkwtr_present_y/n', 'mblrcep_present_y/n'
+         ]
+         //Initialize Select2 Elements
+     d3.csv('static/data/dataV1.csv', function(e, data) {
+         //get all the keys
+         var keys = data[0];
+         var options = '';
+         for (a in keys) {
+             options += '<option id="' + a + '"">' + a + '</option>';
 
-        	function visualize(idAttribute)
-        	{
-        		if($.inArray(idAttribute, histograms) >= 0)
-        		{
-        	
-        			histogram(idAttribute,data);
-        		}
-        		if($.inArray(idAttribute, yesNo) >= 0)
-        		{
-        	
-        			pieChart(idAttribute,data);
-        		}
-        		
-        	}
-        
-        	function histogram(id,data)
-        	{
-        		var dataHisto = [];
-        		var nb0 = 0;
-				data.forEach(function(d, i){
-					if($.inArray(id, zeros) >= 0)
-					{
-						dataHisto.push(+d[id]);
-					}
-					else
-					{
+         }
+         $(".select2#attributeOne").html(options);
+         $(".select2").select2();
 
-						if(+d[id]!=0)
-						{
+         $(".select2#attributeOne").on("change", function() {
+             //from string to numeric
 
-							dataHisto.push(+d[id]);
-						}
-						else
-						{
-							nb0 +=1;
-					}
-						}
+             data.forEach(function(d, i) {
+                 d[this.value] = +d[this.value];
+             });
+             visualize(this.value);
+         });
 
-				});
-				
-				if(nb0!=0)
-				{
-        			$("#nb0").html('There are '+nb0+' zeros in the set, this explain why 100% couldn\'t be reached');
-					
-				}	
-				
-        		$("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
-        		$("#histoSelectorRange").on("change",function(){
-	        		$("#rangeValue").html(this.value);
-	        		draw(this.value);
-	        	});	
-				var lineCoord = [];
-        		draw(10);
-        		function draw(nb)
-        		{
-        			$("#vizOne").html("");
-					// A formatter for counts.
-					var formatCount = d3.format(",.0f");
+         function visualize(idAttribute) {
+             if ($.inArray(idAttribute, histograms) >= 0) {
 
-					var margin = {top: 10, right: 30, bottom: 30, left: 50},
-					    width = 960 - margin.left - margin.right,
-					    height = 500 - margin.top - margin.bottom;
+                 histogram(idAttribute, data);
+             }
+             if ($.inArray(idAttribute, yesNo) >= 0) {
 
-					    
-					var x = d3.scale.linear()
-					    .domain([0, d3.max(dataHisto)])
-					    .range([0, width]);
+                 pieChart(idAttribute, data);
+             }
 
-					// Generate a histogram using twenty uniformly-spaced bins.
-					var data = d3.layout.histogram()
-					    .bins(x.ticks(nb))
-					    (dataHisto);
+         }
 
-					var line = d3.svg.line()
-					    .x(function(d) { return x(d.x); })
-					    .y(function(d) { return y(d.y); })
-					    .interpolate('monotone');
+         function histogram(id, data) {
+             var dataHisto = [];
+             var nb0 = 0;
+             data.forEach(function(d, i) {
+                 if ($.inArray(id, zeros) >= 0) {
+                     dataHisto.push(+d[id]);
+                 } else {
 
-					
-					if(nb==10)
-					{
-						data.forEach(function(d,i){
-							lineCoord.push({x:d.x,y:d.y})
-						});
-						
-					}
-					
-					
-					var y = d3.scale.linear()
-					    .domain([0, d3.max(data, function(d) { return d.y; })])
-					    .range([height, 0]);
-					var xAxis = d3.svg.axis()
-					    .scale(x)
-					    .orient("bottom");
+                     if (+d[id] != 0) {
+
+                         dataHisto.push(+d[id]);
+                     } else {
+                         nb0 += 1;
+                     }
+                 }
+
+             });
+
+             if (nb0 != 0) {
+                 $("#nb0").html('There are ' + nb0 + ' zeros in the set, this explain why 100% couldn\'t be reached');
+
+             }
+
+             $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
+             $("#histoSelectorRange").on("change", function() {
+                 $("#rangeValue").html(this.value);
+                 draw(this.value);
+             });
+             var lineCoord = [];
+             draw(10);
+
+             function draw(nb) {
+                 $("#vizOne").html("");
+                 // A formatter for counts.
+                 var formatCount = d3.format(",.0f");
+
+                 var margin = {
+                         top: 10,
+                         right: 30,
+                         bottom: 30,
+                         left: 50
+                     },
+                     width = 900 - margin.left - margin.right,
+                     height = 500 - margin.top - margin.bottom;
 
 
-					   var yAxis = d3.svg.axis()
-						    .scale(y)
-						    .tickSize(-width)
-						    .orient("left"); 
-					
-					var svg = d3.select("#vizOne").append("svg")
-					    .attr("width", width + margin.left + margin.right)
-					    .attr("height", height + margin.top + margin.bottom)
-					  .append("g")
-					    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-					svg.append("g")
-					    .attr("class", "y axis")
-					    .call(yAxis)				    
-					    .append("text")
-		            .attr("transform", "rotate(-90)")
-		            .attr("y", -35)
-		            
-		            .attr("dy", ".71em")
-		            .style("text-anchor", "end")
-		            .text("Number of village");
+                 var x = d3.scale.linear()
+                     .domain([0, d3.max(dataHisto)])
+                     .range([0, width]);
 
-					var bar = svg.selectAll(".bar")
-					    .data(data)
-					  .enter().append("g")
-					    .attr("class", "bar")
-					    .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+                 // Generate a histogram using twenty uniformly-spaced bins.
+                 var data = d3.layout.histogram()
+                     .bins(x.ticks(nb))
+                     (dataHisto);
 
-					bar.append("rect")
-					    .attr("x", 2)
-					    .attr("width", x(data[0].dx) - 2)
-					    .attr("height", function(d) { return height - y(d.y); });
-
-					bar.append("text")
-					    .attr("dy", ".75em")
-					    .attr("y", 6)
-					    .attr("font-size",240/nb)
-					    .attr("x", x(data[0].dx) / 2)
-					    .attr("text-anchor", "middle")
-					    .text(function(d) { return Math.floor(formatCount(d.y)/.124)/10 +"%"; });
-
-					svg.append("g")
-					    .attr("class", "x axis")
-					    .attr("transform", "translate(0," + height + ")")
-					    .call(xAxis);
-
-					  svg.append("path")
-					  	.attr("class","density")
-					    .datum(lineCoord)
-					    .attr("class", "line")
-					    .attr("fill",'none')
-					    .attr("stroke",'red')
-					    .attr("d", line);
-					    
-        		}//end Draw histo
-        		
-        	}//End Histo
-
-        	function pieChart(id,data)
-        	{
-
-        		$("#histoSelector").html('');	
-        		$("#nb0").html('');
-        		var dataPie = [0,0];	
-				data.forEach(function(d, i){
-					dataPie[(+d[id])]+=1;
-				});
-				dataPie[0]/=124;
-				dataPie[1]/=124;
-				console.log(dataPie);
-				draw();
-				function draw()
-        		{
-        			$("#vizOne").html("");
-
-        			var data = [{'response':'NO','value':dataPie[0]},{'response':'YES','value':dataPie[1]}];
+                 var line = d3.svg.line()
+                     .x(function(d) {
+                         return x(d.x) + width / 10 - width / 20;
+                     })
+                     .y(function(d) {
+                         return y(d.y);
+                     })
+                     .interpolate('monotone');
 
 
-        			var width = 960,
-					    height = 500,
-					    radius = Math.min(width, height) / 2;
+                 if (nb == 10) {
+                     data.forEach(function(d, i) {
+                         lineCoord.push({
+                             x: d.x,
+                             y: d.y
+                         })
+                     });
 
-					var color = ['#FF3300','lightgreen'];
-
-					var arc = d3.svg.arc()
-					    .outerRadius(radius - 10)
-					    .innerRadius(0);
-
-					var labelArc = d3.svg.arc()
-					    .outerRadius(radius - 40)
-					    .innerRadius(radius - 40);
-
-					var pie = d3.layout.pie()
-					    .sort(null)
-					    .value(function(d) { return d.value; });
-
-					var svg = d3.select("#vizOne").append("svg")
-					    .attr("width", width)
-					    .attr("height", height)
-					  .append("g")
-					    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-					  var g = svg.selectAll(".arc")
-					      .data(pie(data))
-					    .enter().append("g")
-					      .attr("class", "arc");
-
-					  g.append("path")
-					      .attr("d", arc)
-					      .style("fill", function(d,i) { return color[i]; });
-
-					  g.append("text")
-					      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-					      .attr("dy", ".35em")
-					      .attr('fill','white')
-					      .attr('font-size',24)
-					      .style('text-anchor','middle')
-					      .text(function(d) { return d.data.response; });
-	
+                 }
 
 
-        		}
-					
-        	}
+                 var y = d3.scale.linear()
+                     .domain([0, d3.max(data, function(d) {
+                         return d.y;
+                     })])
+                     .range([height, 0]);
+                 var xAxis = d3.svg.axis()
+                     .scale(x)
+                     .orient("bottom");
 
-        });
+
+                 var yAxis = d3.svg.axis()
+                     .scale(y)
+                     .tickSize(-width)
+                     .orient("left");
+
+                 var svg = d3.select("#vizOne").append("svg")
+                     .attr("width", width + margin.left + margin.right)
+                     .attr("height", height + margin.top + margin.bottom)
+                     .append("g")
+                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                 svg.append("g")
+                     .attr("class", "y axis")
+                     .call(yAxis)
+                     .append("text")
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", -35)
+
+                 .attr("dy", ".71em")
+                     .style("text-anchor", "end")
+                     .text("Number of village");
+
+                 var bar = svg.selectAll(".bar")
+                     .data(data)
+                     .enter().append("g")
+                     .attr("class", "bar")
+                     .attr("transform", function(d) {
+                         return "translate(" + x(d.x) + "," + y(d.y) + ")";
+                     });
+
+                 bar.append("rect")
+                     .attr("x", 2)
+                     .attr("width", x(data[0].dx) - 2)
+                     .attr("height", function(d) {
+                         return height - y(d.y);
+                     });
+
+                 bar.append("text")
+                     .attr("dy", ".75em")
+                     .attr("y", 6)
+                     .attr("font-size", 240 / nb)
+                     .attr("x", x(data[0].dx) / 2)
+                     .attr("text-anchor", "middle")
+                     .text(function(d) {
+                         return Math.floor(formatCount(d.y) / .124) / 10 + "%";
+                     });
+
+                 svg.append("g")
+                     .attr("class", "x axis")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(xAxis);
+
+                 //density, some bugs to check
+                     
+                /* svg.append("path")
+                     .attr("class", "density")
+                     .datum(lineCoord)
+                     .attr("class", "line")
+                     .attr("fill", 'none')
+                     .attr("stroke", 'red')
+                     .attr("stroke-width", '3px')
+                     .attr("d", line);*/
+
+             } //end Draw histo
+
+         } //End Histo
+
+         function pieChart(id, data) {
+
+             $("#histoSelector").html('');
+             $("#nb0").html('');
+             var dataPie = [0, 0];
+             data.forEach(function(d, i) {
+                 dataPie[(+d[id])] += 1;
+             });
+             dataPie[0] /= 124;
+             dataPie[1] /= 124;
+             console.log(dataPie);
+             draw();
+
+             function draw() {
+                 $("#vizOne").html("");
+
+                 var data = [{
+                     'response': 'NO',
+                     'value': dataPie[0]
+                 }, {
+                     'response': 'YES',
+                     'value': dataPie[1]
+                 }];
 
 
-});
+                 var width = 900,
+                     height = 500,
+                     radius = Math.min(width, height) / 2;
+
+                 var color = ['#FF3300', 'lightgreen'];
+
+                 var arc = d3.svg.arc()
+                     .outerRadius(radius - 10)
+                     .innerRadius(0);
+
+                 var labelArc = d3.svg.arc()
+                     .outerRadius(radius - 40)
+                     .innerRadius(radius - 40);
+
+                 var pie = d3.layout.pie()
+                     .sort(null)
+                     .value(function(d) {
+                         return d.value;
+                     });
+
+                 var svg = d3.select("#vizOne").append("svg")
+                     .attr("width", width)
+                     .attr("height", height)
+                     .append("g")
+                     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+                 var g = svg.selectAll(".arc")
+                     .data(pie(data))
+                     .enter().append("g")
+                     .attr("class", "arc");
+
+                 g.append("path")
+                     .attr("d", arc)
+                     .style("fill", function(d, i) {
+                         return color[i];
+                     });
+
+                 g.append("text")
+                     .attr("transform", function(d) {
+                         return "translate(" + labelArc.centroid(d) + ")";
+                     })
+                     .attr("dy", ".35em")
+                     .attr('fill', 'white')
+                     .attr('font-size', 24)
+                     .style('text-anchor', 'middle')
+                     .text(function(d) {
+                         return d.data.response;
+                     });
+
+
+
+             }
+
+         }
+
+     });
+
+
+ });
