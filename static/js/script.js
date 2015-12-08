@@ -50,6 +50,7 @@
              }
              data.forEach(function(d, i) {
                  d[this.value] = +d[this.value];
+                 d["cp_id"] = +d["cp_id"];
              });
              visualizeOne(this.value);
          });
