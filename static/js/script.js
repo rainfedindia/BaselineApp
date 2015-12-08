@@ -27,7 +27,10 @@
          var attribute2 = '';
          var options = '<option id="none">none</option>';
          for (a in keys) {
+         	if(a!='general.village' && a!='cp_id')
+         	{
              options += '<option id="' + a + '"">' + a + '</option>';
+         	}
 
          }
          $(".select2#attributeOne").html(options);
@@ -60,7 +63,7 @@
              data.forEach(function(d, i) {
                  d[this.value] = +d[this.value];
              });
-             visualizeOneVsOne(this.attribute1,attribute2);
+             visualizeOneVsOne(attribute1,attribute2);
          });
 
          function visualizeOne(idAttribute) {
@@ -79,6 +82,13 @@
 
          function visualizeOneVsOne(id1,id2)
          {
+         	if ($.inArray(id1, histograms) >= 0) 
+         	{
+         		if ($.inArray(id2, histograms) >= 0)
+         		{
+         			scatterPlot(id1,id2,data);
+         		} 
+         	}
 
          }
 
@@ -314,6 +324,93 @@
              }
 
          }//End pie chart
+         function scatterPlot(id1,id2, data) {
+
+         	
+         	$("#vizTwo").html('');
+            
+			var margin = {top: 20, right: 20, bottom: 30, left: 50},
+			    width = 900 - margin.left - margin.right,
+			    height = 500 - margin.top - margin.bottom;
+
+			var x = d3.scale.linear()
+			    .range([0, width]);
+
+			var y = d3.scale.linear()
+			    .range([height, 0]);
+
+			var color = d3.scale.category10();
+
+			var xAxis = d3.svg.axis()
+			    .scale(x)
+			    .orient("bottom");
+
+			var yAxis = d3.svg.axis()
+			    .scale(y)
+			    .orient("left");
+
+			var svg = d3.select("#vizTwo").append("svg")
+			    .attr("width", width + margin.left + margin.right)
+			    .attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			 draw()
+			 function draw()
+			 {
+			
+			  data.forEach(function(d) {
+			    d.y = +d[id2];
+			    d.x = +d[id1];
+			   	d.ngo = d['cp_id']; 
+
+			  });
+
+			  x.domain(d3.extent(data, function(d) { return d.x; }));
+			  y.domain(d3.extent(data, function(d) { return d.y; }));
+
+			  svg.append("g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + height + ")")
+			      .call(xAxis)
+			    .append("text")
+			      .attr("class", "label")
+			      .attr("x", width)
+			      .attr("y", -6)
+			      .style("text-anchor", "end")
+			      .text(id1);
+
+			  svg.append("g")
+			      .attr("class", "y axis")
+			      .call(yAxis)
+			    .append("text")
+			      .attr("class", "label")
+			      .attr("transform", "rotate(-90)")
+			      .attr("y", 6)
+			      .attr("dy", ".71em")
+			      .style("text-anchor", "end")
+			      .text(id2)
+
+			  var previousColor = "lightgrey";
+			  svg.selectAll(".dot")
+			      .data(data)
+			    .enter().append("circle")
+			      .attr("class", function(d,i){return "dot ngo"+d.ngo;})
+			      .attr("r", 5)
+			      .attr("cx", function(d) { return x(d.x); })
+			      .attr("cy", function(d) { return y(d.y); })
+			      .style("fill", "lightgrey")
+			  	  .on("mouseenter",function(d,i){
+			  	  	previousColor = svg.select(".ngo"+d.ngo).style("fill");
+			  	  	svg.selectAll(".ngo"+d.ngo).style("fill", "#FF6633")
+			  	  })
+			  	  .on("mouseout",function(d,i){
+			  	  	svg.selectAll(".ngo"+d.ngo).style("fill", previousColor)
+			  	  });
+			}
+             
+
+         }//End scatterplot
 
      });// End csv
 
@@ -321,7 +418,7 @@
  	{
  		 $("#histoSelector").html('');
  		 $("#vizOne").html('');
- 		 $("#vizTwo").html('');
+ 		 
          $("#nb0").html('');
  	}
 
