@@ -355,10 +355,6 @@
 			  .append("g")
 			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-			 draw()
-			 function draw()
-			 {
-				
 			 	checkBoxes = "NGO's : ";
 			 	checkBoxes += '<input class="cb" type="checkbox" id="cb1" > 1 ';
 			 	checkBoxes += '<input class="cb" type="checkbox" id="cb2" > 2 ';
@@ -367,6 +363,10 @@
 			 	checkBoxes += '<input class="cb" type="checkbox" id="cb6" > 6 ';
 			 	checkBoxes += '<input class="cb" type="checkbox" id="cb7" > 7 ';
 				$("#ngos").html(checkBoxes);
+			 draw()
+			 function draw()
+			 {
+				
 				
 			  data.forEach(function(d) {
 			    d.y = +d[id2];
@@ -413,14 +413,14 @@
 			  	  .on("mouseenter",function(d,i){
 			  
 			  
-			  	  	svg.selectAll(".ngo"+d.ngo)
+			  	  	d3.selectAll(".ngo"+d.ngo)
 			  	  	.transition()
 			  	  	.duration(200)
 			  	  	.style("fill", "#FF6633")
 			  	  	.attr("r", 10);
 			  	  })
 			  	  .on("mouseout",function(d,i){
-			  	  	svg.selectAll(".ngo"+d.ngo)
+			  	  	d3.selectAll(".ngo"+d.ngo)
 			  	  	.transition()
 			  	  	.duration(200)
 			  	  	.style("fill", function(d){return previousColor[d.ngo];})
@@ -431,17 +431,18 @@
 						var id = this.id.split('cb')[1]
 			  		if(this.checked == true)
 			  		{
-						svg.selectAll(".ngo"+id)
+						d3.selectAll(".ngo"+id)
 						.transition()
 				  	  	.duration(200)
 				  	  	.style("fill", function(d){return color(id);});
 				  	  	previousColor[id] = color(id);
+				  	  	drawSmall(id);
 			  			
 			  		}
 			  		else
 			  		{
 			  			
-						svg.selectAll(".ngo"+id)
+						d3.selectAll(".ngo"+id)
 						.transition()
 				  	  	.duration(200)
 				  	  	.style("fill","lightgrey");
@@ -449,6 +450,96 @@
 							
 			  		}
 				});
+				function drawSmall(ngoID)
+				{
+					$('#smallScatterplot').html("");
+					var margin = {top: 10, right: 10, bottom: 20, left: 20},
+					    width = 300 - margin.left - margin.right,
+					    height = 200 - margin.top - margin.bottom;
+
+					var x = d3.scale.linear()
+					    .range([0, width]);
+
+					var y = d3.scale.linear()
+					    .range([height, 0]);
+
+					var color = d3.scale.category10();
+
+					var xAxis = d3.svg.axis()
+					    .scale(x)
+					    .orient("bottom");
+
+					var yAxis = d3.svg.axis()
+					    .scale(y)
+					    .orient("left");
+
+					var svg = d3.select("#smallScatterplot").append("svg")
+					    .attr("width", width + margin.left + margin.right)
+					    .attr("height", height + margin.top + margin.bottom)
+					  .append("g")
+					    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+					var smallData = [];
+					data.forEach(function(d) {
+					    if(d.ngo==ngoID)
+					    {
+					    	smallData.push(d);
+					    }
+					    
+
+					  });
+
+					  x.domain(d3.extent(data, function(d) { return d.x; }));
+					  y.domain(d3.extent(data, function(d) { return d.y; }));
+
+					  svg.append("g")
+					      .attr("class", "x axis")
+					      .attr("transform", "translate(0," + height + ")")
+					      .call(xAxis)
+					    .append("text")
+					      .attr("class", "label")
+					      .attr("x", width)
+					      .attr("y", -6)
+					      .style("text-anchor", "end")
+					      .text(id1);
+
+					  svg.append("g")
+					      .attr("class", "y axis")
+					      .call(yAxis)
+					    .append("text")
+					      .attr("class", "label")
+					      .attr("transform", "rotate(-90)")
+					      .attr("y", 6)
+					      .attr("dy", ".71em")
+					      .style("text-anchor", "end")
+					      .text(id2)
+
+					  svg.selectAll(".dot")
+					      .data(smallData)
+					    .enter().append("circle")
+					      .attr("class", function(d,i){return "dot ngo"+d.ngo;})
+					      .attr("r", 3)
+					      .attr("cx", function(d) { return x(d.x); })
+					      .attr("cy", function(d) { return y(d.y); })
+					      .style("fill", "lightgrey")
+					  	  .on("mouseenter",function(d,i){
+					  
+					  
+					  	  	d3.selectAll(".ngo"+d.ngo)
+					  	  	.transition()
+					  	  	.duration(200)
+					  	  	.style("fill", "#FF6633")
+					  	  	.attr("r", 10);
+					  	  })
+					  	  .on("mouseout",function(d,i){
+					  	  	d3.selectAll(".ngo"+d.ngo)
+					  	  	.transition()
+					  	  	.duration(200)
+					  	  	.style("fill", function(d){return previousColor[d.ngo];})
+					  	  	.attr("r", 5);
+					  	  });
+
+				}//end SmalSc
 			}
              
 
