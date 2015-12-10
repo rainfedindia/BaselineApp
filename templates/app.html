@@ -29,62 +29,59 @@
     <div class="container">
         <div class="row">
             <div class="docs-section" style="margin-top: 5%">
-                <div class="12 columns">
+                <div class="twelve columns">
                     <h3>Baseline App</h3>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="docs-section" style="margin-top: 10%, margin-bottom: 10%">
-                <div class="three columns">
 
-                    <h5>Choose one attribute</h5>
+            <div class="three columns">
 
-
-
-
-
-                    <select id="attributeOne" class="form-control select2" style="width: 100%;">
-
-                    </select>
-                    <h5>And compare it with another one</h5>
-                    <select disabled  id="attributeTwo" class="form-control select2" style="width: 100%;">
-
-                    </select>
-                    <div id="smallScatterplot"></div>
-                </div>
-                <div class="nine columns">
-                <div>
-                <div class="reduceDiv">
-                    <button class="reduce">-</button>
-                    <span id="graphTitle1">
-                    </span>
-                </div>
-                <div class="content">
-                    <div class="" id="nb0">
-                    </div>
-                    <div class="" id="vizOne">
-                    </div>
-                    <div class="" id="histoSelector">
-                    </div>
-                    </div>
-                </div>
-                <div>
-                <div class="reduceDiv">
-                    <button class="reduce">-</button>
-                    <span id="graphTitle2" ></span>
-                </div>
-                <div class="content">
-                    
-                    <div class="" id="vizTwo">
-                    </div>
-                    <div id="ngos"></div>
-                    </div>
-                </div>
-                </div>
+                <h4>X Axis :</h4>
+                <select id="attributeOne" class="form-control select2" style="width: 80%;">
+                </select>
             </div>
+            <div class="three columns">
+                <h4>Y Axis :</h4>
+                <select disabled="disabled" id="attributeTwo" class="form-control select2" style="width: 80%;">
+                </select>
+            </div>
+            <div class="three columns">
+                <h4>NGO's Choice :</h4>
+                <input class="cb" checked="true" type="checkbox" id="cb0"> ALL
+                <input class="cb" type="checkbox" id="cb1"/> 1
+                <input class="cb" type="checkbox" id="cb2"/> 2
+                <input class="cb" type="checkbox" id="cb3"/> 3
+                <input class="cb" type="checkbox" id="cb4" disabled="disabled"/> 4
+                <input class="cb" type="checkbox" id="cb5"/> 5
+                <input class="cb" type="checkbox" id="cb6"/> 6
+                <input class="cb" type="checkbox" id="cb7"/> 7
+            </div>
+            <div class="three columns">
+                </br>
+                <button id='go'>Submit</button>
+            </div>
+
         </div>
+
+         <div id="histoSelector"  class="row" >
+
+         </div>
+        
+        <div  class="row" id="viz">
+        </div>
+        <div  class="row" id="viz2">
+         </div>
+        <div  class="row" id="viz3">
+        
+        </div>
+
+
+
+
     </div>
+
 </body>
 <!-- REQUIRED JS SCRIPTS -->
 

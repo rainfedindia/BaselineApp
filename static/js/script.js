@@ -1,6 +1,6 @@
  $(function() {
 
- 	$(".reduce").click(function(){
+ 	/*$(".reduce").click(function(){
 	    if($(this).html() == "-"){
 	        $(this).html("+");
 	    }
@@ -9,7 +9,7 @@
 	    }
 	    $(this).parent().parent().find(".content").slideToggle();
 	});
-
+*/
      //when histo : ?
      var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
          'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no'
@@ -23,8 +23,8 @@
      d3.csv('static/data/dataV1.csv', function(e, data) {
          //get all the keys
          var keys = data[0];
-         var attribute1 = '';
-         var attribute2 = '';
+         var attribute1 = 'none';
+         var attribute2 = 'none';
          var options = '<option id="none">none</option>';
          for (a in keys) {
          	if(a!='general.village' && a!='cp_id')
@@ -55,8 +55,18 @@
                  d[this.value] = +d[this.value];
                  d["cp_id"] = +d["cp_id"];
              });
-             visualizeOne(this.value);
+             
          });
+
+         $('#go').on("click",function(){
+         	if(attribute1 != 'none' && attribute2 == "none")
+         	{
+         		
+         		visualizeOne(attribute1);
+         	
+         	}
+         });
+
          $(".select2#attributeTwo").on("change", function() {
              //from string to numeric
              attribute2 = this.value;
@@ -67,15 +77,26 @@
          });
 
          function visualizeOne(idAttribute) {
-         	$('#graphTitle1').html(idAttribute);
+         		
+         	var checkboxes = [];
+
+         	for (var i = 0; i < 8; i++) {
+         		
+         		if($('#cb'+i)[0].checked == true)
+         		{
+         			checkboxes.push(i);
+         		}
+         	}
+         	
+
          	 clear();
              if ($.inArray(idAttribute, histograms) >= 0) {
 
-                 histogram(idAttribute, data);
+                 histogram(idAttribute, data,checkboxes);
              }
              if ($.inArray(idAttribute, yesNo) >= 0) {
 
-                 pieChart(idAttribute, data);
+                 pieChart(idAttribute, data,checkboxes);
              }
 
          } // End vizualize
@@ -93,51 +114,119 @@
          }
 
 
-         function histogram(id, data) {
+         function histogram(id, data,cb) {
+         	
          	clear();
-             var dataHisto = [];
-             var nb0 = 0;
-             data.forEach(function(d, i) {
-                 if ($.inArray(id, zeros) >= 0) {
-                     dataHisto.push(+d[id]);
-                 } else {
+            var nb0 = 0;
+            var svg = [];
+            var dataHisto = [[],[],[],[],[],[],[],[]];
+         	for (var i = 0; i < cb.length; i++) {
+	             dataHisto[i] = [];
+	             data.forEach(function(d, i) {
+	             	
+	                 
+		                 if ($.inArray(id, zeros) >= 0) 
+		                 {
+		                     dataHisto[0].push(+d[id]);
+		                     dataHisto[d['cp_id']].push(+d[id]);
+		                 }
+		                 else
+		                 {
 
-                     if (+d[id] != 0) {
+		                     if (+d[id] != 0) 
+		                     {
+		                  		dataHisto[0].push(+d[id]);
+		                     	dataHisto[d['cp_id']].push(+d[id]);
+		                     }
+		                     else 
+		                     {
+		                         nb0 += 1;
+		                     }
+		                 }
+	                 
+	             });
+	             if (nb0 != 0) {
+	                 $("#nb0").html('There are ' + nb0 + ' zeros in the set, this explain why 100% couldn\'t be reached');
 
-                         dataHisto.push(+d[id]);
-                     } else {
-                         nb0 += 1;
-                     }
-                 }
+	             }
+         		
+         	}
 
-             });
-
-             if (nb0 != 0) {
-                 $("#nb0").html('There are ' + nb0 + ' zeros in the set, this explain why 100% couldn\'t be reached');
-
-             }
-
+         	
              $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
              $("#histoSelectorRange").on("change", function() {
                  $("#rangeValue").html(this.value);
-                 draw(this.value);
-             });
-             var lineCoord = [];
-             draw(10);
+	            $("#viz").html('');
+	            $("#viz2").html('');
+	            $("#viz3").html('');
+                             for (var i = 0; i < cb.length; i++) 
+            {
 
-             function draw(nb) {
-                 $("#vizOne").html('');
+             	draw(this.value,cb.length,dataHisto[cb[i]],i+1);
+            	
+            }
+             });
+             //var lineCoord = [];
+            
+             
+            for (var i = 0; i < cb.length; i++) 
+            {
+
+             	draw(10,cb.length,dataHisto[cb[i]],i+1);
+            	
+            }
+            
+             function draw(nb,cb,dataHisto,id) {
+             	var div = "div"+id;
+             	
+             	if(cb==1)
+             	{
+             		$("#viz").append("<div class='eleven columns' id='"+div+"' ></div>");
+             	}
+             	if(cb==2 || cb == 3 ||cb == 4)
+             	{
+             		if(id != 2 && id != 1)
+             		{
+
+             			$("#viz2").append("<div class='six columns' id='"+div+"'></div>");
+             		}
+             		else
+             		{
+
+             			$("#viz").append("<div class='six columns' id='"+div+"'></div>");
+             		}
+             	}
+             	if(cb == 5 || cb == 6 || cb == 7 || cb == 8 )
+             	{
+             		if(id <4)
+             		{
+
+             			$("#viz").append("<div class='four columns' id='"+div+"'></div>");
+             		}
+             		else if(id > 6)
+             			{
+
+             			$("#viz3").append("<div class='four columns' id='"+div+"'></div>");
+             		}
+             		else
+             		{
+             		
+             			$("#viz2").append("<div class='four columns' id='"+div+"'></div>");
+             		
+             		}
+             	}
+             	
                  // A formatter for counts.
                  var formatCount = d3.format(",.0f");
 
                  var margin = {
-                         top: 10,
+                         top: 30,
                          right: 30,
                          bottom: 30,
                          left: 50
                      },
-                     width = 900 - margin.left - margin.right,
-                     height = 500 - margin.top - margin.bottom;
+                     width = $("#"+div).width() - margin.left - margin.right;
+                     var height = (width/1.8) - margin.top - margin.bottom;
 
 
                  var x = d3.scale.linear()
@@ -149,17 +238,17 @@
                      .bins(x.ticks(nb))
                      (dataHisto);
 
-                 var line = d3.svg.line()
+                 /*var line = d3.svg.line()
                      .x(function(d) {
                          return x(d.x) + width / 10 - width / 20;
                      })
                      .y(function(d) {
                          return y(d.y);
                      })
-                     .interpolate('monotone');
+                     .interpolate('monotone');*/
 
 
-                 if (nb == 10) {
+               /*  if (nb == 10) {
                      data.forEach(function(d, i) {
                          lineCoord.push({
                              x: d.x,
@@ -167,7 +256,7 @@
                          })
                      });
 
-                 }
+                 }*/
 
 
                  var y = d3.scale.linear()
@@ -185,23 +274,25 @@
                      .tickSize(-width)
                      .orient("left");
 
-                 var svg = d3.select("#vizOne").append("svg")
+                  svg[id] = d3.select("#"+div).append("svg")
                      .attr("width", width + margin.left + margin.right)
                      .attr("height", height + margin.top + margin.bottom)
                      .append("g")
                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                 svg.append("g")
+                 svg[id].append("g")
                      .attr("class", "y axis")
                      .call(yAxis)
                      .append("text")
+                     .attr('font-size',10)
                      .attr("transform", "rotate(-90)")
                      .attr("y", -35)
 
                  .attr("dy", ".71em")
                      .style("text-anchor", "end")
-                     .text("Number of village");
+                     .attr('font-size',10)
+                     .text("Number of villages");
 
-                 var bar = svg.selectAll(".bar")
+                 var bar = svg[id].selectAll(".bar")
                      .data(data)
                      .enter().append("g")
                      .attr("class", "bar")
@@ -216,17 +307,9 @@
                          return height - y(d.y);
                      });
 
-                 bar.append("text")
-                     .attr("dy", ".75em")
-                     .attr("y", 6)
-                     .attr("font-size", 240 / nb)
-                     .attr("x", x(data[0].dx) / 2)
-                     .attr("text-anchor", "middle")
-                     .text(function(d) {
-                         return Math.floor(formatCount(d.y) / .124) / 10 + "%";
-                     });
 
-                 svg.append("g")
+
+                 svg[id].append("g")
                      .attr("class", "x axis")
                      .attr("transform", "translate(0," + height + ")")
                      .call(xAxis);
@@ -246,20 +329,65 @@
 
          } //End Histo
 
-         function pieChart(id, data) {
+         function pieChart(id, data,cb) {
 
-            clear();
-             var dataPie = [0, 0];
+         	clear();
+             var svg = [];
+             var dataPie = [[0, 0],[0, 0],[0, 0],[0, 0],[0, 0],[0, 0],[0, 0],[0, 0]];
+			 
+             
+			 
              data.forEach(function(d, i) {
-                 dataPie[(+d[id])] += 1;
+                 dataPie[0][(+d[id])] += 1;
+                 dataPie[+d['cp_id']][(+d[id])] += 1;
              });
-             dataPie[0] /= 124;
-             dataPie[1] /= 124;
-             console.log(dataPie);
-             draw();
+             for (var i = 0; i < cb.length; i++) {
+             	dataPie[i][0] /= data.length;
+             	dataPie[i][1] /= data.length;	
+	             draw(cb.length,dataPie[cb[i]],i+1);
+             }
+             
 
-             function draw() {
-                 $("#vizOne").html("");
+             function draw(cb,dataPie,id) {
+                var div = "div"+id;
+                console.log(dataPie);
+             	
+             	if(cb==1)
+             	{
+             		$("#viz").append("<div class='eleven columns' id='"+div+"' ></div>");
+             	}
+             	if(cb==2 || cb == 3 ||cb == 4)
+             	{
+             		if(id == 3 || id == 4)
+             		{
+
+             			$("#viz2").append("<div class='six columns' id='"+div+"'></div>");
+             		}
+             		else
+             		{
+
+             			$("#viz").append("<div class='six columns' id='"+div+"'></div>");
+             		}
+             	}
+             	if(cb == 5 || cb == 6 || cb == 7 || cb == 8 )
+             	{
+             		if(id <4)
+             		{
+
+             			$("#viz").append("<div class='four columns' id='"+div+"'></div>");
+             		}
+             		else if(id > 6)
+             			{
+
+             			$("#viz3").append("<div class='four columns' id='"+div+"'></div>");
+             		}
+             		else
+             		{
+             		
+             			$("#viz2").append("<div class='four columns' id='"+div+"'></div>");
+             		
+             		}
+             	} 	
 
                  var data = [{
                      'response': 'NO',
@@ -270,9 +398,9 @@
                  }];
 
 
-                 var width = 900,
-                     height = 500,
-                     radius = Math.min(width, height) / 2;
+                 var  width = $("#"+div).width();
+                 var height = width/2;
+                 var     radius = Math.min(width, height) / 2;
 
                  var color = ['#FF3300', 'lightgreen'];
 
@@ -290,13 +418,13 @@
                          return d.value;
                      });
 
-                 var svg = d3.select("#vizOne").append("svg")
+                  svg[id] = d3.select("#"+div).append("svg")
                      .attr("width", width)
                      .attr("height", height)
                      .append("g")
                      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-                 var g = svg.selectAll(".arc")
+                 var g = svg[id].selectAll(".arc")
                      .data(pie(data))
                      .enter().append("g")
                      .attr("class", "arc");
@@ -323,6 +451,7 @@
 
              }
 
+            
          }//End pie chart
          function scatterPlot(id1,id2, data) {
 
@@ -355,14 +484,8 @@
 			  .append("g")
 			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-			 	checkBoxes = "NGO's : ";
-			 	checkBoxes += '<input class="cb" type="checkbox" id="cb1" > 1 ';
-			 	checkBoxes += '<input class="cb" type="checkbox" id="cb2" > 2 ';
-			 	checkBoxes += '<input class="cb" type="checkbox" id="cb3" > 3 ';
-			 	checkBoxes += '<input class="cb" type="checkbox" id="cb5" > 5 ';
-			 	checkBoxes += '<input class="cb" type="checkbox" id="cb6" > 6 ';
-			 	checkBoxes += '<input class="cb" type="checkbox" id="cb7" > 7 ';
-				$("#ngos").html(checkBoxes);
+			 	
+				
 			 draw()
 			 function draw()
 			 {
@@ -550,7 +673,9 @@
  	function clear()
  	{
  		 $("#histoSelector").html('');
- 		 $("#vizOne").html('');
+ 		 $("#viz").html('');
+ 		 $("#viz2").html('');
+ 		 $("#viz3").html('');
  		 
          $("#nb0").html('');
  	}
