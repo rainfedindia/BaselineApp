@@ -120,8 +120,8 @@
             var nb0 = 0;
             var svg = [];
             var dataHisto = [[],[],[],[],[],[],[],[]];
-         	for (var i = 0; i < cb.length; i++) {
-	             dataHisto[i] = [];
+         	
+	        
 	             data.forEach(function(d, i) {
 	             	
 	                 
@@ -150,7 +150,7 @@
 
 	             }
          		
-         	}
+         	
 
          	
              $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
@@ -258,11 +258,11 @@
 
                  }*/
 
-
-                 var y = d3.scale.linear()
-                     .domain([0, d3.max(data, function(d) {
+                 var maxY = d3.max(data, function(d) {
                          return d.y;
-                     })])
+                     });
+                 var y = d3.scale.linear()
+                     .domain([0, maxY+.2*maxY])
                      .range([height, 0]);
                  var xAxis = d3.svg.axis()
                      .scale(x)
