@@ -65,6 +65,12 @@
          		visualizeOne(attribute1);
          	
          	}
+         	if(attribute1 != 'none' && attribute2 != "none")
+         	{
+         		
+         		visualizeOneVsOne(attribute1,attribute2);
+         	
+         	}
          });
 
          $(".select2#attributeTwo").on("change", function() {
@@ -73,7 +79,6 @@
              data.forEach(function(d, i) {
                  d[this.value] = +d[this.value];
              });
-             visualizeOneVsOne(attribute1,attribute2);
          });
 
          function visualizeOne(idAttribute) {
@@ -103,11 +108,22 @@
 
          function visualizeOneVsOne(id1,id2)
          {
+			var checkboxes = [];
+
+         	for (var i = 0; i < 8; i++) {
+         		
+         		if($('#cb'+i)[0].checked == true)
+         		{
+         			checkboxes.push(i);
+         		}
+         	}
+         	
+
          	if ($.inArray(id1, histograms) >= 0) 
          	{
          		if ($.inArray(id2, histograms) >= 0)
          		{
-         			scatterPlot(id1,id2,data);
+         			scatterPlot(id1,id2,data,checkboxes);
          		} 
          	}
 
@@ -453,55 +469,102 @@
 
             
          }//End pie chart
-         function scatterPlot(id1,id2, data) {
+         function scatterPlot(id1,id2, data,cb) {
 
-         	$('#graphTitle2').html(id1 +" vs "+id2);
-         	$("#vizTwo").html('');
-            
-			var margin = {top: 20, right: 20, bottom: 30, left: 50},
-			    width = 900 - margin.left - margin.right,
-			    height = 500 - margin.top - margin.bottom;
+         	clear();
+            var dataScaterplot = [[],[],[],[],[],[],[],[]];
+            var svg = [];
 
-			var x = d3.scale.linear()
-			    .range([0, width]);
-
-			var y = d3.scale.linear()
-			    .range([height, 0]);
-
-			var color = d3.scale.category10();
-
-			var xAxis = d3.svg.axis()
-			    .scale(x)
-			    .orient("bottom");
-
-			var yAxis = d3.svg.axis()
-			    .scale(y)
-			    .orient("left");
-
-			var svg = d3.select("#vizTwo").append("svg")
-			    .attr("width", width + margin.left + margin.right)
-			    .attr("height", height + margin.top + margin.bottom)
-			  .append("g")
-			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-			 	
-				
-			 draw()
-			 function draw()
-			 {
-				
-				
-			  data.forEach(function(d) {
+              data.forEach(function(d) {
 			    d.y = +d[id2];
 			    d.x = +d[id1];
 			   	d.ngo = d['cp_id']; 
-
+			   	dataScaterplot[d.ngo].push(d);
+			   	dataScaterplot[0].push(d);
 			  });
+			  
+			  var previousColor = ["lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey"]
+
+            for (var i = 0; i < cb.length; i++) {
+                 draw(cb.length,dataScaterplot[cb[i]],i+1);
+             }
+               
+			 function draw(cb, data, id)
+			 {
+				var div = "div"+id;
+                
+             	
+             	if(cb==1)
+             	{
+             		$("#viz").append("<div class='eleven columns' id='"+div+"' ></div>");
+             	}
+             	if(cb==2 || cb == 3 ||cb == 4)
+             	{
+             		if(id == 3 || id == 4)
+             		{
+
+             			$("#viz2").append("<div class='six columns' id='"+div+"'></div>");
+             		}
+             		else
+             		{
+
+             			$("#viz").append("<div class='six columns' id='"+div+"'></div>");
+             		}
+             	}
+             	if(cb == 5 || cb == 6 || cb == 7 || cb == 8 )
+             	{
+             		if(id <4)
+             		{
+
+             			$("#viz").append("<div class='four columns' id='"+div+"'></div>");
+             		}
+             		else if(id > 6)
+             			{
+
+             			$("#viz3").append("<div class='four columns' id='"+div+"'></div>");
+             		}
+             		else
+             		{
+             		
+             			$("#viz2").append("<div class='four columns' id='"+div+"'></div>");
+             		
+             		}
+             	} 	
+
+				var margin = {top: 20, right: 20, bottom: 30, left: 50},
+				    width = $("#"+div).width() - margin.left - margin.right,
+				    height = (width/1.8) - margin.top - margin.bottom;
+
+				var x = d3.scale.linear()
+				    .range([0, width]);
+
+				var y = d3.scale.linear()
+				    .range([height, 0]);
+
+				var color = d3.scale.category10();
+
+				var xAxis = d3.svg.axis()
+				    .scale(x)
+				    .orient("bottom");
+
+				var yAxis = d3.svg.axis()
+				    .scale(y)
+				    .orient("left");
+
+				 svg[id] = d3.select("#"+div).append("svg")
+				    .attr("width", width + margin.left + margin.right)
+				    .attr("height", height + margin.top + margin.bottom)
+				  .append("g")
+				    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			 	
+				
+			 
 
 			  x.domain(d3.extent(data, function(d) { return d.x; }));
 			  y.domain(d3.extent(data, function(d) { return d.y; }));
 
-			  svg.append("g")
+			  svg[id].append("g")
 			      .attr("class", "x axis")
 			      .attr("transform", "translate(0," + height + ")")
 			      .call(xAxis)
@@ -512,7 +575,7 @@
 			      .style("text-anchor", "end")
 			      .text(id1);
 
-			  svg.append("g")
+			  svg[id].append("g")
 			      .attr("class", "y axis")
 			      .call(yAxis)
 			    .append("text")
@@ -523,9 +586,8 @@
 			      .style("text-anchor", "end")
 			      .text(id2)
 
-			  var previousColor = ["lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey"]
-			  var previousSize = 5;
-			  svg.selectAll(".dot")
+
+			  svg[id].selectAll(".dot")
 			      .data(data)
 			    .enter().append("circle")
 			      .attr("class", function(d,i){return "dot ngo"+d.ngo;})
@@ -550,119 +612,8 @@
 			  	  	.attr("r", 5);
 			  	  });
 
-			  	$(".cb").on("change",function(){
-						var id = this.id.split('cb')[1]
-			  		if(this.checked == true)
-			  		{
-						d3.selectAll(".ngo"+id)
-						.transition()
-				  	  	.duration(200)
-				  	  	.style("fill", function(d){return color(id);});
-				  	  	previousColor[id] = color(id);
-				  	  	drawSmall(id);
-			  			
-			  		}
-			  		else
-			  		{
-			  			
-						d3.selectAll(".ngo"+id)
-						.transition()
-				  	  	.duration(200)
-				  	  	.style("fill","lightgrey");
-				  	  	previousColor[id] = "lightgrey";
-							
-			  		}
-				});
-				function drawSmall(ngoID)
-				{
-					$('#smallScatterplot').html("");
-					var margin = {top: 10, right: 10, bottom: 20, left: 20},
-					    width = 300 - margin.left - margin.right,
-					    height = 200 - margin.top - margin.bottom;
-
-					var x = d3.scale.linear()
-					    .range([0, width]);
-
-					var y = d3.scale.linear()
-					    .range([height, 0]);
-
-					var color = d3.scale.category10();
-
-					var xAxis = d3.svg.axis()
-					    .scale(x)
-					    .orient("bottom");
-
-					var yAxis = d3.svg.axis()
-					    .scale(y)
-					    .orient("left");
-
-					var svg = d3.select("#smallScatterplot").append("svg")
-					    .attr("width", width + margin.left + margin.right)
-					    .attr("height", height + margin.top + margin.bottom)
-					  .append("g")
-					    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-					var smallData = [];
-					data.forEach(function(d) {
-					    if(d.ngo==ngoID)
-					    {
-					    	smallData.push(d);
-					    }
-					    
-
-					  });
-
-					  x.domain(d3.extent(data, function(d) { return d.x; }));
-					  y.domain(d3.extent(data, function(d) { return d.y; }));
-
-					  svg.append("g")
-					      .attr("class", "x axis")
-					      .attr("transform", "translate(0," + height + ")")
-					      .call(xAxis)
-					    .append("text")
-					      .attr("class", "label")
-					      .attr("x", width)
-					      .attr("y", -6)
-					      .style("text-anchor", "end")
-					      .text(id1);
-
-					  svg.append("g")
-					      .attr("class", "y axis")
-					      .call(yAxis)
-					    .append("text")
-					      .attr("class", "label")
-					      .attr("transform", "rotate(-90)")
-					      .attr("y", 6)
-					      .attr("dy", ".71em")
-					      .style("text-anchor", "end")
-					      .text(id2)
-
-					  svg.selectAll(".dot")
-					      .data(smallData)
-					    .enter().append("circle")
-					      .attr("class", function(d,i){return "dot ngo"+d.ngo;})
-					      .attr("r", 3)
-					      .attr("cx", function(d) { return x(d.x); })
-					      .attr("cy", function(d) { return y(d.y); })
-					      .style("fill", "lightgrey")
-					  	  .on("mouseenter",function(d,i){
-					  
-					  
-					  	  	d3.selectAll(".ngo"+d.ngo)
-					  	  	.transition()
-					  	  	.duration(200)
-					  	  	.style("fill", "#FF6633")
-					  	  	.attr("r", 10);
-					  	  })
-					  	  .on("mouseout",function(d,i){
-					  	  	d3.selectAll(".ngo"+d.ngo)
-					  	  	.transition()
-					  	  	.duration(200)
-					  	  	.style("fill", function(d){return previousColor[d.ngo];})
-					  	  	.attr("r", 5);
-					  	  });
-
-				}//end SmalSc
+			  	
+			
 			}
              
 
