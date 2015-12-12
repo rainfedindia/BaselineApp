@@ -116,6 +116,11 @@
                      scatterPlot(id1, id2, data, checkboxes);
                  }
              }
+             if ($.inArray(id1, yesNo) >= 0) {
+                 if ($.inArray(id2, yesNo) >= 0) {
+                     marimekko(id1, id2, data, checkboxes);
+                 }
+             }
 
          }
 
@@ -494,9 +499,9 @@
                  .attr('class', 'd3-tip')
                  .offset([-10, 0])
                  .html(function(d, i) {
-                 	console.log(d);
+                 	
                      return 'Village : '+d['general.village']+'</br>'+id1+" : "+d[id1]+"</br>"+
-                     id2+' : '+d[id2]+"</br> NGO : "+d['cp_id'];
+                     id2+' : '+	d[id2]+"</br> NGO : "+d['cp_id'];
                  })
              var dataScaterplot = [
                  [],
@@ -526,7 +531,7 @@
 
              function draw(cb, data, id) {
                  var div = "div" + id;
-                 console.log(data);
+                 
 
                  if (cb == 1) {
                      $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
@@ -661,6 +666,212 @@
 
 
          } //End scatterplot
+
+                  function marimekko(id1, id2, data, cb) {
+
+
+		 
+
+             var mariTip = d3.tip()
+                 .attr('class', 'd3-tip')
+                 .offset([-10, 0])
+                 .html(function(d, i) {
+
+                     return d.variable+" : "+d.response+"</br> "+d.counts+" villages</br>"+
+                    	Math.floor(d.counts*100/(2*nbVillage[0])) + "%" ;
+         })
+                 
+
+             clear();
+             var svg = [];
+             var dataPie = [
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 []
+             ];
+				var color = d3.scale.category10();
+				 var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var nbYes1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var nbYes2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var nbNo1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var nbNo2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+             data.forEach(function(d, i) {
+                 nbVillage[0] += 1;
+                 nbVillage[d['cp_id']] += 1;
+                 if (+d[id1]) {
+                     nbYes1[d['cp_id']] += 1;
+                     nbYes1[0] += 1;
+                 } else {
+
+                     nbNo1[d['cp_id']] += 1;
+                     nbNo1[0] += 1;
+                 }
+                 if (+d[id2]) {
+                     nbYes2[d['cp_id']] += 1;
+                     nbYes2[0] += 1;
+                 } else {
+
+                     nbNo2[d['cp_id']] += 1;
+                     nbNo2[0] += 1;
+                 }
+
+                 
+             });
+
+
+             for (var i = 0; i < dataPie.length; i++) {
+             	dataPie[i] = [
+
+             		{"response": "Yes", "variable":id1, "counts": nbYes1[i],"nb": nbVillage[cb[i]]},
+					{"response": "No", "variable": id1, "counts": nbNo1[i],"nb": nbVillage[cb[i]]},
+					{"response": "Yes", "variable": id2, "counts": nbYes2[i],"nb": nbVillage[cb[i]]},
+					{"response": "No", "variable": id2, "counts": nbNo2[i],"nb": nbVillage[cb[i]]}
+
+             	]
+             }
+
+             for (var i = 0; i < cb.length; i++) {
+                 draw(cb.length, dataPie[cb[i]], i + 1, cb);
+             }
+
+             function draw(cb, data, id) {
+                 var div = "div" + id;
+                 console.log(data);
+
+                 if (cb == 1) {
+                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
+                 }
+                 if (cb == 2 || cb == 3 || cb == 4) {
+                     if (id == 3 || id == 4) {
+
+                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
+                     } else {
+
+                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
+                     }
+                 }
+                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
+                     if (id < 4) {
+
+                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
+                     } else if (id > 6) {
+
+                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
+                     } else {
+
+                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
+
+                     }
+                 }
+
+                 var margin = {
+                         top: 20,
+                         right: 20,
+                         bottom: 50,
+                         left: 50
+                     },
+                     width = $("#" + div).width() - margin.left - margin.right,
+                     height = (width / 1.8) - margin.top - margin.bottom;
+
+                 
+					var x = d3.scale.linear()
+					 .range([0, width]);
+
+					var y = d3.scale.linear()
+					 .range([0, height]);
+
+					var n = d3.format(",d"),
+					 p = d3.format("%");
+
+
+					
+                 svg[id] = d3.select("#" + div).append("svg")
+                     .attr("width", width + margin.left + margin.right)
+                     .attr("height", height + margin.top + margin.bottom)
+                     .append("g")
+                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                     .call(mariTip);
+					var offset = 0;
+
+					var responses = d3.nest()
+					  .key(function(d) { 
+					     return d.response; 
+					     })
+					  .entries(data);
+
+					var sum = responses.reduce(function(v, p) {
+						return (p.offset = v) + (p.sum = p.values.reduceRight(function(v, d) {
+						    d.parent = p;
+						    return (d.offset = v) + d.counts;
+						    }, 0));
+						}, 0);
+
+					// Add a group for each r.
+					var responses = svg[id].selectAll(".response")
+					  .data(responses)
+					.enter().append("g")
+					  .attr("class", "response")
+					  .attr("xlink:title", function(d) { 
+					     return d.key; })
+					  .attr("transform", function(d) { 
+					     return "translate(" + x(d.offset / sum) + ")"; 
+					   });
+
+					// Add a rect for each month.
+					 var variables = responses.selectAll (".variable")
+					  .data(function(d) { 
+					     return d.values; })
+					.enter().append("a")
+					  .attr("class", "response")
+					  .attr("xlink:title", function(d) { 
+					      return d.variable + " " + d.parent.key + ": " + n(d.counts); });
+
+					variables.append("rect")
+					  .attr("y", function(d) { 
+					     return y(d.offset / d.parent.sum); })
+					  .attr("height", function(d) { 
+					     return y(d.counts / d.parent.sum); })
+					  .attr("width", function(d) { 
+					     return x(d.parent.sum / sum); })
+					  .style("fill", function(d,i) { 
+					     return color(i); 
+					  })
+					  .on('mouseover', mariTip.show)
+            .on('mouseout', mariTip.hide);
+
+				variables.append("text")
+					      .text(function(d) { 
+					      if(d.counts>0)
+					      {
+					          return d.variable + " " + n(d.counts) ;
+					      }
+					      })
+					      .attr("x", 5)
+					      .attr("y", function(d) { 
+					          return (y(d.offset / d.parent.sum)+10); })
+					      .attr("class", "label");
+
+				variables.append("text")
+					      .text(function(d) {
+					      
+					          return d.parent.key;
+					          }) // response
+					      .attr("x", 5)
+					      .attr("y", function(d) { 
+					            return height+15; })
+					      .attr("class", "label2");
+
+
+             }	
+
+
+         } //End Marimeko
 
      }); // End csv
 
