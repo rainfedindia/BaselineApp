@@ -12,10 +12,27 @@
 */
      //when histo : ?
      var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
-         'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no'
+         'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no',
+         'amenities_5-10kms_no','amenities_10onkms_no','amenities_0kms_no','propotion_landless',
+         'comland_area','frstland_area','waterlvl_total','trctors/hh','bullck/hh',
+         'srfacewtr_no','grdwtr_no','mktlocatn_no','sold_itms_totno','sold-items_no','Sold-items_in-localmkts_no_no','Sold-items_to-villagers_no','Sold-items_to-traders_no_no',
+         'hh_health-insur_propotion','hh_NREGA_propotion','hh_PDS_propotion','hh_not-suff-food-supply_propotion','hh_pvt-money-lnder_propotion','child_sex_ratio',
+         'f_entre_no','gls_primary-school_propotion','gls_middle-school_propotion','brides_<15yrs_propotion',
+         'social-ids_oc_no','social-ids_obc_no','social-ids_sc_no','social-ids_st_no',
+         'agricultural-as-prim_propotion','others-as-prim_propotion','labours-as-prim_propotion','livestock-as-prim_propotion','resource_based-others-as-prim_propotion','trade/biz-as-prim_propotion','diversification_index',
+         'agricultural-as-prim_income-ids_count','others-as-prim_income-ids_count','labours-as-prim_income-ids_count','livestock-as-prim_income-ids_count','resource_based-others-as-prim_income-ids_count','trade/biz-as-prim_income-ids_count'
+
+
      ];
-     var proportions = ["propotion_oc"];
-     var zeros = ['amenities_0-5kms_no'];
+     
+     var zeros = ['amenities_0-5kms_no','amenities_5-10kms_no','amenities_10onkms_no','amenities_0kms_no',
+     'comland_area','frstland_area','waterlvl_total','srfacewtr_no','grdwtr_no','mktlocatn_no','sold_itms_totno','sold-items_no','Sold-items_in-localmkts_no_no','Sold-items_to-villagers_no','Sold-items_to-traders_no_no','f_entre_no',
+     'social-ids_oc_no','social-ids_obc_no','social-ids_sc_no','social-ids_st_no',
+     'agricultural-as-prim_income-ids_count','others-as-prim_income-ids_count','labours-as-prim_income-ids_count','livestock-as-prim_income-ids_count','resource_based-others-as-prim_income-ids_count','trade/biz-as-prim_income-ids_count'
+
+
+
+];
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
          'drnkwtr_present_y/n', 'mblrcep_present_y/n'
      ]
