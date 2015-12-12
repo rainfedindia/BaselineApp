@@ -19,7 +19,7 @@
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
          'drnkwtr_present_y/n', 'mblrcep_present_y/n'
      ]
-
+     var isLog = false;
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
          //get all the keys
@@ -56,6 +56,12 @@
          });
 
          $('#go').on("click", function() {
+
+
+         	
+         		isLog = ($("#log")[0].checked==true);
+         		console.log(isLog);
+
              if (attribute1 != 'none' && attribute2 == "none") {
 
                  visualizeOne(attribute1);
@@ -519,8 +525,22 @@
                  d.y = +d[id2];
                  d.x = +d[id1];
                  d.ngo = d['cp_id'];
-                 dataScaterplot[d.ngo].push(d);
-                 dataScaterplot[0].push(d);
+             	if(isLog)
+             	{
+	             	if( d.y != 0 && d.x!=0)
+	             	{
+	                 	dataScaterplot[d.ngo].push(d);
+	                 	dataScaterplot[0].push(d);
+	             		
+	             	}
+             		
+             	}
+             	else
+             	{
+             		 	dataScaterplot[d.ngo].push(d);
+	                 	dataScaterplot[0].push(d);
+	             	
+             	}
              });
 
              var previousColor = ["lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey"]
@@ -568,12 +588,26 @@
                      width = $("#" + div).width() - margin.left - margin.right,
                      height = (width / 1.8) - margin.top - margin.bottom;
 
-                 var x = d3.scale.linear()
+                 if(isLog)
+                 {
+                 	var x = d3.scale.log()
+                     .range([0, width]);
+
+                 var y = d3.scale.log()
+                     .range([height, 0]);
+	
+                 }
+
+                 else
+                 {
+                 	var x = d3.scale.linear()
                      .range([0, width]);
 
                  var y = d3.scale.linear()
                      .range([height, 0]);
 
+                 }
+                 
                  var color = d3.scale.category10();
 
                  var xAxis = d3.svg.axis()
