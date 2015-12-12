@@ -136,6 +136,7 @@
             var nb0 = 0;
             var svg = [];
             var dataHisto = [[],[],[],[],[],[],[],[]];
+            var nbVillage = [0,0,0,0,0,0,0,0];
          	
 	        
 	             data.forEach(function(d, i) {
@@ -144,6 +145,8 @@
 		                 if ($.inArray(id, zeros) >= 0) 
 		                 {
 		                     dataHisto[0].push(+d[id]);
+		                     nbVillage[0]+=1;
+		                     nbVillage[d['cp_id']]+=1;
 		                     dataHisto[d['cp_id']].push(+d[id]);
 		                 }
 		                 else
@@ -152,6 +155,9 @@
 		                     if (+d[id] != 0) 
 		                     {
 		                  		dataHisto[0].push(+d[id]);
+		                     	nbVillage[0]+=1;
+		                     	nbVillage[d['cp_id']]+=1;
+
 		                     	dataHisto[d['cp_id']].push(+d[id]);
 		                     }
 		                     else 
@@ -167,6 +173,14 @@
 	             }
          		
          	
+             	var histoTip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d,i) {
+        	
+            return "Between "+d.x+" and "+(d.x+d.dx)+"</br>"+
+            d.y +" villages </br>"+Math.floor((d.y/d.nb)*100) +"% for this NGO";
+        })
 
          	
              $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
@@ -178,7 +192,7 @@
                              for (var i = 0; i < cb.length; i++) 
             {
 
-             	draw(this.value,cb.length,dataHisto[cb[i]],i+1);
+             	draw(this.value,cb.length,dataHisto[cb[i]],i+1,cb);
             	
             }
              });
@@ -188,11 +202,11 @@
             for (var i = 0; i < cb.length; i++) 
             {
 
-             	draw(10,cb.length,dataHisto[cb[i]],i+1);
+             	draw(10,cb.length,dataHisto[cb[i]],i+1,cb);
             	
             }
             
-             function draw(nb,cb,dataHisto,id) {
+             function draw(nb,cb,dataHisto,id,checkList) {
              	var div = "div"+id;
              	
              	if(cb==1)
@@ -254,6 +268,12 @@
                      .bins(x.ticks(nb))
                      (dataHisto);
 
+                     data.forEach(function(d,i){
+                     	d.nb = nbVillage[id];
+                     	
+                     	
+                     });
+
                  /*var line = d3.svg.line()
                      .x(function(d) {
                          return x(d.x) + width / 10 - width / 20;
@@ -294,7 +314,9 @@
                      .attr("width", width + margin.left + margin.right)
                      .attr("height", height + margin.top + margin.bottom)
                      .append("g")
-                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                     .call(histoTip);
+
                  svg[id].append("g")
                      .attr("class", "y axis")
                      .call(yAxis)
@@ -312,6 +334,8 @@
                      .data(data)
                      .enter().append("g")
                      .attr("class", "bar")
+                      .on('mouseover', histoTip.show)
+            .on('mouseout', histoTip.hide)
                      .attr("transform", function(d) {
                          return "translate(" + x(d.x) + "," + y(d.y) + ")";
                      });
@@ -347,26 +371,53 @@
 
          function pieChart(id, data,cb) {
 
+                 var color = ['#FF3300', 'lightgreen'];
+             var nbVillage = [0,0,0,0,0,0,0,0,0,0,0];
+             var nbYes = [0,0,0,0,0,0,0,0,0,0,0];
+             var nbNo = [0,0,0,0,0,0,0,0,0,0,0];
+         var pieTip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d,i) {
+
+            return "<strong style='color:"+color[i]+"'>"+d.data.response+" </strong> :"+
+            Math.floor(d.data.value * 100)+"%</br>"+d.data.nbVillage+" villages";
+        })
+
          	clear();
              var svg = [];
              var dataPie = [[0, 0],[0, 0],[0, 0],[0, 0],[0, 0],[0, 0],[0, 0],[0, 0]];
 			 
-             
 			 
              data.forEach(function(d, i) {
                  dataPie[0][(+d[id])] += 1;
+                 nbVillage[0]+=1;
+                 nbVillage[d['cp_id']]+=1;
+                 if(+d[id])
+                 {
+                 	nbYes[d['cp_id']]+=1;
+                 	nbYes[0]+=1;
+                 }
+                 else
+                 {
+                 	
+                 	nbNo[d['cp_id']]+=1;
+                 	nbNo[0]+=1;
+                 }
+                 
                  dataPie[+d['cp_id']][(+d[id])] += 1;
              });
+             
              for (var i = 0; i < cb.length; i++) {
-             	dataPie[i][0] /= data.length;
-             	dataPie[i][1] /= data.length;	
-	             draw(cb.length,dataPie[cb[i]],i+1);
+             	dataPie[cb[i]][0] /= nbVillage[cb[i]];
+             	dataPie[cb[i]][1] /= nbVillage[cb[i]];	
+	             draw(cb.length,dataPie[cb[i]],i+1,cb);
              }
              
 
-             function draw(cb,dataPie,id) {
+             function draw(cb,dataPie,id,checkList) {
                 var div = "div"+id;
-                console.log(dataPie);
+                
              	
              	if(cb==1)
              	{
@@ -404,13 +455,15 @@
              		
              		}
              	} 	
-
+             	
                  var data = [{
                      'response': 'NO',
-                     'value': dataPie[0]
+                     'value': dataPie[0],
+                     'nbVillage': nbNo[checkList[id-1]]
                  }, {
                      'response': 'YES',
-                     'value': dataPie[1]
+                     'value': dataPie[1],
+                     'nbVillage': nbYes[checkList[id-1]]
                  }];
 
 
@@ -418,7 +471,6 @@
                  var height = width/2;
                  var     radius = Math.min(width, height) / 2;
 
-                 var color = ['#FF3300', 'lightgreen'];
 
                  var arc = d3.svg.arc()
                      .outerRadius(radius - 10)
@@ -439,11 +491,13 @@
                      .attr("height", height)
                      .append("g")
                      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
+                  	svg[id].call(pieTip);
                  var g = svg[id].selectAll(".arc")
                      .data(pie(data))
                      .enter().append("g")
-                     .attr("class", "arc");
+                     .attr("class", "arc")
+                      .on('mouseover', pieTip.show)
+            .on('mouseout', pieTip.hide);
 
                  g.append("path")
                      .attr("d", arc)
@@ -451,17 +505,7 @@
                          return color[i];
                      });
 
-                 g.append("text")
-                     .attr("transform", function(d) {
-                         return "translate(" + labelArc.centroid(d) + ")";
-                     })
-                     .attr("dy", ".35em")
-                     .attr('fill', 'white')
-                     .attr('font-size', 24)
-                     .style('text-anchor', 'middle')
-                     .text(function(d) {
-                         return d.data.response;
-                     });
+               
 
 
 
