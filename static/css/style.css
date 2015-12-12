@@ -28,7 +28,10 @@ fill:orange;
 .arc path {
   stroke: #fff;
 }
-
+.tick
+{
+	font-size: 10px;
+}
 .tick line
 {
 	opacity: .3;
