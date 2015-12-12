@@ -268,8 +268,8 @@
                      .bins(x.ticks(nb))
                      (dataHisto);
 
-                     data.forEach(function(d,i){
-                     	d.nb = nbVillage[id];
+                  data.forEach(function(d,i){
+                     	d.nb = nbVillage[id-1];
                      	
                      	
                      });
