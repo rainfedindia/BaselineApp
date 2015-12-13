@@ -138,11 +138,19 @@
                  if ($.inArray(id2, histograms) >= 0) {
                      scatterPlot(id1, id2, data, checkboxes);
                  }
+             		else
+             		{
+             			doubleHistogram(id1, id2, data, checkboxes);        	
+             		}        
              }
              if ($.inArray(id1, yesNo) >= 0) {
                  if ($.inArray(id2, yesNo) >= 0) {
                      marimekko(id1, id2, data, checkboxes);
                  }
+                 else
+             	{
+             		doubleHistogram(id2, id1, data, checkboxes);        	
+             	}        
              }
 
          }
@@ -923,6 +931,278 @@
 
 
          } //End Marimeko
+
+                  function doubleHistogram(id1,id2, data, cb) {
+
+             clear();
+             var nb0 = 0;
+             var svg = [];
+             var dataHisto = [];
+             dataHisto[0] = [
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 []
+             ];
+              dataHisto[1] = [
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 [],
+                 []
+             ];
+             var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
+
+
+             data.forEach(function(d, i) {
+
+
+                 if ($.inArray(id1, zeros) >= 0) {
+                     nbVillage[0] += 1;
+                     nbVillage[d['cp_id']] += 1;
+                     dataHisto[+d[id2]][0].push(+d[id1]);
+                     dataHisto[+d[id2]][d['cp_id']].push(+d[id1]);
+                 } else {
+
+                     if (+d[id1] != 0) {
+                         dataHisto[+d[id2]][0].push(+d[id1]);
+                         nbVillage[0] += 1;
+                         nbVillage[d['cp_id']] += 1;
+
+                         dataHisto[+d[id2]][d['cp_id']].push(+d[id1]);
+                     } else {
+                         nb0 += 1;
+                     }
+                 }
+
+             });
+             if (nb0 != 0) {
+                 $("#nb0").html('There are ' + nb0 + ' zeros in the set, this explain why 100% couldn\'t be reached');
+
+             }
+
+
+             var histoTip = d3.tip()
+                 .attr('class', 'd3-tip')
+                 .offset([-10, 0])
+                 .html(function(d, i) {
+
+                     return "Between " + d.x + " and " + (d.x + d.dx) + "</br>" +
+                         d.y + " villages </br>" + Math.floor((d.y / d.nb) * 100) + "% for this NGO";
+                 })
+
+
+             $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
+             $("#histoSelectorRange").on("change", function() {
+                 $("#rangeValue").html(this.value);
+                 $("#viz").html('');
+                 $("#viz2").html('');
+                 $("#viz3").html('');
+                 for (var i = 0; i < cb.length; i++) {
+
+                     draw(this.value, cb.length, dataHisto[0][cb[i]],dataHisto[1][cb[i]], i + 1, cb);
+
+                 }
+             });
+             //var lineCoord = [];
+
+
+             for (var i = 0; i < cb.length; i++) {
+
+                 draw(10, cb.length,  dataHisto[0][cb[i]],dataHisto[1][cb[i]], i + 1, cb);
+
+             }
+
+             function draw(nb, cb, dataHisto1,dataHisto2, id, checkList) {
+                 var div = "div" + id;
+
+                 if (cb == 1) {
+                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
+                 }
+                 if (cb == 2 || cb == 3 || cb == 4) {
+                     if (id != 2 && id != 1) {
+
+                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
+                     } else {
+
+                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
+                     }
+                 }
+                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
+                     if (id < 4) {
+
+                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
+                     } else if (id > 6) {
+
+                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
+                     } else {
+
+                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
+
+                     }
+                 }
+
+                 // A formatter for counts.
+                 var formatCount = d3.format(",.0f");
+
+                 var margin = {
+                         top: 30,
+                         right: 30,
+                         bottom: 30,
+                         left: 50
+                     },
+                     width = $("#" + div).width() - margin.left - margin.right;
+                 var height = (width / 1.8) - margin.top - margin.bottom;
+
+
+                 var x = d3.scale.linear()
+                     .domain([0, d3.max([d3.max(dataHisto1),d3.max(dataHisto2)])])
+                     .range([0, width]);
+
+                 // Generate a histogram using twenty uniformly-spaced bins.
+                 var data1 = d3.layout.histogram()
+                     .bins(x.ticks(nb))
+                     (dataHisto1);
+                 var data2 = d3.layout.histogram()
+                     .bins(x.ticks(nb))
+                     (dataHisto2);
+
+                 data1.forEach(function(d, i) {
+                     d.nb = nbVillage[id - 1];
+
+
+                 });
+
+                 data2.forEach(function(d, i) {
+                     d.nb = nbVillage[id - 1];
+
+
+                 });
+
+                 console.log(data1);
+
+                 /*var line = d3.svg.line()
+                     .x(function(d) {
+                         return x(d.x) + width / 10 - width / 20;
+                     })
+                     .y(function(d) {
+                         return y(d.y);
+                     })
+                     .interpolate('monotone');*/
+
+
+                 /*  if (nb == 10) {
+                       data.forEach(function(d, i) {
+                           lineCoord.push({
+                               x: d.x,
+                               y: d.y
+                           })
+                       });
+
+                   }*/
+
+                 var maxY1 = d3.max(data1, function(d) {
+                     return d.y;
+                 });
+                 var maxY2 = d3.max(data2, function(d) {
+                     return d.y;
+                 });
+                 var maxY = d3.max([maxY1,maxY2]);
+                 console.log(maxY);
+                 var y = d3.scale.linear()
+                     .domain([0, maxY + .2 * maxY])
+                     .range([height, 0]);
+                 
+                 var xAxis = d3.svg.axis()
+                     .scale(x)
+                     .orient("bottom");
+
+
+                 var yAxis = d3.svg.axis()
+                     .scale(y)
+                     .tickSize(-width)
+                     .orient("left");
+
+                 svg[id] = d3.select("#" + div).append("svg")
+                     .attr("width", width + margin.left + margin.right)
+                     .attr("height", height + margin.top + margin.bottom)
+                     .append("g")
+                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                     .call(histoTip);
+
+                 svg[id].append("g")
+                     .attr("class", "y axis")
+                     .call(yAxis)
+                     .append("text")
+                     .attr('font-size', 10)
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", -35)
+
+                 .attr("dy", ".71em")
+                     .style("text-anchor", "end")
+                     .attr('font-size', 10)
+                     .text("Number of villages");
+
+                 var green = svg[id].selectAll(".green")
+                     .data(data2)
+                     .enter().append("g")
+                     .attr("class", "green")
+                     .on('mouseover', histoTip.show)
+                     .on('mouseout', histoTip.hide)
+                     .attr("transform", function(d) {
+                         return "translate(" + x(d.x) + "," + y(d.y) + ")";
+                     });
+
+                 green.append("rect")
+                     .attr("x", 2)
+                     .attr("width", x(data2[0].dx)/2 - 2)
+                     .attr("height", function(d) {
+                         return height - y(d.y);
+                     });
+
+               var red = svg[id].selectAll(".red")
+                     .data(data1)
+                     .enter().append("g")
+                     .attr("class", "red")
+                     .on('mouseover', histoTip.show)
+                     .on('mouseout', histoTip.hide)
+                     .attr("transform", function(d) {
+                         return "translate(" + x(d.x) + "," + y(d.y) + ")";
+                     });
+
+                 red.append("rect")
+                     .attr("x", x(data1[0].dx)/2 + 2)
+                     .attr("width", x(data1[0].dx)/2 - 2)
+                     .attr("height", function(d) {
+                         return height - y(d.y);
+                     });
+
+                 svg[id].append("g")
+                     .attr("class", "x axis")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(xAxis);
+
+                 //density, some bugs to check
+
+                 /* svg.append("path")
+                      .attr("class", "density")
+                      .datum(lineCoord)
+                      .attr("class", "line")
+                      .attr("fill", 'none')
+                      .attr("stroke", 'red')
+                      .attr("stroke-width", '3px')
+                      .attr("d", line);*/
+
+             } //end Draw histo
+
+         } //End DoubleHisto
 
      }); // End csv
 

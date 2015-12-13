@@ -17,6 +17,31 @@ fill:orange;
 .bar text {
   fill: #fff;
 }
+.green rect {
+  fill: lightgreen;
+  shape-rendering: crispEdges;
+}
+
+.green rect:hover {
+fill:orange;
+}
+
+.green text {
+  fill: #fff;
+}
+.red rect {
+  fill: #FF3300;
+  shape-rendering: crispEdges;
+}
+
+.red rect:hover {
+fill:orange;
+}
+
+.red text {
+  fill: #fff;
+}
+
 .axis path, .axis line {
   fill: none;
   stroke: #000;
