@@ -10,6 +10,15 @@
 	    $(this).parent().parent().find(".content").slideToggle();
 	});
 */
+	var varName = [];
+	d3.csv('static/data/variable_description.csv', function(e, dataVar) {
+		dataVar.forEach(function(d,i){
+			varName[d.Name] = d.Variable
+		});
+	});
+
+	console.log(varName);
+
      //when histo : ?
      var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
          'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no',
@@ -77,7 +86,7 @@
 
          	
          		isLog = ($("#log")[0].checked==true);
-         		console.log(isLog);
+         		
 
              if (attribute1 != 'none' && attribute2 == "none") {
 
@@ -801,7 +810,7 @@
 
              function draw(cb, data, id) {
                  var div = "div" + id;
-                 console.log(data);
+                 
 
                  if (cb == 1) {
                      $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
@@ -1086,7 +1095,7 @@
 
                  });
 
-                 console.log(data1);
+                 
 
                  /*var line = d3.svg.line()
                      .x(function(d) {
@@ -1115,7 +1124,7 @@
                      return d.y;
                  });
                  var maxY = d3.max([maxY1,maxY2]);
-                 console.log(maxY);
+                 
                  var y = d3.scale.linear()
                      .domain([0, maxY + .2 * maxY])
                      .range([height, 0]);
