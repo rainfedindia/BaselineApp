@@ -686,8 +686,7 @@
                  .offset([-10, 0])
                  .html(function(d, i) {
 
-                     return d.variable + " : " + d.response + "</br> " + d.counts + " villages</br>" +
-                         Math.floor(d.counts * 100 / (2 * nbVillage[0])) + "%";
+                     return  Math.floor(d.counts * 100 / d.nb) + "%";
                  })
 
 
@@ -705,62 +704,77 @@
              ];
              var color = d3.scale.category10();
              var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-             var nbYes1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-             var nbYes2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-             var nbNo1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-             var nbNo2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbYesYes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbYesNo = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbNoNo = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbNoYes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
              data.forEach(function(d, i) {
                  nbVillage[0] += 1;
                  nbVillage[d['cp_id']] += 1;
                  if (+d[id1]) {
-                     nbYes1[d['cp_id']] += 1;
-                     nbYes1[0] += 1;
+                     if(+d[id2])
+                     {
+                     	nbYesYes[d['cp_id']] += 1;
+                     	nbYesYes[0] += 1;
+                     	
+                     }
+                     else
+                     {
+                     	nbYesNo[d['cp_id']] += 1;
+                     	nbYesNo[0] += 1;
+
+                     }
                  } else {
 
-                     nbNo1[d['cp_id']] += 1;
-                     nbNo1[0] += 1;
-                 }
-                 if (+d[id2]) {
-                     nbYes2[d['cp_id']] += 1;
-                     nbYes2[0] += 1;
-                 } else {
+					if(+d[id2])
+                     {
+                     	nbNoYes[d['cp_id']] += 1;
+                     	nbNoYes[0] += 1;
+                     	
+                     }
+                     else
+                     {
+                     	nbNoNo[d['cp_id']] += 1;
+                     	nbNoNo[0] += 1;
 
-                     nbNo2[d['cp_id']] += 1;
-                     nbNo2[0] += 1;
+                     }
                  }
+                 
 
 
              });
 
 
              for (var i = 0; i < dataPie.length; i++) {
+
                  dataPie[i] = [
 
                      {
                          "response": "Yes",
-                         "variable": id1,
-                         "counts": nbYes1[i],
-                         "nb": nbVillage[cb[i]]
+                         "variable": "No",
+                         "counts": nbYesNo[i]+.0001,
+                         "nb": nbVillage[i]
                      }, {
                          "response": "No",
-                         "variable": id1,
-                         "counts": nbNo1[i],
-                         "nb": nbVillage[cb[i]]
+                         "variable": "No",
+                         "counts": nbNoNo[i]+.0001,
+                         "nb": nbVillage[i]
                      }, {
                          "response": "Yes",
-                         "variable": id2,
-                         "counts": nbYes2[i],
-                         "nb": nbVillage[cb[i]]
+                         "variable": "Yes",
+                         "counts": nbYesYes[i]+.0001,
+                         "nb": nbVillage[i]
                      }, {
                          "response": "No",
-                         "variable": id2,
-                         "counts": nbNo2[i],
-                         "nb": nbVillage[cb[i]]
+                         "variable": "Yes",
+                         "counts": nbNoYes[i]+.0001,
+                         "nb": nbVillage[i]
                      }
 
                  ]
              }
+
 
              for (var i = 0; i < cb.length; i++) {
                  draw(cb.length, dataPie[cb[i]], i + 1, cb);
@@ -844,6 +858,7 @@
                  	.attr('stroke-allignment','inner')
 
                      .attr("y", function(d) {
+                     	
                          return y(d.offset / d.parent.sum);
                      })
                      .attr("height", function(d) {
@@ -858,22 +873,28 @@
                      .on('mouseover', mariTip.show)
                      .on('mouseout', mariTip.hide);
 
+
+
+
+
+/*
+                 responses.append("text")
+                 	.text(function(d){
+                 		console.log(d);
+                 		return "to";
+                 	})
+                 	.attr("y",0)
+                 	.attr("class", "label2");
+                     */
                  variables.append("text")
                      .text(function(d) {
+                     	console.log(d);
+                     	if(d.counts>0.5)
+                     	{
                          return d.parent.key;
-                         
-                     })
-                     .attr("x", -10)
-                     
-                     .attr("class", "label2");
-                 
-
-                 variables.append("text")
-                     .text(function(d) {
-
-                         return d.parent.key;
+                     	}
                      }) // response
-                     .attr("x", 6)
+                     .attr("x", 20)
                      .attr("y", function(d) {
                          return height + 15;
                      })
