@@ -990,38 +990,14 @@
 
              for (var i = 0; i < cb.length; i++) {
 
-                 draw(10, cb.length, dataHisto[0][cb[i]], dataHisto[1][cb[i]], i + 1, cb);
+                 draw(2, cb.length, dataHisto[0][cb[i]], dataHisto[1][cb[i]], i + 1, cb);
 
              }
 
              function draw(nb, cb, dataHisto1, dataHisto2, id, checkList) {
                  var div = "div" + id;
 
-                 if (cb == 1) {
-                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
-                 }
-                 if (cb == 2 || cb == 3 || cb == 4) {
-                     if (id != 2 && id != 1) {
-
-                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
-                     }
-                 }
-                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
-                     if (id < 4) {
-
-                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
-                     } else if (id > 6) {
-
-                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
-
-                     }
-                 }
+                 drawGrid(cb, checkList, div, id);
 
                  // A formatter for counts.
                  var formatCount = d3.format(",.0f");
@@ -1088,7 +1064,7 @@
                  var maxY2 = d3.max(data2, function(d) {
                      return d.y;
                  });
-                 var maxY = d3.max([maxY1, maxY2]);
+                 var maxY = maxY1 + maxY2;
 
                  var y = d3.scale.linear()
                      .domain([0, maxY + .2 * maxY])
@@ -1136,7 +1112,7 @@
 
                  green.append("rect")
                      .attr("x", 2)
-                     .attr("width", x(data2[0].dx) / 2 - 2)
+                     .attr("width", x(data2[0].dx)  - 2)
                      .attr("height", function(d) {
                          return height - y(d.y);
                      });
@@ -1147,13 +1123,13 @@
                      .attr("class", "red")
                      .on('mouseover', histoTip.show)
                      .on('mouseout', histoTip.hide)
-                     .attr("transform", function(d) {
-                         return "translate(" + x(d.x) + "," + y(d.y) + ")";
+                     .attr("transform", function(d,i) {
+                         return "translate(" + x(d.x) + "," + y(data2[i].y) + ")";
                      });
 
                  red.append("rect")
-                     .attr("x", x(data1[0].dx) / 2 + 2)
-                     .attr("width", x(data1[0].dx) / 2 - 2)
+                     .attr("x",  2)
+                     .attr("width", x(data1[0].dx)  - 2)
                      .attr("height", function(d) {
                          return height - y(d.y);
                      });
