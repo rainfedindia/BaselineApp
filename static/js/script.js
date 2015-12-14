@@ -685,8 +685,10 @@
                  .attr('class', 'd3-tip')
                  .offset([-10, 0])
                  .html(function(d, i) {
-
-                     return  Math.floor(d.counts * 100 / d.nb) + "%";
+                 		console.log(d);
+                     return  Math.floor(d.counts * 100 / d.nb) + "% for this NGO<br>"+
+                     	id1+' : '+d.response+'<br>'+
+                     	id2+' : '+d.variable+'<br>';
                  })
 
 
@@ -907,7 +909,7 @@
          } //End Marimeko
 
          function doubleHistogram(id1, id2, data, cb) {
-
+         	var dataBak = data;
              clear();
              var nb0 = 0;
              var svg = [];
@@ -963,17 +965,21 @@
              }
 
 
-             var histoTip = d3.tip()
+            var histoTip = d3.tip()
                  .attr('class', 'd3-tip')
                  .offset([-10, 0])
                  .html(function(d, i) {
+                     return "Value: between  " + d.x + " and " + (d.x + d.dx) + "<br>" +
+                         "Count : " + d.y + "<br>" +
+                         Math.floor((d.y / d.nb) * 100) + "% total";
 
-                     return "Between " + d.x + " and " + (d.x + d.dx) + "</br>" +
-                         d.y + " villages </br>" + Math.floor((d.y / d.nb) * 100) + "% for this NGO";
                  })
 
-
              $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">2</span> classes) : <input id="histoSelectorRange"  type="range" value="2" max="50" min="2" step="1">');
+             
+             $("#histoSelector").append("<button id='switch'>Switch to Boxplot</button>");
+              $("#switch").on('click',function(){boxplot(id1, id2, dataBak, cb);})
+
              $("#histoSelectorRange").on("change", function() {
                  $("#rangeValue").html(this.value);
                  $("#viz").html('');
@@ -1098,7 +1104,7 @@
                  .attr("dy", ".71em")
                      .style("text-anchor", "end")
                      .attr('font-size', 10)
-                     .text("Number of villages");
+                     .text("Frequency");
 
                  var green = svg[id].selectAll(".green")
                      .data(data2)
@@ -1124,12 +1130,12 @@
                      .on('mouseover', histoTip.show)
                      .on('mouseout', histoTip.hide)
                      .attr("transform", function(d,i) {
-                         return "translate(" + x(d.x) + "," + y(data2[i].y) + ")";
+                         return "translate(" + x(d.x) + "," + y(data2[i].y+d.y) + ")";
                      });
 
                  red.append("rect")
                      .attr("x",  2)
-                     .attr("width", x(data1[0].dx)  - 2)
+                     .attr("width", x(data2[0].dx)  - 2)
                      .attr("height", function(d) {
                          return height - y(d.y);
                      });
@@ -1153,6 +1159,95 @@
              } //end Draw histo
 
          } //End DoubleHisto
+
+         function boxplot(id1, id2, data, cb)
+         {
+         	var dataBak = data;
+         	 clear();
+         	 $("#histoSelector").append("<button id='switch'>Switch to Stacked Bar Histogram</button>")
+         	 $("#switch").on('click',function(){doubleHistogram(id1, id2, dataBak, cb);});
+         	 var svg = [];
+
+         	 dataBoxplot = [[],[],[],[],[],[],[],[],[],[]]
+         	 data.forEach(function(d,i){
+         	 	dataBoxplot[0].push(d);
+         	 	dataBoxplot[d['cp_id']].push(d);
+         	 });
+
+         	 for (var i = 0; i < cb.length; i++) {
+
+                     draw( cb.length, dataBoxplot[cb[i]], i + 1, cb);
+
+                 }
+
+
+         	function draw( cb, dataBox, id, checkList) {
+         		console.log(dataBox);
+                 var div = "div" + id;
+
+                 drawGrid(cb, checkList, div, id);
+
+         	 var margin = {top: 10, right: 50, bottom: 20, left: 50},
+			     width = $("#" + div).width()/2.5 - margin.left - margin.right;
+                 var height = 300 - margin.top - margin.bottom;
+
+			var min = Infinity,
+			    max = -Infinity;
+
+			var chart = d3.box()
+			    .whiskers(iqr(1.5))
+			    .width(width)
+			    .height(height);
+
+
+
+
+			  data = [];
+
+			  dataBox.forEach(function(x) {
+			    var e = Math.floor(+x[id2]),
+			        
+			        s = Math.floor(+x[id1]),
+			        d = data[e];
+			    if (!d) d = data[e] = [s];
+			    else d.push(s);
+			    if (s > max) max = s;
+			    if (s < min) min = s;
+			  });
+
+			  console.log(data);
+
+			  chart.domain([min, max]);
+
+			   svg[id] = d3.select("#"+div).selectAll("svg")
+			      .data(data)
+			    .enter().append("svg")
+			      .attr("class", "box")
+			      .attr("width", width + margin.left + margin.right)
+			      .attr("height", height + margin.bottom + margin.top)
+			    .append("g")
+			      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+			      .call(chart);
+
+			 
+		
+
+			// Returns a function to compute the interquartile range.
+			function iqr(k) {
+			  return function(d, i) {
+			    var q1 = d.quartiles[0],
+			        q3 = d.quartiles[2],
+			        iqr = (q3 - q1) * k,
+			        i = -1,
+			        j = d.length;
+			    while (d[++i] < q1 - iqr);
+			    while (d[--j] > q3 + iqr);
+			    return [i, j];
+			  };
+			}
+			
+         }
+     }
 
      }); // End csv
 
