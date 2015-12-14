@@ -10,42 +10,64 @@
 	    $(this).parent().parent().find(".content").slideToggle();
 	});
 */
-	var varName = [];
-	d3.csv('static/data/variable_description.csv', function(e, dataVar) {
-		dataVar.forEach(function(d,i){
-			varName[d.Name] = d.Variable
-		});
-	});
 
-	console.log(varName);
+     var ngoNames = ["All", "Kutch", "Dewas", "Burhanpur", "Mahbubnagar", "Malkangiri", "Palamu", "Bankura"]
+     var varName = [];
+     var indexVar = [];
+     d3.csv('static/data/variable_description.csv', function(e, dataVar) {
+         dataVar.forEach(function(d, i) {
+             varName[d.Name] = d.Variable
+             if(d.Name == 'comland_area' || d.Name == 'frstland_area'  )
+             {
+             	indexVar[d.Name] = "Hectares";
+             }
+             else if (d.Name =="waterlvl_total")
+             {
+             	
+             	indexVar[d.Name] = "Meters";
+             }
+             else if (d.Name =="diversification_index" || d.Name == 'caste_domination_idx' )
+             {
+             	
+             	indexVar[d.Name] = "Index";
+             }
+             else
+             {
+             	indexVar[d.Name] = "Number";
+             }
+         });
+     });
+
+
 
      //when histo : ?
      var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
          'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no',
-         'amenities_5-10kms_no','amenities_10onkms_no','amenities_0kms_no','propotion_landless',
-         'comland_area','frstland_area','waterlvl_total','trctors/hh','bullck/hh',
-         'srfacewtr_no','grdwtr_no','mktlocatn_no','sold_itms_totno','sold-items_no','Sold-items_in-localmkts_no_no','Sold-items_to-villagers_no','Sold-items_to-traders_no_no',
-         'hh_health-insur_propotion','hh_NREGA_propotion','hh_PDS_propotion','hh_not-suff-food-supply_propotion','hh_pvt-money-lnder_propotion','child_sex_ratio',
-         'f_entre_no','gls_primary-school_propotion','gls_middle-school_propotion','brides_<15yrs_propotion',
-         'social-ids_oc_no','social-ids_obc_no','social-ids_sc_no','social-ids_st_no',
-         'agricultural-as-prim_propotion','others-as-prim_propotion','labours-as-prim_propotion','livestock-as-prim_propotion','resource_based-others-as-prim_propotion','trade/biz-as-prim_propotion','diversification_index',
-         'agricultural-as-prim_income-ids_count','others-as-prim_income-ids_count','labours-as-prim_income-ids_count','livestock-as-prim_income-ids_count','resource_based-others-as-prim_income-ids_count','trade/biz-as-prim_income-ids_count'
+         'amenities_5-10kms_no', 'amenities_10onkms_no', 'amenities_0kms_no', 'propotion_landless',
+         'comland_area', 'frstland_area', 'waterlvl_total', 'trctors/hh', 'bullck/hh',
+         'srfacewtr_no', 'grdwtr_no', 'mktlocatn_no', 'sold_itms_totno', 'sold-items_no', 'Sold-items_in-localmkts_no_no', 'Sold-items_to-villagers_no', 'Sold-items_to-traders_no_no',
+         'hh_health-insur_propotion', 'hh_NREGA_propotion', 'hh_PDS_propotion', 'hh_not-suff-food-supply_propotion', 'hh_pvt-money-lnder_propotion', 'child_sex_ratio',
+         'f_entre_no', 'gls_primary-school_propotion', 'gls_middle-school_propotion', 'brides_<15yrs_propotion',
+         'social-ids_oc_no', 'social-ids_obc_no', 'social-ids_sc_no', 'social-ids_st_no',
+         'agricultural-as-prim_propotion', 'others-as-prim_propotion', 'labours-as-prim_propotion', 'livestock-as-prim_propotion', 'resource_based-others-as-prim_propotion', 'trade/biz-as-prim_propotion', 'diversification_index',
+         'agricultural-as-prim_income-ids_count', 'others-as-prim_income-ids_count', 'labours-as-prim_income-ids_count', 'livestock-as-prim_income-ids_count', 'resource_based-others-as-prim_income-ids_count', 'trade/biz-as-prim_income-ids_count'
 
 
      ];
-     
-     var zeros = ['amenities_0-5kms_no','amenities_5-10kms_no','amenities_10onkms_no','amenities_0kms_no',
-     'comland_area','frstland_area','waterlvl_total','srfacewtr_no','grdwtr_no','mktlocatn_no','sold_itms_totno','sold-items_no','Sold-items_in-localmkts_no_no','Sold-items_to-villagers_no','Sold-items_to-traders_no_no','f_entre_no',
-     'social-ids_oc_no','social-ids_obc_no','social-ids_sc_no','social-ids_st_no',
-     'agricultural-as-prim_income-ids_count','others-as-prim_income-ids_count','labours-as-prim_income-ids_count','livestock-as-prim_income-ids_count','resource_based-others-as-prim_income-ids_count','trade/biz-as-prim_income-ids_count'
+
+     var zeros = ['amenities_0-5kms_no', 'amenities_5-10kms_no', 'amenities_10onkms_no', 'amenities_0kms_no',
+         'comland_area', 'frstland_area', 'waterlvl_total', 'srfacewtr_no', 'grdwtr_no', 'mktlocatn_no', 'sold_itms_totno', 'sold-items_no', 'Sold-items_in-localmkts_no_no', 'Sold-items_to-villagers_no', 'Sold-items_to-traders_no_no', 'f_entre_no',
+         'social-ids_oc_no', 'social-ids_obc_no', 'social-ids_sc_no', 'social-ids_st_no',
+         'agricultural-as-prim_income-ids_count', 'others-as-prim_income-ids_count', 'labours-as-prim_income-ids_count', 'livestock-as-prim_income-ids_count', 'resource_based-others-as-prim_income-ids_count', 'trade/biz-as-prim_income-ids_count'
 
 
 
-];
+     ];
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
          'drnkwtr_present_y/n', 'mblrcep_present_y/n'
      ]
-     var isLog = false;
+     var isLogX = false;
+     var isLogY = false;
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
          //get all the keys
@@ -55,7 +77,7 @@
          var options = '<option id="none">none</option>';
          for (a in keys) {
              if (a != 'general.village' && a != 'cp_id') {
-                 options += '<option id="' + a + '"">' + a + '</option>';
+                 options += '<option id="' + a + '"">' + varName[a] + '</option>';
              }
 
          }
@@ -66,7 +88,8 @@
 
          $(".select2#attributeOne").on("change", function() {
              //from string to numeric
-             attribute1 = this.value;
+             attribute1 = $(this).children(":selected").attr("id");
+
              if (attribute1 != "none") {
                  $('#attributeTwo').select2('enable');
              } else {
@@ -78,35 +101,41 @@
                  d[this.value] = +d[this.value];
                  d["cp_id"] = +d["cp_id"];
              });
-
+             go();
          });
 
-         $('#go').on("click", function() {
+         function go() {
 
 
-         	
-         		isLog = ($("#log")[0].checked==true);
-         		
+
+             isLogX = ($("#logX")[0].checked == true);
+             isLogY = ($("#logY")[0].checked == true);
+
 
              if (attribute1 != 'none' && attribute2 == "none") {
-
+             	$("#mainTitle").html('<h3>'+varName[attribute1]+'</h3>');
                  visualizeOne(attribute1);
 
              }
              if (attribute1 != 'none' && attribute2 != "none") {
 
+             	$("#mainTitle").html('<h3>'+varName[attribute1]+' VS '+varName[attribute2]+'</h3>');
                  visualizeOneVsOne(attribute1, attribute2);
 
              }
-         });
+         }
 
          $(".select2#attributeTwo").on("change", function() {
              //from string to numeric
-             attribute2 = this.value;
+             attribute2 = $(this).children(":selected").attr("id");
              data.forEach(function(d, i) {
                  d[this.value] = +d[this.value];
              });
+             go();
          });
+
+         $(".cb").on('change', go);
+         $(".log").on('change', go);
 
          function visualizeOne(idAttribute) {
 
@@ -146,20 +175,16 @@
              if ($.inArray(id1, histograms) >= 0) {
                  if ($.inArray(id2, histograms) >= 0) {
                      scatterPlot(id1, id2, data, checkboxes);
+                 } else {
+                     doubleHistogram(id1, id2, data, checkboxes);
                  }
-             		else
-             		{
-             			doubleHistogram(id1, id2, data, checkboxes);        	
-             		}        
              }
              if ($.inArray(id1, yesNo) >= 0) {
                  if ($.inArray(id2, yesNo) >= 0) {
                      marimekko(id1, id2, data, checkboxes);
+                 } else {
+                     doubleHistogram(id2, id1, data, checkboxes);
                  }
-                 else
-             	{
-             		doubleHistogram(id2, id1, data, checkboxes);        	
-             	}        
              }
 
          }
@@ -215,9 +240,10 @@
                  .attr('class', 'd3-tip')
                  .offset([-10, 0])
                  .html(function(d, i) {
+                     return "Value: between  " + d.x + " and " + (d.x + d.dx) + "<br>" +
+                         "Count : " + d.y + "<br>" +
+                         Math.floor((d.y / d.nb) * 100) + "% total";
 
-                     return "Between " + d.x + " and " + (d.x + d.dx) + "</br>" +
-                         d.y + " villages </br>" + Math.floor((d.y / d.nb) * 100) + "% for this NGO";
                  })
 
 
@@ -245,31 +271,7 @@
              function draw(nb, cb, dataHisto, id, checkList) {
                  var div = "div" + id;
 
-                 if (cb == 1) {
-                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
-                 }
-                 if (cb == 2 || cb == 3 || cb == 4) {
-                     if (id != 2 && id != 1) {
-
-                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
-                     }
-                 }
-                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
-                     if (id < 4) {
-
-                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
-                     } else if (id > 6) {
-
-                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
-
-                     }
-                 }
+                 drawGrid(cb, checkList, div, id);
 
                  // A formatter for counts.
                  var formatCount = d3.format(",.0f");
@@ -353,7 +355,7 @@
                  .attr("dy", ".71em")
                      .style("text-anchor", "end")
                      .attr('font-size', 10)
-                     .text("Number of villages");
+                     .text("Frequency");
 
                  var bar = svg[id].selectAll(".bar")
                      .data(data)
@@ -377,7 +379,18 @@
                  svg[id].append("g")
                      .attr("class", "x axis")
                      .attr("transform", "translate(0," + height + ")")
-                     .call(xAxis);
+                     .call(xAxis)
+                     .append("text")
+                     .attr('font-size', 10)
+
+
+                 .attr('x', width)
+                     .attr('y', 20)
+
+                 .attr("dy", ".71em")
+                     .style("text-anchor", "end")
+                     .attr('font-size', 10)
+                     .text(varName[attribute1]);
 
                  //density, some bugs to check
 
@@ -450,31 +463,7 @@
                  var div = "div" + id;
 
 
-                 if (cb == 1) {
-                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
-                 }
-                 if (cb == 2 || cb == 3 || cb == 4) {
-                     if (id == 3 || id == 4) {
-
-                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
-                     }
-                 }
-                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
-                     if (id < 4) {
-
-                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
-                     } else if (id > 6) {
-
-                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
-
-                     }
-                 }
+                 drawGrid(cb, checkList, div, id);
 
                  var data = [{
                      'response': 'NO',
@@ -539,9 +528,9 @@
                  .attr('class', 'd3-tip')
                  .offset([-10, 0])
                  .html(function(d, i) {
-                 	
-                     return 'Village : '+d['general.village']+'</br>'+id1+" : "+d[id1]+"</br>"+
-                     id2+' : '+	d[id2]+"</br> NGO : "+d['cp_id'];
+
+                     return 'Village : ' + d['general.village'] + '</br>' + id1 + " : " + Math.floor(d[id1]*100)/100 + "</br>" +
+                         id2 + ' : ' + Math.floor(d[id2]*100)/100;
                  })
              var dataScaterplot = [
                  [],
@@ -555,63 +544,32 @@
              ];
              var svg = [];
 
+             var color = d3.scale.category10();
              data.forEach(function(d) {
                  d.y = +d[id2];
                  d.x = +d[id1];
                  d.ngo = d['cp_id'];
-             	if(isLog)
-             	{
-	             	if( d.y != 0 && d.x!=0)
-	             	{
-	                 	dataScaterplot[d.ngo].push(d);
-	                 	dataScaterplot[0].push(d);
-	             		
-	             	}
-             		
-             	}
-             	else
-             	{
-             		 	dataScaterplot[d.ngo].push(d);
-	                 	dataScaterplot[0].push(d);
-	             	
-             	}
+                 if (d.y == 0) {
+                     d.y = 0.00001;
+                 }
+                 if (d.x == 0) {
+                     d.x = 0.00001;
+                 }
+                 dataScaterplot[d.ngo].push(d);
+                 dataScaterplot[0].push(d);
+
+
              });
 
-             var previousColor = ["lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey", "lightgrey"]
-
              for (var i = 0; i < cb.length; i++) {
-                 draw(cb.length, dataScaterplot[cb[i]], i + 1);
+                 draw(cb.length, dataScaterplot[cb[i]], i + 1, cb);
              }
 
-             function draw(cb, data, id) {
+             function draw(cb, data, id, checkList) {
                  var div = "div" + id;
-                 
 
-                 if (cb == 1) {
-                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
-                 }
-                 if (cb == 2 || cb == 3 || cb == 4) {
-                     if (id == 3 || id == 4) {
 
-                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
-                     }
-                 }
-                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
-                     if (id < 4) {
-
-                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
-                     } else if (id > 6) {
-
-                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
-
-                     }
-                 }
+                 drawGrid(cb, checkList, div, id);
 
                  var margin = {
                          top: 20,
@@ -622,27 +580,23 @@
                      width = $("#" + div).width() - margin.left - margin.right,
                      height = (width / 1.8) - margin.top - margin.bottom;
 
-                 if(isLog)
-                 {
-                 	var x = d3.scale.log()
-                     .range([0, width]);
+                 if (isLogX) {
+                     var x = d3.scale.log()
+                         .range([0, width]);
+                 } else {
+                     var x = d3.scale.linear()
+                         .range([0, width]);
+                 }
+                 if (isLogY) {
+                     var y = d3.scale.log()
+                         .range([height, 0]);
+                 } else {
 
-                 var y = d3.scale.log()
-                     .range([height, 0]);
-	
+                     var y = d3.scale.linear()
+                         .range([height, 0]);
+
                  }
 
-                 else
-                 {
-                 	var x = d3.scale.linear()
-                     .range([0, width]);
-
-                 var y = d3.scale.linear()
-                     .range([height, 0]);
-
-                 }
-                 
-                 var color = d3.scale.category10();
 
                  var xAxis = d3.svg.axis()
                      .scale(x)
@@ -674,23 +628,25 @@
                      .attr("transform", "translate(0," + height + ")")
                      .call(xAxis)
                      .append("text")
-                     .attr("class", "label")
-                     .attr("x", width)
-                     .attr("y", -6)
+
+                 .attr("x", width)
+                     .attr("y", 30)
                      .style("text-anchor", "end")
-                     .text(id1);
+                     .style("font-size", 10)
+                     .text(indexVar[id1]);
 
 
                  svg[id].append("g")
                      .attr("class", "y axis")
                      .call(yAxis)
                      .append("text")
-                     .attr("class", "label")
-                     .attr("transform", "rotate(-90)")
+
+                 .attr("transform", "rotate(-90)")
                      .attr("y", 6)
                      .attr("dy", ".71em")
                      .style("text-anchor", "end")
-                     .text(id2)
+                     .style("font-size", 10)
+                     .text(indexVar[id2])
 
 
                  svg[id].selectAll(".dot")
@@ -706,27 +662,12 @@
                      .attr("cy", function(d) {
                          return y(d.y);
                      })
-                     .style("fill", "lightgrey")
-                     .on('mouseover', scatTip.show)
-                     .on("mouseenter", function(d, i) {
-
-
-                         d3.selectAll(".ngo" + d.ngo)
-                             .transition()
-                             .duration(200)
-                             .style("fill", "#FF6633")
-                             .attr("r", 10);
+                     .style("fill", function(d, i) {
+                         return color(d.ngo);
                      })
-                     .on("mouseout", function(d, i) {
-                     	scatTip.hide();
-                         d3.selectAll(".ngo" + d.ngo)
-                             .transition()
-                             .duration(200)
-                             .style("fill", function(d) {
-                                 return previousColor[d.ngo];
-                             })
-                             .attr("r", 5);
-                     });
+                     .on('mouseover', scatTip.show)
+
+                 .on("mouseout", scatTip.hide);
 
 
 
@@ -735,20 +676,20 @@
 
          } //End scatterplot
 
-                  function marimekko(id1, id2, data, cb) {
+         function marimekko(id1, id2, data, cb) {
 
 
-		 
+
 
              var mariTip = d3.tip()
                  .attr('class', 'd3-tip')
                  .offset([-10, 0])
                  .html(function(d, i) {
 
-                     return d.variable+" : "+d.response+"</br> "+d.counts+" villages</br>"+
-                    	Math.floor(d.counts*100/(2*nbVillage[0])) + "%" ;
-         })
-                 
+                     return d.variable + " : " + d.response + "</br> " + d.counts + " villages</br>" +
+                         Math.floor(d.counts * 100 / (2 * nbVillage[0])) + "%";
+                 })
+
 
              clear();
              var svg = [];
@@ -762,12 +703,12 @@
                  [],
                  []
              ];
-				var color = d3.scale.category10();
-				 var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            var nbYes1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            var nbYes2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            var nbNo1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            var nbNo2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var color = d3.scale.category10();
+             var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbYes1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbYes2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbNo1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+             var nbNo2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
              data.forEach(function(d, i) {
                  nbVillage[0] += 1;
@@ -789,54 +730,48 @@
                      nbNo2[0] += 1;
                  }
 
-                 
+
              });
 
 
              for (var i = 0; i < dataPie.length; i++) {
-             	dataPie[i] = [
+                 dataPie[i] = [
 
-             		{"response": "Yes", "variable":id1, "counts": nbYes1[i],"nb": nbVillage[cb[i]]},
-					{"response": "No", "variable": id1, "counts": nbNo1[i],"nb": nbVillage[cb[i]]},
-					{"response": "Yes", "variable": id2, "counts": nbYes2[i],"nb": nbVillage[cb[i]]},
-					{"response": "No", "variable": id2, "counts": nbNo2[i],"nb": nbVillage[cb[i]]}
+                     {
+                         "response": "Yes",
+                         "variable": id1,
+                         "counts": nbYes1[i],
+                         "nb": nbVillage[cb[i]]
+                     }, {
+                         "response": "No",
+                         "variable": id1,
+                         "counts": nbNo1[i],
+                         "nb": nbVillage[cb[i]]
+                     }, {
+                         "response": "Yes",
+                         "variable": id2,
+                         "counts": nbYes2[i],
+                         "nb": nbVillage[cb[i]]
+                     }, {
+                         "response": "No",
+                         "variable": id2,
+                         "counts": nbNo2[i],
+                         "nb": nbVillage[cb[i]]
+                     }
 
-             	]
+                 ]
              }
 
              for (var i = 0; i < cb.length; i++) {
                  draw(cb.length, dataPie[cb[i]], i + 1, cb);
              }
 
-             function draw(cb, data, id) {
+             function draw(cb, data, id,checkList) {
                  var div = "div" + id;
-                 
 
-                 if (cb == 1) {
-                     $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
-                 }
-                 if (cb == 2 || cb == 3 || cb == 4) {
-                     if (id == 3 || id == 4) {
 
-                         $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
-                     } else {
+                 drawGrid(cb, checkList, div, id);
 
-                         $("#viz").append("<div class='six columns' id='" + div + "'></div>");
-                     }
-                 }
-                 if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
-                     if (id < 4) {
-
-                         $("#viz").append("<div class='four columns' id='" + div + "'></div>");
-                     } else if (id > 6) {
-
-                         $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
-                     } else {
-
-                         $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
-
-                     }
-                 }
 
                  var margin = {
                          top: 20,
@@ -847,101 +782,110 @@
                      width = $("#" + div).width() - margin.left - margin.right,
                      height = (width / 1.8) - margin.top - margin.bottom;
 
-                 
-					var x = d3.scale.linear()
-					 .range([0, width]);
 
-					var y = d3.scale.linear()
-					 .range([0, height]);
+                 var x = d3.scale.linear()
+                     .range([0, width]);
 
-					var n = d3.format(",d"),
-					 p = d3.format("%");
+                 var y = d3.scale.linear()
+                     .range([0, height]);
+
+                 var n = d3.format(",d"),
+                     p = d3.format("%");
 
 
-					
+
                  svg[id] = d3.select("#" + div).append("svg")
                      .attr("width", width + margin.left + margin.right)
                      .attr("height", height + margin.top + margin.bottom)
                      .append("g")
                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                      .call(mariTip);
-					var offset = 0;
+                 var offset = 0;
 
-					var responses = d3.nest()
-					  .key(function(d) { 
-					     return d.response; 
-					     })
-					  .entries(data);
+                 var responses = d3.nest()
+                     .key(function(d) {
+                         return d.response;
+                     })
+                     .entries(data);
 
-					var sum = responses.reduce(function(v, p) {
-						return (p.offset = v) + (p.sum = p.values.reduceRight(function(v, d) {
-						    d.parent = p;
-						    return (d.offset = v) + d.counts;
-						    }, 0));
-						}, 0);
+                 var sum = responses.reduce(function(v, p) {
+                     return (p.offset = v) + (p.sum = p.values.reduceRight(function(v, d) {
+                         d.parent = p;
+                         return (d.offset = v) + d.counts;
+                     }, 0));
+                 }, 0);
 
-					// Add a group for each r.
-					var responses = svg[id].selectAll(".response")
-					  .data(responses)
-					.enter().append("g")
-					  .attr("class", "response")
-					  .attr("xlink:title", function(d) { 
-					     return d.key; })
-					  .attr("transform", function(d) { 
-					     return "translate(" + x(d.offset / sum) + ")"; 
-					   });
+                 // Add a group for each r.
+                 var responses = svg[id].selectAll(".response")
+                     .data(responses)
+                     .enter().append("g")
+                     .attr("class", "response")
+                     .attr("xlink:title", function(d) {
+                         return d.key;
+                     })
+                     .attr("transform", function(d) {
+                         return "translate(" + x(d.offset / sum) + ")";
+                     });
 
-					// Add a rect for each month.
-					 var variables = responses.selectAll (".variable")
-					  .data(function(d) { 
-					     return d.values; })
-					.enter().append("a")
-					  .attr("class", "response")
-					  .attr("xlink:title", function(d) { 
-					      return d.variable + " " + d.parent.key + ": " + n(d.counts); });
+                 // Add a rect for each month.
+                 var variables = responses.selectAll(".variable")
+                     .data(function(d) {
+                         return d.values;
+                     })
+                     .enter().append("a")
+                     .attr("class", "response")
+                     .attr("xlink:title", function(d) {
+                         return d.variable + " " + d.parent.key + ": " + n(d.counts);
+                     });
 
-					variables.append("rect")
-					  .attr("y", function(d) { 
-					     return y(d.offset / d.parent.sum); })
-					  .attr("height", function(d) { 
-					     return y(d.counts / d.parent.sum); })
-					  .attr("width", function(d) { 
-					     return x(d.parent.sum / sum); })
-					  .style("fill", function(d,i) { 
-					     return color(i); 
-					  })
-					  .on('mouseover', mariTip.show)
-            .on('mouseout', mariTip.hide);
+                 variables.append("rect")
+                 	.attr('class','block')
+                 	.attr('stroke-width','5px')
+                 	.attr('stroke-allignment','inner')
 
-				variables.append("text")
-					      .text(function(d) { 
-					      if(d.counts>0)
-					      {
-					          return d.variable + " " + n(d.counts) ;
-					      }
-					      })
-					      .attr("x", 5)
-					      .attr("y", function(d) { 
-					          return (y(d.offset / d.parent.sum)+10); })
-					      .attr("class", "label");
+                     .attr("y", function(d) {
+                         return y(d.offset / d.parent.sum);
+                     })
+                     .attr("height", function(d) {
+                         return y(d.counts / d.parent.sum);
+                     })
+                     .attr("width", function(d) {
+                         return x(d.parent.sum / sum);
+                     })
+                     .style("fill", function(d, i) {
+                         return color(i);
+                     })
+                     .on('mouseover', mariTip.show)
+                     .on('mouseout', mariTip.hide);
 
-				variables.append("text")
-					      .text(function(d) {
-					      
-					          return d.parent.key;
-					          }) // response
-					      .attr("x", 5)
-					      .attr("y", function(d) { 
-					            return height+15; })
-					      .attr("class", "label2");
+                 variables.append("text")
+                     .text(function(d) {
+                         return d.parent.key;
+                         
+                     })
+                     .attr("x", -10)
+                     
+                     .attr("class", "label2");
+                 
+
+                 variables.append("text")
+                     .text(function(d) {
+
+                         return d.parent.key;
+                     }) // response
+                     .attr("x", 6)
+                     .attr("y", function(d) {
+                         return height + 15;
+                     })
+                     .attr("class", "label2");
 
 
-             }	
+             }
 
 
          } //End Marimeko
 
-                  function doubleHistogram(id1,id2, data, cb) {
+         function doubleHistogram(id1, id2, data, cb) {
 
              clear();
              var nb0 = 0;
@@ -957,7 +901,7 @@
                  [],
                  []
              ];
-              dataHisto[1] = [
+             dataHisto[1] = [
                  [],
                  [],
                  [],
@@ -1008,7 +952,7 @@
                  })
 
 
-             $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
+             $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">2</span> classes) : <input id="histoSelectorRange"  type="range" value="2" max="50" min="2" step="1">');
              $("#histoSelectorRange").on("change", function() {
                  $("#rangeValue").html(this.value);
                  $("#viz").html('');
@@ -1016,7 +960,7 @@
                  $("#viz3").html('');
                  for (var i = 0; i < cb.length; i++) {
 
-                     draw(this.value, cb.length, dataHisto[0][cb[i]],dataHisto[1][cb[i]], i + 1, cb);
+                     draw(this.value, cb.length, dataHisto[0][cb[i]], dataHisto[1][cb[i]], i + 1, cb);
 
                  }
              });
@@ -1025,11 +969,11 @@
 
              for (var i = 0; i < cb.length; i++) {
 
-                 draw(10, cb.length,  dataHisto[0][cb[i]],dataHisto[1][cb[i]], i + 1, cb);
+                 draw(10, cb.length, dataHisto[0][cb[i]], dataHisto[1][cb[i]], i + 1, cb);
 
              }
 
-             function draw(nb, cb, dataHisto1,dataHisto2, id, checkList) {
+             function draw(nb, cb, dataHisto1, dataHisto2, id, checkList) {
                  var div = "div" + id;
 
                  if (cb == 1) {
@@ -1072,7 +1016,7 @@
 
 
                  var x = d3.scale.linear()
-                     .domain([0, d3.max([d3.max(dataHisto1),d3.max(dataHisto2)])])
+                     .domain([0, d3.max([d3.max(dataHisto1), d3.max(dataHisto2)])])
                      .range([0, width]);
 
                  // Generate a histogram using twenty uniformly-spaced bins.
@@ -1095,7 +1039,7 @@
 
                  });
 
-                 
+
 
                  /*var line = d3.svg.line()
                      .x(function(d) {
@@ -1123,12 +1067,12 @@
                  var maxY2 = d3.max(data2, function(d) {
                      return d.y;
                  });
-                 var maxY = d3.max([maxY1,maxY2]);
-                 
+                 var maxY = d3.max([maxY1, maxY2]);
+
                  var y = d3.scale.linear()
                      .domain([0, maxY + .2 * maxY])
                      .range([height, 0]);
-                 
+
                  var xAxis = d3.svg.axis()
                      .scale(x)
                      .orient("bottom");
@@ -1171,12 +1115,12 @@
 
                  green.append("rect")
                      .attr("x", 2)
-                     .attr("width", x(data2[0].dx)/2 - 2)
+                     .attr("width", x(data2[0].dx) / 2 - 2)
                      .attr("height", function(d) {
                          return height - y(d.y);
                      });
 
-               var red = svg[id].selectAll(".red")
+                 var red = svg[id].selectAll(".red")
                      .data(data1)
                      .enter().append("g")
                      .attr("class", "red")
@@ -1187,8 +1131,8 @@
                      });
 
                  red.append("rect")
-                     .attr("x", x(data1[0].dx)/2 + 2)
-                     .attr("width", x(data1[0].dx)/2 - 2)
+                     .attr("x", x(data1[0].dx) / 2 + 2)
+                     .attr("width", x(data1[0].dx) / 2 - 2)
                      .attr("height", function(d) {
                          return height - y(d.y);
                      });
@@ -1222,6 +1166,36 @@
          $("#viz3").html('');
 
          $("#nb0").html('');
+     }
+
+     function drawGrid(cb, ck, div, id) {
+         if (cb == 1) {
+             $("#viz").append("<div class='eleven columns' id='" + div + "' ></div>");
+         }
+         if (cb == 2 || cb == 3 || cb == 4) {
+             if (id != 2 && id != 1) {
+
+                 $("#viz2").append("<div class='six columns' id='" + div + "'></div>");
+             } else {
+
+                 $("#viz").append("<div class='six columns' id='" + div + "'></div>");
+             }
+         }
+         if (cb == 5 || cb == 6 || cb == 7 || cb == 8) {
+             if (id < 4) {
+
+                 $("#viz").append("<div class='four columns' id='" + div + "'></div>");
+             } else if (id > 6) {
+
+                 $("#viz3").append("<div class='four columns' id='" + div + "'></div>");
+             } else {
+
+                 $("#viz2").append("<div class='four columns' id='" + div + "'></div>");
+
+             }
+         }
+
+         $("#" + div).append("<h3>" + ngoNames[ck[id - 1]] + "</h3>")
      }
 
  });

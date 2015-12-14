@@ -62,10 +62,7 @@ fill:orange;
 {
 	opacity: .3;
 }
-.domain 
-{
-	opacity: 0;
-}
+
 .density
 {
   fill: none;
@@ -122,4 +119,11 @@ fill:orange;
 .label2 {
   font-size: 14px;
   fill: black;
+}
+
+.block
+{
+		
+		stroke-width:10 px;
+		stroke:white;
 }

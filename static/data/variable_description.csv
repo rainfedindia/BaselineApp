@@ -24,6 +24,7 @@ bullck/hh,"Number of bullocks per household (emperical, it could be per 100 hous
 srfacewtr_no,Number of sources of surface water.
 grdwtr_no,Number of sources of ground water.
 sold_itms_totno,Total number of unique local ids in a village
+mktlocatn_no,mktlocatn_no
 sold-items_no,Total count of distinct items sold by villagers
 Sold-items_in-localmkts_no_no,Total count of distinct items sold in local markets
 Sold-items_to-villagers_no,Total count of distinct items sold to other villagers

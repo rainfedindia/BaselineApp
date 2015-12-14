@@ -1,23 +1,16 @@
-area in hectarr
-water lvl meters
-caste_domination_idx no unit proportion  index
-diversification_index index
-
-Histo 
-Y axes frequence
-
-Scaterplot
-Color
-log add 0.000000001
-
-ALL colors different for then 
-
-round 1/100
-
-log X/Y
-
-
-AXISSS
-
 Mosaic Yes/No + legend
 proportion  GLobal village ! ! + tooltip
+
+
+
+
+Continuous vs discrete boxplot 
+
+
+empilé
+
+chose
+
+
+Export csv
+export svg
