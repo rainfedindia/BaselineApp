@@ -114,13 +114,13 @@
 
 
              if (attribute1 != 'none' && attribute2 == "none") {
-             	$("#mainTitle").html('<h3>'+varName[attribute1]+'</h3>');
+             	$("#mainTitle").html('<h5>'+varName[attribute1]+'</h5>');
                  visualizeOne(attribute1);
 
              }
              if (attribute1 != 'none' && attribute2 != "none") {
 
-             	$("#mainTitle").html('<h3>'+varName[attribute1]+' VS '+varName[attribute2]+'</h3>');
+             	$("#mainTitle").html('<h5>'+varName[attribute1]+' VS '+varName[attribute2]+'</h5>');
                  visualizeOneVsOne(attribute1, attribute2);
 
              }
@@ -297,14 +297,18 @@
                  var height = (width / 1.8) - margin.top - margin.bottom;
 
 
+                 
+                 
                  var x = d3.scale.linear()
                      .domain([0, d3.max(dataHisto)])
                      .range([0, width]);
 
+                 
                  // Generate a histogram using twenty uniformly-spaced bins.
                  var data = d3.layout.histogram()
                      .bins(x.ticks(nb))
                      (dataHisto);
+                 
 
                  data.forEach(function(d, i) {
                      d.nb = nbVillage[id - 1];
@@ -332,12 +336,15 @@
 
                    }*/
 
+                 
+
                  var maxY = d3.max(data, function(d) {
                      return d.y;
                  });
+                 
                  var y = d3.scale.linear()
                      .domain([0, maxY + .2 * maxY])
-                     .range([height, 0]);
+                     .range([0, height]);
                  var xAxis = d3.svg.axis()
                      .scale(x)
                      .orient("bottom");
@@ -663,6 +670,7 @@
                  svg[id].selectAll(".dot")
                      .data(data)
                      .enter().append("circle")
+                     .style('opacity',.4)
                      .attr("class", function(d, i) {
                          return "dot ngo" + d.ngo;
                      })
@@ -1029,9 +1037,12 @@
                      width = $("#" + div).width() - margin.left - margin.right;
                  var height = (width / 1.8) - margin.top - margin.bottom;
 
-
+                 
                  var x = d3.scale.linear()
                      .domain([0, d3.max([d3.max(dataHisto1), d3.max(dataHisto2)])])
+                     .range([0, width]);
+
+                 var x = d3.scale.linear()
                      .range([0, width]);
 
                  // Generate a histogram using twenty uniformly-spaced bins.
