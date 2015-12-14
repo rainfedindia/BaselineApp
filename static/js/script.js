@@ -68,6 +68,7 @@
      ]
      var isLogX = false;
      var isLogY = false;
+     var isBox = false;
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
          //get all the keys
@@ -176,14 +177,24 @@
                  if ($.inArray(id2, histograms) >= 0) {
                      scatterPlot(id1, id2, data, checkboxes);
                  } else {
-                     doubleHistogram(id1, id2, data, checkboxes);
+                 	if(!isBox)
+                     {doubleHistogram(id1, id2, data, checkboxes);}
+                 else
+                 {
+                 	boxplot(id1, id2, data, checkboxes);
+                 }
                  }
              }
              if ($.inArray(id1, yesNo) >= 0) {
                  if ($.inArray(id2, yesNo) >= 0) {
                      marimekko(id1, id2, data, checkboxes);
                  } else {
-                     doubleHistogram(id2, id1, data, checkboxes);
+                  if(!isBox)
+                     {doubleHistogram(id2, id1, data, checkboxes);}
+                 else
+                 {
+                 	boxplot(id2, id1, data, checkboxes);
+                 }
                  }
              }
 
@@ -909,6 +920,7 @@
          } //End Marimeko
 
          function doubleHistogram(id1, id2, data, cb) {
+         	isBox = false;	
          	var dataBak = data;
              clear();
              var nb0 = 0;
@@ -977,7 +989,7 @@
 
              $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">2</span> classes) : <input id="histoSelectorRange"  type="range" value="2" max="50" min="2" step="1">');
              
-             $("#histoSelector").append("<button id='switch'>Switch to Boxplot</button>");
+             $("#histoSelector").append("</br><button id='switch'>Switch to Boxplot</button>");
               $("#switch").on('click',function(){boxplot(id1, id2, dataBak, cb);})
 
              $("#histoSelectorRange").on("change", function() {
@@ -1162,9 +1174,10 @@
 
          function boxplot(id1, id2, data, cb)
          {
+         	isBox = true;
          	var dataBak = data;
          	 clear();
-         	 $("#histoSelector").append("<button id='switch'>Switch to Stacked Bar Histogram</button>")
+         	 $("#histoSelector").append("</br><button id='switch'>Switch to Stacked Bar Histogram</button>")
          	 $("#switch").on('click',function(){doubleHistogram(id1, id2, dataBak, cb);});
          	 var svg = [];
 
@@ -1182,7 +1195,7 @@
 
 
          	function draw( cb, dataBox, id, checkList) {
-         		console.log(dataBox);
+         		
                  var div = "div" + id;
 
                  drawGrid(cb, checkList, div, id);
@@ -1195,14 +1208,14 @@
 			    max = -Infinity;
 
 			var chart = d3.box()
-			    .whiskers(iqr(1.5))
+			    .whiskers(iqr(15))
 			    .width(width)
 			    .height(height);
 
 
 
 
-			  data = [];
+			  data = [[],[]];
 
 			  dataBox.forEach(function(x) {
 			    var e = Math.floor(+x[id2]),
