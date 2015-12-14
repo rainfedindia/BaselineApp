@@ -1200,7 +1200,7 @@
 
                  drawGrid(cb, checkList, div, id);
 
-         	 var margin = {top: 10, right: 50, bottom: 20, left: 50},
+         	 var margin = {top: 30, right: 50, bottom: 20, left: 50},
 			     width = $("#" + div).width()/2.5 - margin.left - margin.right;
                  var height = 300 - margin.top - margin.bottom;
 
@@ -1240,7 +1240,21 @@
 			      .attr("height", height + margin.bottom + margin.top)
 			    .append("g")
 			      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-			      .call(chart);
+			      .call(chart)
+			      .append('text')
+			      .style('text-anchor',"middle")
+			      .attr("y",-10)
+			      .style('font-size',"20")
+			      .text(function(d,i){
+			      	if(i == 0)
+			      	{
+			      		return "YES";
+			      	}
+			      	else
+			      	{
+			      		return "NO";
+			      	}
+			      });
 
 			 
 		
