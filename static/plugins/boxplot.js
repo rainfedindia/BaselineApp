@@ -179,7 +179,7 @@ d3.box = function() {
 
       // Compute the tick format.
       var format = tickFormat || x1.tickFormat(8);
-
+      
       // Update box ticks.
       var boxTick = g.selectAll("text.box")
           .data(quartileData);

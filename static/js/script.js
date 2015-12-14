@@ -1208,7 +1208,7 @@
 			    max = -Infinity;
 
 			var chart = d3.box()
-			    .whiskers(iqr(15))
+			    .whiskers(iqr(10))
 			    .width(width)
 			    .height(height);
 
@@ -1218,9 +1218,9 @@
 			  data = [[],[]];
 
 			  dataBox.forEach(function(x) {
-			    var e = Math.floor(+x[id2]),
+			    var e = +x[id2],
 			        
-			        s = Math.floor(+x[id1]),
+			        s = +x[id1],
 			        d = data[e];
 			    if (!d) d = data[e] = [s];
 			    else d.push(s);
