@@ -69,6 +69,7 @@
      ]
      var isLogX = false;
      var isLogY = false;
+     var isFree = true;
      var isBox = false;
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
@@ -117,10 +118,11 @@
 
              isLogX = ($("#logX")[0].checked == true);
              isLogY = ($("#logY")[0].checked == true);
+             isFree = ($("#free")[0].checked == true);
 
 
              if (attribute1 != 'none' && attribute2 == "none") {
-             	$("#mainTitle").html('<h5>'+varName[attribute1]+'</h5>');
+             	$("#mainTitle").html('<b>'+varName[attribute1]+'</b>');
                  visualizeOne(attribute1);
 
              }
@@ -142,6 +144,7 @@
          });
 
          $(".cb").on('change', go);
+         $(".free").on('change', go);
          $(".log").on('change', go);
 
          function visualizeOne(idAttribute) {
@@ -181,17 +184,17 @@
 
              if ($.inArray(id1, histograms) >= 0) {
                  if ($.inArray(id2, histograms) >= 0) {
-					$("#mainTitle").html('<h5>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+' (on Y axis)</h5>');
+					$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+' (on Y axis)</b>');
                      scatterPlot(id1, id2, data, checkboxes);
                  } else {
                  	if(!isBox)
                      {
-						$("#mainTitle").html('<h5>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</h5>');
+						$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</b>');
                      	doubleHistogram(id1, id2, data, checkboxes);
                      }
                  else
                  {
-                 	$("#mainTitle").html('<h5>'+varName[attribute1]+' (on Y axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</h5>');
+                 	$("#mainTitle").html('<b>'+varName[attribute1]+' (on Y axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</b>');
                  	boxplot(id1, id2, data, checkboxes);
                  }
                  }
@@ -202,7 +205,7 @@
                  } else {
                   if(!isBox)
                      {
-                     	$("#mainTitle").html('<h5>'+varName[attribute2]+' (on X axis) VS '+varName[attribute1]+'(Yes in Green,  No in Red)</h5>');
+                     	$("#mainTitle").html('<b>'+varName[attribute2]+' (on X axis) VS '+varName[attribute1]+'(Yes in Green,  No in Red)</b>');
                      	doubleHistogram(id2, id1, data, checkboxes);
                      }
                  else
@@ -244,6 +247,7 @@
                  } else {
 
                      if (+d[id] != 0) {
+
                          dataHisto[0].push(+d[id]);
                          nbVillage[0] += 1;
                          nbVillage[d['cp_id']] += 1;
@@ -285,8 +289,12 @@
                  }
              });
              //var lineCoord = [];
+             var maxSame = [];
 
-
+			 for (var i = 0; i < cb.length; i++) {             	
+				maxSame = maxSame.concat(dataHisto[cb[i]]);
+			}
+			
              for (var i = 0; i < cb.length; i++) {
 
                  draw(10, cb.length, dataHisto[cb[i]], i + 1, cb);
@@ -322,7 +330,9 @@
                  var data = d3.layout.histogram()
                      .bins(x.ticks(nb))
                      (dataHisto);
-                 
+				var dataSame = d3.layout.histogram()
+                     .bins(x.ticks(nb))
+                     (maxSame);
 
                  data.forEach(function(d, i) {
                      d.nb = nbVillage[id - 1];
@@ -355,10 +365,22 @@
                  var maxY = d3.max(data, function(d) {
                      return d.y;
                  });
-                 
+                 var maxS = d3.max(dataSame, function(d) {
+                     return d.y;
+                 });
+                 if(isFree == false)
+                 {
+
                  var y = d3.scale.linear()
                      .domain([0, maxY + .2 * maxY])
                      .range([ height,0]);
+                 }
+                 else
+                 {
+					var y = d3.scale.linear()
+                     .domain([0, maxS + .2 * maxS])
+                     .range([ height,0]);                 	
+                 }
                  var xAxis = d3.svg.axis()
                      .scale(x)
                      .orient("bottom");
@@ -712,7 +734,7 @@
          function marimekko(id1, id2, data, cb) {
 
 
-         	$("#mainTitle").html('<h5>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(on Y axis)</h5>');
+         	$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(on Y axis)</b>');
 
              var mariTip = d3.tip()
                  .attr('class', 'd3-tip')
@@ -942,7 +964,7 @@
          } //End Marimeko
 
          function doubleHistogram(id1, id2, data, cb) {
-         	$("#mainTitle").html('<h5>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes in Green,  No in Red)</h5>');
+         	$("#mainTitle").html('<b>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes in Green,  No in Red)</b>');
          	isBox = false;	
          	var dataBak = data;
              clear();
@@ -1200,7 +1222,7 @@
 
          function boxplot(id1, id2, data, cb)
          {
-         	$("#mainTitle").html('<h5>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes : Right,  No : Left)</h5>');
+         	$("#mainTitle").html('<b>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes : Right,  No : Left)</b>');
          	isBox = true;
          	var dataBak = data;
          	 clear();
@@ -1341,7 +1363,7 @@
              }
          }
 
-         $("#" + div).append("<h5>" + ngoNames[ck[id - 1]] + " ( "+nbVillage[ck[id-1]]+" observations)</h5>")
+         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( "+nbVillage[ck[id-1]]+" observations)</b>")
      }
 
  });
