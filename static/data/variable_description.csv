@@ -1,7 +1,7 @@
 Name,Variable
-total_hh,Total number of households in a village.
-propotion_oc,Propotion of households corresponding to OC as compared to the total number of households 
-propotion_obc,Propotion of households corresponding to OBC as compared to the total number of households 
+total_hh,Total number of households
+propotion_oc,Proportion of OC households
+propotion_obc,Proportion of OBC Hhs
 propotion_sc,Propotion of households corresponding to SC as compared to the total number of households 
 propotion_st,Propotion of households corresponding to ST as compared to the total number of households 
 caste_domination_idx,Index for caste domination

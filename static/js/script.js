@@ -258,7 +258,7 @@
                  })
 
 
-             $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
+             $("#histoSelector").html('Select number of bins (<span id="rangeValue">10</span> classes) : <input id="histoSelectorRange"  type="range" value="10" max="50" min="2" step="1">');
              $("#histoSelectorRange").on("change", function() {
                  $("#rangeValue").html(this.value);
                  $("#viz").html('');
@@ -995,7 +995,7 @@
 
                  })
 
-             $("#histoSelector").html('Select the number of class you want to see (<span id="rangeValue">2</span> classes) : <input id="histoSelectorRange"  type="range" value="2" max="50" min="2" step="1">');
+             $("#histoSelector").html('Select the number of bins (<span id="rangeValue">2</span> classes) : <input id="histoSelectorRange"  type="range" value="2" max="50" min="2" step="1">');
              
              $("#histoSelector").append("</br><button id='switch'>Switch to Boxplot</button>");
               $("#switch").on('click',function(){boxplot(id1, id2, dataBak, cb);})
