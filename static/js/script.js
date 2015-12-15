@@ -122,7 +122,7 @@
 
 
              if (attribute1 != 'none' && attribute2 == "none") {
-             	$("#mainTitle").html('<b>'+varName[attribute1]+'</b>');
+             	$("#mainTitle").html('<b>'+varName[attribute1]+'</b></br>');
                  visualizeOne(attribute1);
 
              }
@@ -184,17 +184,17 @@
 
              if ($.inArray(id1, histograms) >= 0) {
                  if ($.inArray(id2, histograms) >= 0) {
-					$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+' (on Y axis)</b>');
+					$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+' (on Y axis)</b></br>');
                      scatterPlot(id1, id2, data, checkboxes);
                  } else {
                  	if(!isBox)
                      {
-						$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</b>');
+						$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</b></br>');
                      	doubleHistogram(id1, id2, data, checkboxes);
                      }
                  else
                  {
-                 	$("#mainTitle").html('<b>'+varName[attribute1]+' (on Y axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</b>');
+                 	$("#mainTitle").html('<b>'+varName[attribute1]+' (on Y axis) VS '+varName[attribute2]+'(Yes in Green,  No in Red)</b></br>');
                  	boxplot(id1, id2, data, checkboxes);
                  }
                  }
@@ -205,7 +205,7 @@
                  } else {
                   if(!isBox)
                      {
-                     	$("#mainTitle").html('<b>'+varName[attribute2]+' (on X axis) VS '+varName[attribute1]+'(Yes in Green,  No in Red)</b>');
+                     	$("#mainTitle").html('<b>'+varName[attribute2]+' (on X axis) VS '+varName[attribute1]+'(Yes in Green,  No in Red)</b></br>');
                      	doubleHistogram(id2, id1, data, checkboxes);
                      }
                  else
@@ -734,7 +734,7 @@
          function marimekko(id1, id2, data, cb) {
 
 
-         	$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(on Y axis)</b>');
+         	$("#mainTitle").html('<b>'+varName[attribute1]+' (on X axis) VS '+varName[attribute2]+'(on Y axis)</b></br>');
 
              var mariTip = d3.tip()
                  .attr('class', 'd3-tip')
@@ -964,7 +964,7 @@
          } //End Marimeko
 
          function doubleHistogram(id1, id2, data, cb) {
-         	$("#mainTitle").html('<b>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes in Green,  No in Red)</b>');
+         	$("#mainTitle").html('<b>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes in Green,  No in Red)</b></br>');
          	isBox = false;	
          	var dataBak = data;
              clear();
@@ -1222,7 +1222,7 @@
 
          function boxplot(id1, id2, data, cb)
          {
-         	$("#mainTitle").html('<b>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes : Right,  No : Left)</b>');
+         	$("#mainTitle").html('<b>'+varName[id1]+' (on X axis) VS '+varName[id2]+'(Yes : Right,  No : Left)</b></br>');
          	isBox = true;
          	var dataBak = data;
          	 clear();
@@ -1363,7 +1363,7 @@
              }
          }
 
-         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( "+nbVillage[ck[id-1]]+" observations)</b>")
+         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( "+nbVillage[ck[id-1]]+" observations)</b></br>")
      }
 
  });
