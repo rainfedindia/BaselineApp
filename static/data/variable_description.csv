@@ -1,54 +1,54 @@
 Name,Variable
 total_hh,Total number of households
 propotion_oc,Proportion of OC households
-propotion_obc,Proportion of OBC Hhs
-propotion_sc,Propotion of households corresponding to SC as compared to the total number of households 
-propotion_st,Propotion of households corresponding to ST as compared to the total number of households 
+propotion_obc,Proportion of OBC households
+propotion_sc,Proportion of SC households
+propotion_st,Proportion of ST households
 caste_domination_idx,Index for caste domination
-road_present_y/n,If road is present in a village then 'Y' else 'N'
-angw_present_y/n,If aaganwadi is present in a village then 'Y' else 'N'
-elec_present_y/n,If electricity is present in a village then 'Y' else 'N'
-pds_present_y/n,If pds is present in a village then 'Y' else 'N'
-drnkwtr_present_y/n,If drinking water is present in a village then 'Y' else 'N'
-mblrcep_present_y/n,If mobile reception is present in a village then 'Y' else 'N'
-amenities_0-5kms_no,"Out of PHC, school, forest guard, police chowki, bank and public transport, how many are present within 0-5kms"
-amenities_5-10kms_no,"Out of PHC, school, forest guard, police chowki, bank and public transport, how many are present within 5-10kms"
-amenities_10onkms_no,"Out of PHC, school, forest guard, police chowki, bank and public transport, how many are present within more than 10 kms"
-amenities_0kms_no,"Out of PHC, school, forest guard, police chowki, bank and public transport, how many are present within 0 kms"
-propotion_landless,Propotion of households that are landless as compared to the total number of households in a village.
+road_present_y/n,If road is present in a village
+angw_present_y/n,If aaganwadi is present in a village
+elec_present_y/n,If electricity is present in a village
+pds_present_y/n,If pds is present in a village then
+drnkwtr_present_y/n,If drinking water is present in a village
+mblrcep_present_y/n,If mobile reception is present in a village
+amenities_0-5kms_no,amenities present within 0-5 kms
+amenities_5-10kms_no,amenities present within 5-10 kms
+amenities_10onkms_no,amenities present greater than 10 km
+amenities_0kms_no,amenities present within village
+propotion_landless,Proportion of landless households
 comland_area,Total area under common land in a village.
 frstland_area,Total area under forest land in a village.
 waterlvl_total,Total level of water in a village
-trctors/hh,"Number of tractors per household (emperical, it could be per 100 households etc, depending upon the data)"
-bullck/hh,"Number of bullocks per household (emperical, it could be per 100 households etc, depending upon the data)"
+trctors/hh,Number of tractors per household
+bullck/hh,Number of bullocks per household
 srfacewtr_no,Number of sources of surface water.
 grdwtr_no,Number of sources of ground water.
 sold_itms_totno,Total number of unique local ids in a village
-mktlocatn_no,mktlocatn_no
+mktlocatn_no,Number of market locations
 sold-items_no,Total count of distinct items sold by villagers
 Sold-items_in-localmkts_no_no,Total count of distinct items sold in local markets
 Sold-items_to-villagers_no,Total count of distinct items sold to other villagers
 Sold-items_to-traders_no_no,Total count of distinct items sold to traders
-hh_health-insur_propotion,Propotion of households with Health Insurance to the total number of households in a village.
-hh_NREGA_propotion,Propotion of households with NREGA job card to the total number of households in a village.
-hh_PDS_propotion,Propotion of households with PDS to the total number of households in a village.
-hh_not-suff-food-supply_propotion,Propotion of households without sufficient supply of food to the total number of households in a village.
-hh_pvt-money-lnder_propotion,Propotion of households under credit from private moneylender to the total number of households in a village.
-child_sex_ratio,"For the age-group of 0-6 yrs olds, number of boys to the number of girls in a village"
+hh_health-insur_propotion,Proportion of households with Health Insurance
+hh_NREGA_propotion,Proportion of households with NREGA job card
+hh_PDS_propotion,Proportion of households with PDS
+hh_not-suff-food-supply_propotion,Proportion of households without sufficient supply of food
+hh_pvt-money-lnder_propotion,Proportion of households under credit from private moneylender
+child_sex_ratio,number of boys to the number of girls in a village (0-6 yrs)
 f_entre_no,Total count of women entrepreneurs in a village
-gls_primary-school_propotion,Propotion of girls enrolled in primary schools to the total number of girls of primary school age.
-gls_middle-school_propotion,Propotion of girls enrolled in middle schools to the total number of girls of middle school age.
-brides_<15yrs_propotion,Propotion of marriages that involves brides aged less than or equal to 15 years as compared to total number of marriages in a village
+gls_primary-school_propotion,Propotion of girls enrolled in primary schools
+gls_middle-school_propotion,Propotion of girls enrolled in middle schools
+brides_<15yrs_propotion,Propotion of marriages that involves brides aged less than or equal to 15 years
 social-ids_oc_no,Unique number of social ids within OC official category in a village
 social-ids_obc_no,Unique number of social ids within OBC official category in a village
 social-ids_sc_no,Unique number of social ids within SC official category in a village
 social-ids_st_no,Unique number of social ids within ST official category in a village
-agricultural-as-prim_propotion,Propotion of households with agricultural as primary livelihood as compared to the total number of households in a village.
-others-as-prim_propotion,Propotion of households with others as primary livelihood as compared to the total number of households in a village.
-labours-as-prim_propotion,Propotion of households with labour as primary livelihood as compared to the total number of households in a village.
-livestock-as-prim_propotion,Propotion of households with livestock as primary livelihood as compared to the total number of households in a village.
-resource_based-others-as-prim_propotion,Propotion of households with resource based product as primary livelihood as compared to the total number of households in a village.
-trade/biz-as-prim_propotion,Propotion of households with trade/business/services as primary livelihood as compared to the total number of households in a village.
+agricultural-as-prim_propotion,Proportion of households with agricultural as primary livelihood
+others-as-prim_propotion,Proportion of households with others as primary livelihood
+labours-as-prim_propotion,Proportion of households with labour as primary livelihood
+livestock-as-prim_propotion,Proportion of households with livestock as primary livelihood 
+resource_based-others-as-prim_propotion,Proportion of households with resource based product as primary livelihood
+trade/biz-as-prim_propotion,Proportion of households with trade/business/services as primary livelihood
 agricultural-as-prim_income-ids_count,Count of unique income ids with agricultural as primary livelihood
 others-as-prim_income-ids_count,Count of unique income ids with othersl as primary livelihood
 labours-as-prim_income-ids_count,Count of unique income ids with labour as primary livelihood
