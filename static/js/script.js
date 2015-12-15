@@ -741,7 +741,7 @@
                  .offset([-10, 0])
                  .html(function(d, i) {
                  		console.log(d);
-                     return  Math.floor(d.counts * 100 / d.nb) + "% for this NGO<br>"+
+                     return  Math.floor(d.counts * 100 / d.nb) + "% for this Cp Site<br>"+
                      	id1+' : '+d.response+'<br>'+
                      	id2+' : '+d.variable+'<br>';
                  })
