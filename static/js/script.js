@@ -114,7 +114,7 @@
 
          function go() {
 
-
+         	var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
 
              isLogX = ($("#logX")[0].checked == true);
              isLogY = ($("#logY")[0].checked == true);
