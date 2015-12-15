@@ -74,6 +74,12 @@
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
 
+     		data.forEach(function(d, i) {
+                 nbVillage[0]+=1;
+                 nbVillage[d["cp_id"]]+=1;
+                
+                
+             });
      	
 
          //get all the keys
@@ -104,8 +110,7 @@
 
              }
              data.forEach(function(d, i) {
-                 nbVillage[0]+=1;
-                 nbVillage[d["cp_id"]]+=1;
+                
                  d[this.value] = +d[this.value];
                  d["cp_id"] = +d["cp_id"];
              });
@@ -114,7 +119,7 @@
 
          function go() {
 
-         	var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
+
 
              isLogX = ($("#logX")[0].checked == true);
              isLogY = ($("#logY")[0].checked == true);
