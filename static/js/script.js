@@ -310,7 +310,7 @@
                  var formatCount = d3.format(",.0f");
 
                  var margin = {
-                         top: 30,
+                         top: 10,
                          right: 30,
                          bottom: 30,
                          left: 50
@@ -626,7 +626,7 @@
                  drawGrid(cb, checkList, div, id);
 
                  var margin = {
-                         top: 20,
+                         top: 10,
                          right: 20,
                          bottom: 30,
                          left: 50
@@ -1066,7 +1066,7 @@
                  var formatCount = d3.format(",.0f");
 
                  var margin = {
-                         top: 30,
+                         top: 0,
                          right: 30,
                          bottom: 30,
                          left: 50
