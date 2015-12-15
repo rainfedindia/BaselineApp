@@ -706,7 +706,7 @@
                  svg[id].selectAll(".dot")
                      .data(data)
                      .enter().append("circle")
-                     .style('opacity',.4)
+                     .style('opacity',.6)
                      .attr("class", function(d, i) {
                          return "dot ngo" + d.ngo;
                      })
