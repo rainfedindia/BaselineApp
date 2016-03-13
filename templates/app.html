@@ -12,6 +12,7 @@
 
     <!-- select css -->
     <link rel="stylesheet" href="static/plugins/select2.min.css">
+    <link rel="stylesheet" href="static/plugins/sumoselect.css">
     <link rel="stylesheet" type="text/css" href="static/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="static/css/skeleton.css">
 
@@ -22,71 +23,88 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
+        <![endif]-->
+    </head>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="docs-section" style=>
-                <div class="twelve columns">
-                    <h4>Baseline App</h4>
-                    
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="docs-section" style=>
+                    <div class="twelve columns">
+                        <h4>Baseline App</h4>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+            <div class="row">
 
-            <div class="three columns">
+                <div class="three columns">
 
-                <b>X Axis :</b></br>
-                <select id="attributeOne" class="form-control select2" style="width: 80%;">
-                </select>
-            </div>
-            <div class="three columns">
-                <b>Y Axis :</b></br>
-                <select disabled="disabled" id="attributeTwo" class="form-control select2" style="width: 80%;">
-                </select>
-            </div>
-            <div class="three columns">
-                <b>Choose CP Sites :</b></br>
-                <b><input class="cb" checked="true" type="checkbox" id="cb0"> ALL</b>
-                <b><input class="cb" type="checkbox" id="cb1"/>Kutch  </b>
-                <b><input class="cb" type="checkbox" id="cb2"/>Dewas </b><br>
-                <b><input class="cb" type="checkbox" id="cb3"/>Burhanpur </b>
-                <b><input class="cb" type="checkbox" id="cb4" disabled="disabled"/>Mahbubnagar </b>
-                <b><input class="cb" type="checkbox" id="cb5"/>Malkangiri </b><br>
-                <b><input class="cb" type="checkbox" id="cb6"/>Palamu </b>
-                <b><input class="cb" type="checkbox" id="cb7"/>Bankura </b>
-            </div>
-            <div class="three columns">
-             <b>Graph Specification</b></br>
-                <input class="log"  type="checkbox" id="logX"/> Log on X axis</br>
-                <input class="log" type="checkbox" id="logY"/> Log on Y axis</br>
-                <input class="free" type="checkbox" id="free"/> Same scale</br>
-                
-            </div>
-        </div>
-            
+                    <b>X Axis :</b></br>
+                    <select id="attributeOne" class="form-control select2" style="width: 80%;">
+                    </select>
+                </div>
+                <div class="three columns">
+                    <b>Y Axis :</b></br>
+                    <select disabled="disabled" id="attributeTwo" class="form-control select2" style="width: 80%;">
+                    </select>
+                </div>
+                <!-- <div class="three columns">
+                    <b><input class="cb" checked="true" type="checkbox" id="cb0"> ALL</b>
+                    <b><input class="cb" type="checkbox" id="cb1"/>Kutch  </b>
+                    <b><input class="cb" type="checkbox" id="cb2"/>Dewas </b><br>
+                    <b><input class="cb" type="checkbox" id="cb3"/>Burhanpur </b>
+                    <b><input class="cb" type="checkbox" id="cb4" disabled="disabled"/>Mahbubnagar </b>
+                    <b><input class="cb" type="checkbox" id="cb5"/>Malkangiri </b><br>
+                    <b><input class="cb" type="checkbox" id="cb6"/>Palamu </b>
+                    <b><input class="cb" type="checkbox" id="cb7"/>Bankura </b>
+                </div> -->
+                <div class="three columns">
+                    <b>Choose CP Sites :</b></br>
+                    <select id="cpSelect" multiple="multiple">
+
+                        <option id="cb0" selected> All</option>
+                        <option id="cb1"/>Kutch  </option>
+                        <option id="cb2"/>Dewas </option>
+                        <option id="cb3"/>Burhanpur </option>
+                        <option id="cb4" disabled="disabled"/>Mahbubnagar </option>
+                        <option id="cb5"/>Malkangiri </option>
+                        <option id="cb6"/>Palamu </option>
+                        <option id="cb7"/>Bankura </option>
+                    </select>
+                </div>
+                <div class="three columns">
+                 <b>Graph Specification</b></br>
+                 <select id="specSelect" multiple="multiple">
+                    <input class="log"  type="checkbox" id="logX"/> Log on X axis</br>
+                 <input class="log" type="checkbox" id="logY"/> Log on Y axis</br>
+                 <input class="free" type="checkbox" id="free"/> Same scale</br>
+                        
+                    </select>
+                 
+
+             </div>
+         </div>
+
 
          <div id="mainTitle"  class="row" >
 
-         
+
          </div>
          <div id="histoSelector"  class="row" >
 
          </div>
-        
-        <div  class="row" id="viz">
-        </div>
-        <div  class="row" id="viz2">
-         </div>
-        <div  class="row" id="viz3">
-        
-        </div>
-        
 
-        <div class="row">
+         <div  class="row" id="viz">
+         </div>
+         <div  class="row" id="viz2">
+         </div>
+         <div  class="row" id="viz3">
+
+         </div>
+
+
+         <div class="row">
             <button>
                 <a href="static/data/dataV1.csv">
                     Download CSV
@@ -103,6 +121,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <script src="static/plugins/jQuery-2.1.4.min.js"></script>
+<script src="static/plugins/sumoselect.min.js"></script>
 <script src="static/plugins/d3.min.js"></script>
 <script src="static/plugins/select2.full.min.js"></script>
 <script src="static/plugins/d3Tip.js"></script>
