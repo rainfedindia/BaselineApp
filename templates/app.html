@@ -11,8 +11,9 @@
     <!-- Font Awesome -->
 
     <!-- select css -->
-    <link rel="stylesheet" href="static/plugins/select2.min.css">
+    
     <link rel="stylesheet" href="static/plugins/sumoselect.css">
+    <link rel="stylesheet" href="static/plugins/select2.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="static/css/skeleton.css">
 
@@ -27,26 +28,26 @@
     </head>
 
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="docs-section" style=>
-                    <div class="twelve columns">
-                        <h4>Baseline App</h4>
 
+         <div id="slider" class="slider">
+               <div class="row">
+                <div class="docs-section">
+                    <div class="twelve columns">
+                    <h4>Settings <button  class="button-primary" style="background-color: orange, border-color: orange" id="closeSlide">Close</button></h4>
                     </div>
-                </div>
+                    
             </div>
             <div class="row">
 
-                <div class="three columns">
+                <div class="twelve columns">
 
                     <b>X Axis :</b></br>
-                    <select id="attributeOne" class="form-control select2" style="width: 80%;">
+                    <select id="attributeOne" class="select2" style="width: 200px">
                     </select>
                 </div>
-                <div class="three columns">
+                <div class="twelve columns">
                     <b>Y Axis :</b></br>
-                    <select disabled="disabled" id="attributeTwo" class="form-control select2" style="width: 80%;">
+                    <select  id="attributeTwo" class="form-control select2" style="width: 200px">
                     </select>
                 </div>
                 <!-- <div class="three columns">
@@ -59,7 +60,7 @@
                     <b><input class="cb" type="checkbox" id="cb6"/>Palamu </b>
                     <b><input class="cb" type="checkbox" id="cb7"/>Bankura </b>
                 </div> -->
-                <div class="three columns">
+                <div class="twelve columns">
                     <b>Choose CP Sites :</b></br>
                     <select id="cpSelect" multiple="multiple">
 
@@ -73,38 +74,24 @@
                         <option id="cb7"/>Bankura </option>
                     </select>
                 </div>
-                <div class="three columns">
-                 <b>Graph Specification</b></br>
+                <div class="twelve columns">
+                 <b>Graph Specifications</b></br>
                  <select id="specSelect" multiple="multiple">
+                    <option class="log" id="logX">Log on X axis</option>
+                    <option class="log" id="logX">Log on Y axis</option>
+                    <option class="free" id="free">Same scale</option>
+                </select>
+
+                <!--
                     <input class="log"  type="checkbox" id="logX"/> Log on X axis</br>
-                 <input class="log" type="checkbox" id="logY"/> Log on Y axis</br>
-                 <input class="free" type="checkbox" id="free"/> Same scale</br>
-                        
-                    </select>
-                 
-
-             </div>
-         </div>
+                    <input class="log" type="checkbox" id="logY"/> Log on Y axis</br>
+                    <input class="free" type="checkbox" id="free"/> Same scale</br>
+                -->
 
 
-         <div id="mainTitle"  class="row" >
-
-
-         </div>
-         <div id="histoSelector"  class="row" >
-
-         </div>
-
-         <div  class="row" id="viz">
-         </div>
-         <div  class="row" id="viz2">
-         </div>
-         <div  class="row" id="viz3">
-
-         </div>
-
-
-         <div class="row">
+            </div>
+        </div>
+                       <div class="row" style="margin-top: 200px;">
             <button>
                 <a href="static/data/dataV1.csv">
                     Download CSV
@@ -115,6 +102,41 @@
             </button>
         </div>
 
+                </div>
+
+               </div>
+
+              <!-- <button>&times;</button> -->
+        </div>
+
+        <div class="container">
+                        <div class="row">
+                <div class="docs-section" style>
+                    <div class="twelve columns">
+                        <h2>Baseline App
+                        <button  class="button-primary" id="trigger">Settings</button>
+                        </h2>
+
+                    </div>
+                </div>
+
+        <div id="mainTitle"  class="row" >
+
+        </div>
+        <div id="histoSelector"  class="row" >
+
+        </div>
+
+        <div  class="row" id="viz">
+        </div>
+        <div  class="row" id="viz2">
+        </div>
+        <div  class="row" id="viz3">
+
+        </div>
+
+
+
     </div>
 
 </body>
@@ -124,8 +146,10 @@
 <script src="static/plugins/sumoselect.min.js"></script>
 <script src="static/plugins/d3.min.js"></script>
 <script src="static/plugins/select2.full.min.js"></script>
+
 <script src="static/plugins/d3Tip.js"></script>
 <script src="static/plugins/boxplot.js"></script>
+<script src="static/plugins/slidereveal.js"></script>
 <script src="static/js/script.js"></script>
 
 </body>
