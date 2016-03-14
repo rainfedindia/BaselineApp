@@ -100,6 +100,7 @@
 
          
         var cpS =  $('#cpSelect').SumoSelect();
+        var specS =  $('#specSelect').SumoSelect();
         
 
          $(".select2#attributeOne").on("change", function() {
@@ -109,6 +110,8 @@
              if (attribute1 != "none") {
                  $('#attributeTwo').select2('enable');
              } else {
+Log on Y axis
+
 
                  $('#attributeTwo').select2("enable", false);
 
@@ -124,11 +127,22 @@
          function go() {
 
 
+              
+            if($(specS).val())
+            {
 
-             isLogX = ($("#logX")[0].checked == true);
-             isLogY = ($("#logY")[0].checked == true);
-             isFree = ($("#free")[0].checked == true);
+              
+             isLogX = ($(specS).val().indexOf("Log on X axis") > 0);
+             isLogY = ($(specS).val().indexOf("Log on Y axis") > 0);
+             isFree = ($(specS).val().indexOf("Same scale") > 0);
 
+            }
+            else
+            {
+                isLogX = false;
+                isLogY = false;
+                isFree = false;
+            }
 
              if (attribute1 != 'none' && attribute2 == "none") {
               $("#mainTitle").html('<b>'+varName[attribute1]+'</b></br>');
@@ -153,9 +167,8 @@
          });
 
      $("#cpSelect").on('change', go);
-     $(".free").on('change', go);
-     $(".log").on('change', go);
-
+     $("#specSelect").on('change', go);
+     
      function visualizeOne(idAttribute) {
 
          var checkboxes = [];
