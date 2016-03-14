@@ -14,8 +14,8 @@
              //initialize Side Panel
 
         var slider = $("#slider").slideReveal({
-              width: "20%",
-              // push: false,
+              width: "250px",
+             push: false,
               position: "left",
               speed: 400,
               trigger: $("#trigger"),
@@ -79,6 +79,9 @@
      var isLogY = false;
      var isFree = true;
      var isBox = false;
+
+     
+
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
 
@@ -104,9 +107,14 @@
          $(".select2#attributeOne").html(options);
          $(".select2#attributeTwo").html(options);
 
+         // $(".select2").SumoSelect({search: true});
+         
+
          $(".select2").select2();
 
-
+        //  $(".select2").click(function(){
+        //     $($('.select2-container.select2-container--default.select2-container--open')[1]).css('left','-220px');
+        // });
 
 
          var cpS = $('#cpSelect').SumoSelect();
@@ -119,12 +127,13 @@
              attribute1 = $(this).children(":selected").attr("id");
 
              if (attribute1 != "none") {
-                 $('#attributeTwo').select2('enable');
+                 
+                 $('#attributeTwo').prop('disabled', false);
              } else {
 
 
 
-                 $('#attributeTwo').select2("enable", false);
+                 $('#attributeTwo').prop('disabled', 'disabled');
 
              }
              data.forEach(function(d, i) {
@@ -155,7 +164,7 @@
              }
 
              if (attribute1 != 'none' && attribute2 == "none") {
-                 $("#mainTitle").html('<b>' + varName[attribute1] + '</b></br>');
+                 $("#mainTitle").html('<b>' + varName[attribute1] + '</b>');
                  visualizeOne(attribute1);
 
              }
@@ -346,9 +355,15 @@
                          left: 50
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
-                 var height = (width / 1.8) - margin.top - margin.bottom;
-
-
+               if(width < 300)
+                     {
+                        height= 300;
+                     }
+                     else
+                     {
+                      var  height = (width / 2) - margin.top - margin.bottom;
+                        
+                     }
 
 
                  var x = d3.scale.linear()
@@ -658,8 +673,16 @@
                          bottom: 30,
                          left: 50
                      },
-                     width = $("#" + div).width() - margin.left - margin.right,
-                     height = (width / 1.8) - margin.top - margin.bottom;
+                     width = $("#" + div).width() - margin.left - margin.right;
+                     if(width < 300)
+                     {
+                        height= 300;
+                     }
+                     else
+                     {
+                       var height = (width / 2) - margin.top - margin.bottom;
+                        
+                     }
 
                  if (isLogX) {
                      var x = d3.scale.log()
@@ -761,7 +784,7 @@
          function marimekko(id1, id2, data, cb) {
 
 
-             $("#mainTitle").html('<b>' + varName[attribute1] + ' (on X axis) VS ' + varName[attribute2] + '(on Y axis)</b></br>');
+             $("#mainTitle").html('<b>' + varName[attribute1] + ' (on X axis) VS ' + varName[attribute2] + '(on Y axis)</b>');
 
              var mariTip = d3.tip()
                  .attr('class', 'd3-tip')
@@ -871,8 +894,16 @@
                          bottom: 50,
                          left: 50
                      },
-                     width = $("#" + div).width() - margin.left - margin.right,
-                     height = (width / 1.8) - margin.top - margin.bottom;
+                     width = $("#" + div).width() - margin.left - margin.right;
+                    if(width < 300)
+                     {
+                        height= 300;
+                     }
+                     else
+                     {
+                       var height = (width / 2) - margin.top - margin.bottom;
+                        
+                     }
 
 
                  var x = d3.scale.linear()
@@ -983,7 +1014,7 @@
          } //End Marimeko
 
          function doubleHistogram(id1, id2, data, cb) {
-             $("#mainTitle").html('<b>' + varName[id1] + ' (on X axis) VS ' + varName[id2] + '(Yes in Green,  No in Red)</b></br>');
+             $("#mainTitle").html('<b>' + varName[id1] + ' (on X axis) VS ' + varName[id2] + '(Yes in Green,  No in Red)</b>');
              isBox = false;
              var dataBak = data;
              clear();
@@ -1093,8 +1124,15 @@
                          left: 50
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
-                 var height = (width / 1.8) - margin.top - margin.bottom;
-
+                if(width < 300)
+                     {
+                        height= 300;
+                     }
+                     else
+                     {
+                        var height = (width / 2) - margin.top - margin.bottom;
+                        
+                     }
 
                  var x = d3.scale.linear()
                      .domain([0, d3.max([d3.max(dataHisto1), d3.max(dataHisto2)])])
@@ -1242,7 +1280,7 @@
          } //End DoubleHisto
 
          function boxplot(id1, id2, data, cb) {
-             $("#mainTitle").html('<b>' + varName[id1] + ' (on X axis) VS ' + varName[id2] + '(Yes : Right,  No : Left)</b></br>');
+             $("#mainTitle").html('<b>' + varName[id1] + ' (on X axis) VS ' + varName[id2] + '(Yes : Right,  No : Left)</b>');
              isBox = true;
              var dataBak = data;
              clear();
@@ -1401,7 +1439,7 @@
              }
          }
 
-         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( " + nbVillage[ck[id - 1]] + " observations)</b></br>")
+         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( " + nbVillage[ck[id - 1]] + " observations)</b>")
      }
 
  });
