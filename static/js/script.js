@@ -117,8 +117,10 @@
         // });
 
 
-         var cpS = $('#cpSelect').SumoSelect();
-         var specS = $('#specSelect').SumoSelect();
+         // var cpS = $('#cpSelect').SumoSelect();
+         var cpS = $('#cpSelect2').selectize({ allowEmptyOption: false,create: false});
+         var specS = $('#specSelect').selectize({ allowEmptyOption: false,create: false});
+         // var specS = $('#specSelect').SumoSelect();
 
 
 
@@ -153,9 +155,9 @@
              if ($(specS).val()) {
 
 
-                 isLogX = ($(specS).val().indexOf("Log on X axis") > 0);
-                 isLogY = ($(specS).val().indexOf("Log on Y axis") > 0);
-                 isFree = ($(specS).val().indexOf("Same scale") > 0);
+                 isLogX = ($(specS).val().indexOf("logX") > 0);
+                 isLogY = ($(specS).val().indexOf("logY") > 0);
+                 isFree = ($(specS).val().indexOf("free") > 0);
 
              } else {
                  isLogX = false;
@@ -194,8 +196,8 @@
 
              for (a in $(cpS).val()) {
 
-
-                 checkboxes.push(ngoNames.indexOf($(cpS).val()[a]));
+                
+                 checkboxes.push(a);
              }
 
 
@@ -223,7 +225,7 @@
              for (a in $(cpS).val()) {
 
 
-                 checkboxes.push(ngoNames.indexOf($(cpS).val()[a]));
+                 checkboxes.push(a);
              }
 
 
