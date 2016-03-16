@@ -25,6 +25,7 @@
 
          slider.slideReveal("show");
          $('#closeSlide').click(function(){slider.slideReveal("hide");});
+          $('#openSlide').click(function(){slider.slideReveal("show");});
 
      var ngoNames = ["All", "Kutch", "Dewas", "Burhanpur", "Mahbubnagar", "Malkangiri", "Palamu", "Bankura"]
      var varName = [];
