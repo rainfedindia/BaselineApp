@@ -36,6 +36,8 @@
 
      var varName = [];
      var indexVar = [];
+     
+
      d3.csv('static/data/variable_description.csv', function(e, dataVar) {
          dataVar.forEach(function(d, i) {
              varName[d.Name] = d.Variable
@@ -58,6 +60,7 @@
 
 
 
+
      //when histo : ?
      var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
          'propotion_sc', 'propotion_st', 'caste_domination_idx', 'amenities_0-5kms_no',
@@ -68,7 +71,20 @@
          'f_entre_no', 'gls_primary-school_propotion', 'gls_middle-school_propotion', 'brides_<15yrs_propotion',
          'social-ids_oc_no', 'social-ids_obc_no', 'social-ids_sc_no', 'social-ids_st_no',
          'agricultural-as-prim_propotion', 'others-as-prim_propotion', 'labours-as-prim_propotion', 'livestock-as-prim_propotion', 'resource_based-others-as-prim_propotion', 'trade/biz-as-prim_propotion', 'diversification_index',
-         'agricultural-as-prim_income-ids_count', 'others-as-prim_income-ids_count', 'labours-as-prim_income-ids_count', 'livestock-as-prim_income-ids_count', 'resource_based-others-as-prim_income-ids_count', 'trade/biz-as-prim_income-ids_count'
+         'agricultural-as-prim_income-ids_count', 'others-as-prim_income-ids_count', 'labours-as-prim_income-ids_count', 'livestock-as-prim_income-ids_count', 'resource_based-others-as-prim_income-ids_count', 'trade/biz-as-prim_income-ids_count',
+
+
+"general/land_unit_code",
+"land_unit/lu_size",
+"land_unit/lu_hh_own",
+"irri_ar_yn",
+"crop_last25_no",
+"wild_threat_no",
+"crop_damage/damage_cause/resow_no",
+"grazing_incidence/grazing_num_hh/loc_sm_num_hh",
+"grazing_incidence/grazing_num_hh/loc_la_num_hh",
+"grazing_incidence/grazing_num_anim/loc_sm_num_anim",
+"grazing_incidence/grazing_num_anim/loc_la_num_anim",
 
 
      ];
@@ -91,11 +107,40 @@
      var isFree = true;
      var isBox = false;
 
+         $("#dataset").selectize({
+             allowEmptyOption: false,
+             create: false
+         });
+
+         $("#dataset").change(function(){
+            clear();
+        
+                     var attribute1 = 'none';
+         var attribute2 = 'none';
+            draw(this.value);
+
+
+
+         });
+
+         var a1 =  $("#attributeOne").selectize({
+             allowEmptyOption: false,
+             create: false
+         })[0];
+         var a2 = $("#attributeTwo").selectize({
+             allowEmptyOption: false,
+             create: false
+         })[0];
+
+     draw("village")
+
+     function draw(dataset)
+     {
 
 
      //Initialize Select2 Elements
-     d3.csv('static/data/dataV1.csv', function(e, data) {
-
+     d3.csv('static/data/'+dataset+'.csv', function(e, data) {
+        
          data.forEach(function(d, i) {
              nbVillage[0] += 1;
              nbVillage[d["cp_id"]] += 1;
@@ -106,25 +151,37 @@
 
          //get all the keys
          var keys = data[0];
+
          var attribute1 = 'none';
          var attribute2 = 'none';
-         var options = '<option value="none" selected id="none">none</option>';
+         var options = [{value:"none",text:"none"}];
          for (a in keys) {
              if (a != 'general.village' && a != 'cp_id') {
-                 options += '<option value="' + a + '" id="' + a + '"">' + varName[a] + '</option>';
+                 options.push({value:a,text:varName[a]});
              }
 
          }
-         $(".select2#attributeOne").html(options);
-         $(".select2#attributeTwo").html(options);
+
+
+
+            a1.selectize.clear();
+            a1.selectize.clearOptions();
+            a1.selectize.load(function(callback) {
+                callback(options);
+            });
+            a2.selectize.clear();
+            a2.selectize.clearOptions();
+            a2.selectize.load(function(callback) {
+                callback(options);
+            });
+
+         $("#attributeOne").html(options);
+         $("#attributeTwo").html(options);
 
          // $(".select2").SumoSelect({search: true});
 
 
-         $(".select2").selectize({
-             allowEmptyOption: false,
-             create: false
-         });
+        
 
          //  $(".select2").click(function(){
          //     $($('.select2-container.select2-container--default.select2-container--open')[1]).css('left','-220px');
@@ -221,10 +278,10 @@
              }
 
 
-
-
+             
              clear();
              if ($.inArray(idAttribute, histograms) >= 0) {
+                
 
                  histogram(idAttribute, data, checkboxes);
              }
@@ -1412,7 +1469,7 @@
          }
 
      }); // End csv
-
+    }//end draw
      function clear() {
          $("#histoSelector").html('');
          $("#viz").html('');
