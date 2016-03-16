@@ -97,10 +97,10 @@
          var keys = data[0];
          var attribute1 = 'none';
          var attribute2 = 'none';
-         var options = '<option id="none">none</option>';
+         var options = '<option value="none" selected id="none">none</option>';
          for (a in keys) {
              if (a != 'general.village' && a != 'cp_id') {
-                 options += '<option id="' + a + '"">' + varName[a] + '</option>';
+                 options += '<option value="'+ a +'" id="' + a + '"">' + varName[a] + '</option>';
              }
 
          }
@@ -110,7 +110,7 @@
          // $(".select2").SumoSelect({search: true});
          
 
-         $(".select2").select2();
+         $(".select2").selectize({ allowEmptyOption: false,create: false});
 
         //  $(".select2").click(function(){
         //     $($('.select2-container.select2-container--default.select2-container--open')[1]).css('left','-220px');
@@ -126,8 +126,8 @@
 
          $(".select2#attributeOne").on("change", function() {
              //from string to numeric
-             attribute1 = $(this).children(":selected").attr("id");
-
+             attribute1 = this.value;
+             
              if (attribute1 != "none") {
                  
                  $('#attributeTwo').prop('disabled', false);
@@ -180,14 +180,14 @@
 
          $(".select2#attributeTwo").on("change", function() {
              //from string to numeric
-             attribute2 = $(this).children(":selected").attr("id");
+             attribute2 = this.value;
              data.forEach(function(d, i) {
                  d[this.value] = +d[this.value];
              });
              go();
          });
 
-         $("#cpSelect").on('change', go);
+         $("#cpSelect2").on('change', go);
          $("#specSelect").on('change', go);
 
          function visualizeOne(idAttribute) {
@@ -197,7 +197,7 @@
              for (a in $(cpS).val()) {
 
                 
-                 checkboxes.push(a);
+                 checkboxes.push($(cpS).val()[a]);
              }
 
 
@@ -225,7 +225,7 @@
              for (a in $(cpS).val()) {
 
 
-                 checkboxes.push(a);
+                 checkboxes.push($(cpS).val()[a])
              }
 
 
