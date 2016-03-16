@@ -11,23 +11,29 @@
     });
     */
 
-             //initialize Side Panel
+     //initialize Side Panel
 
-        var slider = $("#slider").slideReveal({
-              width: "250px",
-             push: false,
-              position: "left",
-              speed: 400,
-              trigger: $("#trigger"),
-              // autoEscape: false,
-             
-        });
+     var slider = $("#slider").slideReveal({
+         width: "250px",
+         push: false,
+         position: "left",
+         speed: 400,
+         trigger: $("#trigger"),
+         // autoEscape: false,
 
+     });
+
+     slider.slideReveal("show");
+     $('#closeSlide').click(function() {
+         slider.slideReveal("hide");
+     });
+     $('#openSlide').click(function() {
          slider.slideReveal("show");
-         $('#closeSlide').click(function(){slider.slideReveal("hide");});
-          $('#openSlide').click(function(){slider.slideReveal("show");});
+     });
 
      var ngoNames = ["All", "Kutch", "Dewas", "Burhanpur", "Mahbubnagar", "Malkangiri", "Palamu", "Bankura"]
+
+
      var varName = [];
      var indexVar = [];
      d3.csv('static/data/variable_description.csv', function(e, dataVar) {
@@ -49,6 +55,8 @@
 
 
      var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
+
+
 
      //when histo : ?
      var histograms = ["total_hh", 'propotion_oc', 'propotion_obc',
@@ -76,12 +84,14 @@
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
          'drnkwtr_present_y/n', 'mblrcep_present_y/n'
      ]
+
+
      var isLogX = false;
      var isLogY = false;
      var isFree = true;
      var isBox = false;
 
-     
+
 
      //Initialize Select2 Elements
      d3.csv('static/data/dataV1.csv', function(e, data) {
@@ -101,7 +111,7 @@
          var options = '<option value="none" selected id="none">none</option>';
          for (a in keys) {
              if (a != 'general.village' && a != 'cp_id') {
-                 options += '<option value="'+ a +'" id="' + a + '"">' + varName[a] + '</option>';
+                 options += '<option value="' + a + '" id="' + a + '"">' + varName[a] + '</option>';
              }
 
          }
@@ -109,18 +119,27 @@
          $(".select2#attributeTwo").html(options);
 
          // $(".select2").SumoSelect({search: true});
-         
 
-         $(".select2").selectize({ allowEmptyOption: false,create: false});
 
-        //  $(".select2").click(function(){
-        //     $($('.select2-container.select2-container--default.select2-container--open')[1]).css('left','-220px');
-        // });
+         $(".select2").selectize({
+             allowEmptyOption: false,
+             create: false
+         });
+
+         //  $(".select2").click(function(){
+         //     $($('.select2-container.select2-container--default.select2-container--open')[1]).css('left','-220px');
+         // });
 
 
          // var cpS = $('#cpSelect').SumoSelect();
-         var cpS = $('#cpSelect2').selectize({ allowEmptyOption: false,create: false});
-         var specS = $('#specSelect').selectize({ allowEmptyOption: false,create: false});
+         var cpS = $('#cpSelect2').selectize({
+             allowEmptyOption: false,
+             create: false
+         });
+         var specS = $('#specSelect').selectize({
+             allowEmptyOption: false,
+             create: false
+         });
          // var specS = $('#specSelect').SumoSelect();
 
 
@@ -128,9 +147,9 @@
          $(".select2#attributeOne").on("change", function() {
              //from string to numeric
              attribute1 = this.value;
-             
+
              if (attribute1 != "none") {
-                 
+
                  $('#attributeTwo').prop('disabled', false);
              } else {
 
@@ -197,7 +216,7 @@
 
              for (a in $(cpS).val()) {
 
-                
+
                  checkboxes.push($(cpS).val()[a]);
              }
 
@@ -358,15 +377,12 @@
                          left: 50
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
-               if(width < 300)
-                     {
-                        height= 300;
-                     }
-                     else
-                     {
-                      var  height = (width / 2) - margin.top - margin.bottom;
-                        
-                     }
+                 if (width < 300) {
+                     height = 300;
+                 } else {
+                     var height = (width / 2) - margin.top - margin.bottom;
+
+                 }
 
 
                  var x = d3.scale.linear()
@@ -677,15 +693,12 @@
                          left: 50
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
-                     if(width < 300)
-                     {
-                        height= 300;
-                     }
-                     else
-                     {
-                       var height = (width / 2) - margin.top - margin.bottom;
-                        
-                     }
+                 if (width < 300) {
+                     height = 300;
+                 } else {
+                     var height = (width / 2) - margin.top - margin.bottom;
+
+                 }
 
                  if (isLogX) {
                      var x = d3.scale.log()
@@ -898,15 +911,12 @@
                          left: 50
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
-                    if(width < 300)
-                     {
-                        height= 300;
-                     }
-                     else
-                     {
-                       var height = (width / 2) - margin.top - margin.bottom;
-                        
-                     }
+                 if (width < 300) {
+                     height = 300;
+                 } else {
+                     var height = (width / 2) - margin.top - margin.bottom;
+
+                 }
 
 
                  var x = d3.scale.linear()
@@ -1127,15 +1137,12 @@
                          left: 50
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
-                if(width < 300)
-                     {
-                        height= 300;
-                     }
-                     else
-                     {
-                        var height = (width / 2) - margin.top - margin.bottom;
-                        
-                     }
+                 if (width < 300) {
+                     height = 300;
+                 } else {
+                     var height = (width / 2) - margin.top - margin.bottom;
+
+                 }
 
                  var x = d3.scale.linear()
                      .domain([0, d3.max([d3.max(dataHisto1), d3.max(dataHisto2)])])
