@@ -56,3 +56,15 @@ livestock-as-prim_income-ids_count,Count of unique income ids with livestock as 
 resource_based-others-as-prim_income-ids_count,Count of unique income ids with resource based products as primary livelihood
 trade/biz-as-prim_income-ids_count,Count of unique income ids with trade/biz as primary livelihood
 diversification_index,Measure of diversification index. 
+
+general/land_unit_code,general/land_unit_code
+land_unit/lu_size,land_unit/lu_size
+land_unit/lu_hh_own,land_unit/lu_hh_own
+irri_ar_yn,irri_ar_yn
+crop_last25_no,crop_last25_no
+wild_threat_no,wild_threat_no
+crop_damage/damage_cause/resow_no,crop_damage/damage_cause/resow_no
+grazing_incidence/grazing_num_hh/loc_sm_num_hh,grazing_incidence/grazing_num_hh/loc_sm_num_hh
+grazing_incidence/grazing_num_hh/loc_la_num_hh,grazing_incidence/grazing_num_hh/loc_la_num_hh
+grazing_incidence/grazing_num_anim/loc_sm_num_anim,grazing_incidence/grazing_num_anim/loc_sm_num_anim
+grazing_incidence/grazing_num_anim/loc_la_num_anim,grazing_incidence/grazing_num_anim/loc_la_num_anim
