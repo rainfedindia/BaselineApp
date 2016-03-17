@@ -77,7 +77,7 @@
 "general/land_unit_code",
 "land_unit/lu_size",
 "land_unit/lu_hh_own",
-"irri_ar_yn",
+
 "crop_last25_no",
 "wild_threat_no",
 "crop_damage/damage_cause/resow_no",
@@ -85,6 +85,32 @@
 "grazing_incidence/grazing_num_hh/loc_la_num_hh",
 "grazing_incidence/grazing_num_anim/loc_sm_num_anim",
 "grazing_incidence/grazing_num_anim/loc_la_num_anim",
+
+
+"land_unit/lu_size",
+"manage_resp/manage_rev",
+"manage_resp/manage_forest",
+"manage_resp/manage_irr",
+"manage_resp/manage_coop",
+"manage_resp/manage_comanage",
+"manage_resp/manage_commbased",
+"manage_resp/manage_panch",
+"manage_resp/manage_indv",
+"selfcons_uses_no",
+"sale_uses_no",
+"use_patterns/improve_act/area_tot",
+"grazing_incidence/grazing_number/loc_sm_num",
+"grazing_incidence/grazing_number/loc_la_num",
+
+"general/water_source_code",
+"water_source/ws_size",
+"water_source/ws_month_avlbl",
+"selfcons_uses_no",
+"sale_uses_no",
+"fish_trend_species_no",
+"lstock_drink_incidence/lstock_drink_number/loc_sm_num",
+"lstock_drink_incidence/lstock_drink_number/loc_la_num"
+
 
 
      ];
@@ -98,7 +124,7 @@
 
      ];
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
-         'drnkwtr_present_y/n', 'mblrcep_present_y/n'
+         'drnkwtr_present_y/n', 'mblrcep_present_y/n',"irri_ar_yn",
      ]
 
 
@@ -112,16 +138,7 @@
              create: false
          });
 
-         $("#dataset").change(function(){
-            clear();
-        
-                     var attribute1 = 'none';
-         var attribute2 = 'none';
-            draw(this.value);
-
-
-
-         });
+    
 
          var a1 =  $("#attributeOne").selectize({
              allowEmptyOption: false,
@@ -138,6 +155,23 @@
      {
 
 
+             $("#dataset").change(function(){
+            clear();
+
+            draw(this.value);
+
+
+
+         });
+        var isLogX = false;
+     var isLogY = false;
+     var isFree = true;
+     var isBox = false;
+
+            var attribute1 = 'none';
+         var attribute2 = 'none';
+        var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
+        var data = [];
      //Initialize Select2 Elements
      d3.csv('static/data/'+dataset+'.csv', function(e, data) {
         
@@ -156,7 +190,7 @@
          var attribute2 = 'none';
          var options = [{value:"none",text:"none"}];
          for (a in keys) {
-             if (a != 'general.village' && a != 'cp_id') {
+             if (a != 'general.village' && a!="general/village_id" && a != 'cp_id') {
                  options.push({value:a,text:varName[a]});
              }
 
@@ -1125,6 +1159,7 @@
                  } else {
 
                      if (+d[id1] != 0) {
+
                          dataHisto[+d[id2]][0].push(+d[id1]);
                          nbVillage[0] += 1;
                          nbVillage[d['cp_id']] += 1;
@@ -1351,7 +1386,7 @@
              isBox = true;
              var dataBak = data;
              clear();
-             $("#histoSelector").append("</br><button id='switch'>Switch to Stacked Bar Histogram</button>")
+             $("#histoSelector").append("</br><button id='switch'>Switch to Stacked Bar</button>")
              $("#switch").on('click', function() {
                  doubleHistogram(id1, id2, dataBak, cb);
              });
