@@ -15,7 +15,7 @@
 
      var slider = $("#slider").slideReveal({
          width: "250px",
-         push: true,
+         push: false,
          position: "left",
          speed: 400,
          trigger: $("#trigger"),
@@ -90,14 +90,6 @@
 
 
 "land_unit/lu_size",
-"manage_resp/manage_rev",
-"manage_resp/manage_forest",
-"manage_resp/manage_irr",
-"manage_resp/manage_coop",
-"manage_resp/manage_comanage",
-"manage_resp/manage_commbased",
-"manage_resp/manage_panch",
-"manage_resp/manage_indv",
 "selfcons_uses_no",
 "sale_uses_no",
 "use_patterns/improve_act/area_tot",
@@ -127,6 +119,14 @@
      ];
      var yesNo = ['road_present_y/n', 'angw_present_y/n', 'elec_present_y/n', 'pds_present_y/n',
          'drnkwtr_present_y/n', 'mblrcep_present_y/n',"irri_ar_yn",
+"manage_resp/manage_rev",
+"manage_resp/manage_forest",
+"manage_resp/manage_irr",
+"manage_resp/manage_coop",
+"manage_resp/manage_comanage",
+"manage_resp/manage_commbased",
+"manage_resp/manage_panch",
+"manage_resp/manage_indv"
      ]
 
 
@@ -151,6 +151,7 @@
              create: false
          })[0];
 
+    var begin = true;
      draw("village")
 
      function draw(dataset)
@@ -184,7 +185,7 @@
 
          });
 
-         console.log(nbVillage)
+         
          //get all the keys
          var keys = data[0];
 
@@ -235,6 +236,8 @@
          });
          // var specS = $('#specSelect').SumoSelect();
 
+         if(begin)
+         {
 
 
          $(".select2#attributeOne").on("change", function() {
@@ -243,12 +246,12 @@
 
              if (attribute1 != "none") {
 
-                 $('#attributeTwo').prop('disabled', false);
+                 
              } else {
 
 
 
-                 $('#attributeTwo').prop('disabled', 'disabled');
+                 
 
              }
              data.forEach(function(d, i) {
@@ -259,10 +262,23 @@
 
              go();
          });
+            $(".select2#attributeTwo").on("change", function() {
+             //from string to numeric
+             attribute2 = this.value;
+             data.forEach(function(d, i) {
+                 d[this.value] = +d[this.value];
+             });
+             go();
+         });
+
+         $("#cpSelect2").on('change', go);
+         $("#specSelect").on('change', go);
+        begin=false;
+         }
 
          function go() {
 
-
+            console.log('A1 : '+ attribute1+"\n A2 : "+attribute2)
 
 
              if ($(specS).val()) {
@@ -278,30 +294,21 @@
                  isFree = false;
              }
 
-             if (attribute1 != 'none' && attribute2 == "none") {
+             if (attribute1 != 'none' && attribute2 == "none" ||  attribute1 != 'none' && attribute2 == "" ) {
+                console.log("HEY")
                  $("#mainTitle").html('<b>' + varName[attribute1] + '</b>');
                  visualizeOne(attribute1);
 
              }
-             if (attribute1 != 'none' && attribute2 != "none") {
+             if (attribute1 != 'none' && attribute2 != "none" && attribute2 != "" && attribute1 != ""    ) {
 
 
                  visualizeOneVsOne(attribute1, attribute2);
 
              }
          }
-
-         $(".select2#attributeTwo").on("change", function() {
-             //from string to numeric
-             attribute2 = this.value;
-             data.forEach(function(d, i) {
-                 d[this.value] = +d[this.value];
-             });
-             go();
-         });
-
-         $("#cpSelect2").on('change', go);
-         $("#specSelect").on('change', go);
+       
+     
 
          function visualizeOne(idAttribute) {
 
@@ -466,7 +473,7 @@
                  var margin = {
                          top: 10,
                          right: 20,
-                         bottom: 20,
+                         bottom: 30,
                          left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
@@ -575,6 +582,7 @@
                          return "translate(" + x(d.x) + "," + y(d.y) + ")";
                      });
 
+                 console.log(data);
                  bar.append("rect")
                      .attr("x", 2)
                      .attr("width", x(data[0].dx) - 2)
@@ -782,7 +790,7 @@
                  var margin = {
                                top: 10,
                          right: 20,
-                         bottom: 20,
+                         bottom: 30,
                          left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
@@ -1000,7 +1008,7 @@
                  var margin = {
                             top: 10,
                          right: 20,
-                         bottom: 20,
+                         bottom: 30,
                          left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
@@ -1227,7 +1235,7 @@
                  var margin = {
                          top: 10,
                          right: 20,
-                         bottom: 20,
+                         bottom: 30,
                          left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
@@ -1427,7 +1435,7 @@
                  var margin = {
                          top: 10,
                          right: 20,
-                         bottom: 20,
+                         bottom: 30,
                          left: 40
                      },
                      width = $("#" + div).width() / 2.5 - margin.left - margin.right;
@@ -1506,6 +1514,7 @@
          }
 
      }); // End csv
+    
     }//end draw
      function clear() {
          $("#histoSelector").html('');
