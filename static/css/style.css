@@ -51,6 +51,10 @@ fill:orange;
 {
 	width: 200px;
 }
+#switch
+{
+  width: 200px;
+}
 .arc path {
   stroke: #fff;
 }
@@ -160,3 +164,21 @@ fill:orange;
         box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3) ;
       }
     
+
+.selectize-control, .select2, .selectize-input
+{
+  font-size: 10px;
+}
+.selectize-input
+{
+  padding: 0px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+}
+
+.selectize-input input
+{
+  height: 20px;
+}
