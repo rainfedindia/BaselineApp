@@ -15,7 +15,7 @@
 
      var slider = $("#slider").slideReveal({
          width: "250px",
-         push: false,
+         push: true,
          position: "left",
          speed: 400,
          trigger: $("#trigger"),
@@ -25,9 +25,11 @@
 
      slider.slideReveal("show");
      $('#closeSlide').click(function() {
+        $('#openSlide').css("color","green");
          slider.slideReveal("hide");
      });
      $('#openSlide').click(function() {
+        $('#openSlide').css("color","white");
          slider.slideReveal("show");
      });
 
