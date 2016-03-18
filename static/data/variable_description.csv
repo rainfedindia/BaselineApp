@@ -57,14 +57,42 @@ resource_based-others-as-prim_income-ids_count,Count of unique income ids with r
 trade/biz-as-prim_income-ids_count,Count of unique income ids with trade/biz as primary livelihood
 diversification_index,Measure of diversification index. 
 
-general/land_unit_code,general/land_unit_code
-land_unit/lu_size,land_unit/lu_size
-land_unit/lu_hh_own,land_unit/lu_hh_own
-irri_ar_yn,irri_ar_yn
-crop_last25_no,crop_last25_no
-wild_threat_no,wild_threat_no
-crop_damage/damage_cause/resow_no,crop_damage/damage_cause/resow_no
-grazing_incidence/grazing_num_hh/loc_sm_num_hh,grazing_incidence/grazing_num_hh/loc_sm_num_hh
-grazing_incidence/grazing_num_hh/loc_la_num_hh,grazing_incidence/grazing_num_hh/loc_la_num_hh
-grazing_incidence/grazing_num_anim/loc_sm_num_anim,grazing_incidence/grazing_num_anim/loc_sm_num_anim
-grazing_incidence/grazing_num_anim/loc_la_num_anim,grazing_incidence/grazing_num_anim/loc_la_num_anim
+land_unit/lu_size,and Unit Size (hectares)
+land_unit/lu_hh_own,	Number of households that own land in this unit
+irri_ar_yn,	Irrigated land area- "1" if Yes and "0" if No
+crop_last25_no,	Number of crops grown in the last 25 years
+wild_threat_no,	Number of species as wildlife threat
+crop_damage/damage_cause/resow_no,	Number of crops Re- sowed
+grazing_incidence/grazing_num_hh/loc_sm_num_hh,	Number of households where small ruminants (local) have grazed
+grazing_incidence/grazing_num_hh/loc_la_num_hh,	Number of households where large ruminants (local) have grazed
+grazing_incidence/grazing_num_anim/loc_sm_num_anim,	Number of small ruminants (local) that have grazed in this unit
+grazing_incidence/grazing_num_anim/loc_la_num_anim,	Number of large ruminants (local) that have grazed in this unit
+
+general/land_unit_code,Land Unit Code
+
+
+land_unit/lu_size,	Land Unit Size (hectares)
+manage_resp/manage_rev, If revenue department has management responsibilty then "1", else "0".
+manage_resp/manage_forest,	If forest department has management responsibilty then "1", else "0".
+manage_resp/manage_irr,	If irrigation department has management responsibilty then "1", else "0".
+manage_resp/manage_coop, If cooperation department has management responsibilty then "1", else "0".
+manage_resp/manage_comanage, If co-management organization has management responsibilty then "1", else "0".
+manage_resp/manage_commbased, If commuinty based organization has management responsibilty then "1", else "0".
+manage_resp/manage_panch, If panchayat has management responsibilty then "1", else "0".
+manage_resp/manage_indv, If an individual has management responsibilty then "1", else "0".
+selfcons_uses_no,Number of uses households are using for self cosumption
+sale_uses_no,Number of uses households are using for sale in local markets
+use_patterns/improve_act/area_tot,Total number of land (in hectares) that are involved in any sort of improvement activity
+grazing_incidence/grazing_number/loc_sm_num, Number of small ruminants (local) that have grazed in this unit
+grazing_incidence/grazing_number/loc_la_num, Number of large ruminants (local) that have grazed in this unit
+
+
+general/water_source_code,Water Source Code
+water_source/ws_size,Size of the Commons (in hectares)
+water_source/ws_month_avlbl,Number of months the water body have surface water
+selfcons_uses_no,Number of uses the households are using it self consumption
+sale_uses_no,Number of uses the households are using it sale in local market
+fish_trend_species_no,Number of species present in the water body
+lstock_drink_incidence/lstock_drink_number/loc_sm_num,Number of small ruminants (local) using the common for drinking
+lstock_drink_incidence/lstock_drink_number/loc_la_num,Number of large ruminants (local) using the common for drinking
+
