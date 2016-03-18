@@ -471,7 +471,7 @@
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 200;
+                     height = $("body").height()*.3;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -787,7 +787,7 @@
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 200;
+                     height = $("body").height()*.3;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -1005,7 +1005,7 @@
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 200;
+                     height = $("body").height()*.3;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -1232,7 +1232,7 @@
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 200;
+                     height = $("body").height()*.3;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
