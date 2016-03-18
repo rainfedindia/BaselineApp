@@ -165,15 +165,15 @@
 
 
          });
-        var isLogX = false;
-     var isLogY = false;
-     var isFree = true;
-     var isBox = false;
+        isLogX = false;
+      isLogY = false;
+      isFree = true;
+      isBox = false;
 
-            var attribute1 = 'none';
-         var attribute2 = 'none';
-        var nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
-        var data = [];
+      attribute1 = 'none';
+      attribute2 = 'none';
+         nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
+      data = [];
      //Initialize Select2 Elements
      d3.csv('static/data/'+dataset+'.csv', function(e, data) {
         
@@ -184,7 +184,7 @@
 
          });
 
-
+         console.log(nbVillage)
          //get all the keys
          var keys = data[0];
 
@@ -465,13 +465,13 @@
 
                  var margin = {
                          top: 10,
-                         right: 30,
-                         bottom: 30,
-                         left: 50
+                         right: 20,
+                         bottom: 20,
+                         left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 300;
+                     height = 200;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -780,14 +780,14 @@
                  drawGrid(cb, checkList, div, id);
 
                  var margin = {
-                         top: 10,
+                               top: 10,
                          right: 20,
-                         bottom: 30,
-                         left: 50
+                         bottom: 20,
+                         left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 300;
+                     height = 200;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -998,14 +998,14 @@
 
 
                  var margin = {
-                         top: 20,
+                            top: 10,
                          right: 20,
-                         bottom: 50,
-                         left: 50
+                         bottom: 20,
+                         left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 300;
+                     height = 200;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -1225,14 +1225,14 @@
                  var formatCount = d3.format(",.0f");
 
                  var margin = {
-                         top: 0,
-                         right: 30,
-                         bottom: 30,
-                         left: 50
+                         top: 10,
+                         right: 20,
+                         bottom: 20,
+                         left: 40
                      },
                      width = $("#" + div).width() - margin.left - margin.right;
                  if (width < 300) {
-                     height = 300;
+                     height = 200;
                  } else {
                      var height = (width / 2) - margin.top - margin.bottom;
 
@@ -1425,10 +1425,10 @@
                  drawGrid(cb, checkList, div, id);
 
                  var margin = {
-                         top: 30,
-                         right: 50,
+                         top: 10,
+                         right: 20,
                          bottom: 20,
-                         left: 50
+                         left: 40
                      },
                      width = $("#" + div).width() / 2.5 - margin.left - margin.right;
                  var height = 300 - margin.top - margin.bottom;
@@ -1542,8 +1542,8 @@
 
              }
          }
-
-         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( " + nbVillage[ck[id - 1]] + " observations)</b>")
+         console.log(nbVillage);
+         $("#" + div).append("<b>" + ngoNames[ck[id - 1]] + " ( " + nbVillage[ck[id - 1]] + " obs)</b>")
      }
 
  });
