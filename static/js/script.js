@@ -158,14 +158,6 @@
      {
 
 
-             $("#dataset").change(function(){
-            clear();
-
-            draw(this.value);
-
-
-
-         });
         isLogX = false;
       isLogY = false;
       isFree = true;
@@ -176,8 +168,8 @@
          nbVillage = [0, 0, 0, 0, 0, 0, 0, 0];
       data = [];
      //Initialize Select2 Elements
-     d3.csv('static/data/'+dataset+'.csv', function(e, data) {
-        
+     d3.csv('static/data/'+dataset+'.csv', function(e, csv) {
+        data = csv
          data.forEach(function(d, i) {
              nbVillage[0] += 1;
              nbVillage[d["cp_id"]] += 1;
@@ -240,6 +232,14 @@
          {
 
 
+             $("#dataset").change(function(){
+            clear();
+
+            draw(this.value);
+
+
+
+         });
          $(".select2#attributeOne").on("change", function() {
              //from string to numeric
              attribute1 = this.value;
@@ -311,6 +311,8 @@
      
 
          function visualizeOne(idAttribute) {
+
+            console.log(data);
 
              var checkboxes = [];
 
@@ -582,7 +584,6 @@
                          return "translate(" + x(d.x) + "," + y(d.y) + ")";
                      });
 
-                 console.log(data);
                  bar.append("rect")
                      .attr("x", 2)
                      .attr("width", x(data[0].dx) - 2)
