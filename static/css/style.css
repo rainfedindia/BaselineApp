@@ -158,6 +158,7 @@ fill:orange;
 /* Slider */
 
  .slider{
+    overflow-y:auto;
         z-index: 1000;
         background-color: white;
         padding:10px 0px 0px 00px;
