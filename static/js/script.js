@@ -157,6 +157,7 @@
      function draw(dataset)
      {
 
+        $("#downloadCSV").attr("href","static/data/"+dataset+".csv");
 
         isLogX = false;
       isLogY = false;
@@ -169,7 +170,7 @@
       data = [];
      //Initialize Select2 Elements
      d3.csv('static/data/'+dataset+'.csv', function(e, csv) {
-        data = csv
+        data = csv;
          data.forEach(function(d, i) {
              nbVillage[0] += 1;
              nbVillage[d["cp_id"]] += 1;
