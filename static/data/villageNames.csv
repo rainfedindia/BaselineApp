@@ -1,0 +1,157 @@
+"village","villcode","panchyat","panchcode","blockname","blockcode","distname","distcode","state","statecode","cpcode"
+"Bansol",701,"Gopalpur",89,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Bara Gajra",702,"Baharamuri",88,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Benagaria",703,"Baharamuri",88,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Bhutardihi",704,"Moshiara",91,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Brahma Danga",705,"Molian",90,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Chanpasol",706,"Molian",90,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Damodarpur",707,"Molian",90,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Dhajamanipur",708,"Baharamuri",88,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Dias Dihi",709,"Baharamuri",88,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Dulalpur",710,"Molian",90,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Elora",711,"Gopalpur",89,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Gopalpur",712,"Gopalpur",89,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Guniada",713,"Gopalpur",89,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Jhapandihi",714,"Moshiara",91,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Kaliahuta",715,"Baharamuri",88,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Kundurka",716,"Moshiara",91,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Nowadihi",717,"Molian",90,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Pathardihi",718,"Baharamuri",88,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Rangametia",719,"Moshiara",91,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+"Sitarampur",720,"Moshiara",91,"Hirbandh",10,"Bankura",7,"West Bengal",6,7
+
+"Cherai",601,"Cherai",77,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Bardiha",602,"Cherai",77,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Babhandih",603,"Cherai",77,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Shahi",604,"Murumdag",85,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Palwa",605,"Murumdag",85,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Bishaypur",606,"Hulsam",80,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Chucharumar",607,"Hulsam",80,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Hutukdag",608,"Hutukdag",81,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Bachkoma",609,"Hutukdag",81,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Sadma",610,"Chhattarpur",78,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Kangalidih",611,"Chhattarpur",78,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Khatin",612,"Bara",76,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Bagaiya",613,"Mashihani",84,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Kaual",614,"Kaual",83,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Sildag",615,"Sildag",87,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Basdiha",616,"Sildag",87,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Akabasa",617,"Rudwa",86,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Gangdhari",618,"Rudwa",86,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Kachanpur",619,"Kachanpur",82,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+"Kundauli",620,"Dali",79,"Chhattarpur",9,"Palamau",6,"Jharkhand",5,6
+
+"R.S.C-2",501,"Doraguda",64,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Bhrusundiguda",502,"Doraguda",64,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Doraguda",503,"Doraguda",64,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Talapadar",504,"Gunthawada",67,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"R.S.C-8",505,"Gunthawada",67,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Malliguda",506,"Tunnel Camp",75,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Mahadev Pur",507,"Tunnel Camp",75,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Pithghata",508,"Tumsapalli",74,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Chidipalli",509,"Tumsapalli",74,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Ramaguda",510,"Tandapally",73,"Korukonda",5,"Malkangiri",5,"Odisa",4,5
+"Naliguda",511,"Gumma",66,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Naliguda Colony",512,"Gumma",66,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Dudumaguda",513,"Somnathpur",72,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Dongakund",514,"Parkanmalla",70,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Anlajodi",515,"Parkanmalla",70,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Pangiguda",516,"Parkanmalla",70,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Panighata",517,"Parkanmalla",70,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Gouriguda",518,"Parkanmalla",70,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Khilaguda",519,"Badapadar",62,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Hatipadar",520,"Badapadar",62,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Datunguda",521,"Badapadar",62,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Badapadar",522,"Badapadar",62,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Badapada",523,"Badapada",62,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Khajorigumma",524,"Badapada",62,"K. Gumma",6,"Malkangiri",5,"Odisa",4,5
+"Nuaguda",525,"Salimi",71,"Mathili",7,"Malkangiri",5,"Odisa",4,5
+"Badakarapalli",526,"Chedenga",63,"Mathili",7,"Malkangiri",5,"Odisa",4,5
+"Tumbaguda",527,"Kalimela",68,"Kalimela",8,"Malkangiri",5,"Odisa",4,5
+"Kawasiguda",528,"Koimetla",69,"Kalimela",8,"Malkangiri",5,"Odisa",4,5
+"Girkanpalli",529,"Girkanpalli",65,"Kalimela",8,"Malkangiri",5,"Odisa",4,5
+"Betiguda",530,"Girkanpalli",65,"Kalimela",8,"Malkangiri",5,"Odisa",4,5
+
+"Thimmareddi Palle",401,"Thimmareddi Palle",59,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Bangel Tanda",402,"Thimmareddi Palle",59,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Hanmannaik Tanda",403,"Polkampalle",56,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Allapur",404,"Gundepalle",53,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Rayalgutta Tanda",405,"Gokapasalawad",52,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Sultanpur",406,"Sultanpur",57,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Hobyanaik Tanda",407,"Devarfaslawad",51,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Narsapur",408,"Neetur",55,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Volkanaik Tanda",409,"Polkampalle",56,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Gokapasalawad",410,"Gokapasalawad",52,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Saleempur",411,"Suraipalle",58,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Anthwar",412,"Anthwar",48,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Gundepalle",413,"Gundepalle",53,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Polkampalle",414,"Polkampalle",56,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Erlapalle",415,"Challapur",49,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Kummarikunta",416,"Polkampalle",56,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Neetur",417,"Neetur",55,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Dasaryagudem",418,"Chandrakal",50,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Sangaipalle Tanda",419,"Kudrimalla",54,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+"Lothukunta Tanda",420,"Devarfaslawad",51,"Daulatabad",4,"Mehbubnagar",4,"Telengana",3,4
+
+"Amulla Kalan",301,"Amulya Kala",32,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Balapat",302,"Balapat",33,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Chokhanda",303,"Balapat",33,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Bijori",304,"Bijori",34,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Dasghat",305,"Bijori",34,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Pandhari",306,"Chidiya Mal",35,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Dabali",307,"Dabali",36,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Dahinda",308,"Dhinda",37,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Ratnapur",309,"Golkhera",38,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Melchuka",310,"Jhirmiti",39,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Ramgarh",311,"Jhirmiti",39,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Kerpani",312,"kerpani",40,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Machgaon",313,"Machgaon",41,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Manjrod Kalan",314,"Manjrod Kalan",42,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Pipalpani",315,"Pipalpani",43,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Sagmali",316,"Pipalpani",43,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Pipri Borban Ryt.",317,"Pipari bovan",44,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Jampani",318,"Raytalai",45,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Sajni Ryt",319,"Sajni",46,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+"Tukaithad",320,"Tukayidhad",47,"Khaknar",3,"Burhanpur",3,"Madhya Pradesh",2,3
+
+"Postipura",201,"Postipura",26,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Laxmipura",202,"Kardi",19,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Kardi",203,"Kardi",19,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Mansingpura",204,"Chandupura",16,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Pankua",205,"Pankua",23,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Ratatalai",206,"Ratatalai",29,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Agrabuzurg",207,"Agrakhurd",15,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Imlipura",208,"Imlipura",18,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Udaipura",209,"Udainagar",31,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Rampura",210,"Rampura",28,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Sevanpani",211,"Sevanpani",30,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Pipalya Lohar",212,"Pipalya Lohar",24,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Borkhedi",213,"Mahigaon",21,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Potla",214,"Potla",27,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Tantukhedi",215,"Pipri",25,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Neemanpura",216,"Neemanpura",22,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Jamli",217,"Gurarda",17,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Gurarda",218,"Gurarda",17,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Jojakpura",219,"Gurarda",17,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+"Magaradeh",220,"Magaradeh",20,"Bagli",2,"Devas",2,"Madhya pradesh ",2,2
+
+"Charopadi Moti",101,"Charopadi Moti",2,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Mohadi",102,"Charopadi Moti",2,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Sukhpar( Saindh)",103,"Chhasara",3,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Rampar(Abda)",104,"Rampar(Abda)",10,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Laiyari",105,"Rampar(Abda)",10,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Kervandh",106,"Kervandh",7,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Ashapar",107,"Ashapar",1,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Vadsar",108,"Chhasara",3,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Sujapar",109,"Sujapar",13,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"KalaTalav",110,"KalaTalav",5,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Mokarashi Vandh",111,"Mokarashi Vandh",9,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Bhadra Vandh",112,"Mokarashi Vandh",9,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Meman Vandh",113,"Mokarashi Vandh",9,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Piyoni",114,"Kandhay",6,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Kandhay",115,"Kandhay",6,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Lala",116,"Lala",8,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Kaduli",117,"Rapar gadh",11,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Sayara",118,"Sayara",12,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Vanku",119,"Vanku",14,"Abdasa",1,"Kachchh",1,"Gujrat",1,1
+"Kukadau",120,"Jakho",4,"Abdasa",1,"Kachchh",1,"Gujrat",1,1

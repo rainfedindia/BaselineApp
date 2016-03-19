@@ -31,6 +31,7 @@
 
 
      var varName = [];
+     var villageNames = [];
      var indexVar = [];
 
 
@@ -48,6 +49,13 @@
              } else {
                  indexVar[d.Name] = "Number";
              }
+         });
+     });
+
+     d3.csv('static/data/villageNames.csv', function(e, dataVill) {
+         dataVill.forEach(function(d, i) {
+             villageNames[d.villcode] = d.village; 
+             
          });
      });
 
@@ -761,8 +769,8 @@
                      .offset([-10, 0])
                      .html(function(d, i) {
 
-                         return 'Village : ' + d['general.village'] + '</br>' + id1 + " : " + Math.floor(d[id1] * 100) / 100 + "</br>" +
-                             id2 + ' : ' + Math.floor(d[id2] * 100) / 100;
+                         return 'Village : ' +  villageNames[d['general.village']] + '</br>' + varName[id1] + " : " + Math.floor(d[id1] * 100) / 100 + "</br>" +
+                             varName[id2] + ' : ' + Math.floor(d[id2] * 100) / 100;
                      })
                  var dataScaterplot = [
                      [],
