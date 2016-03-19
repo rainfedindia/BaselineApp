@@ -188,3 +188,9 @@ fill:orange;
 {
   float: right;
 }
+
+#mainTitle
+{
+  font-size: 30px;
+  color: darkred;
+}

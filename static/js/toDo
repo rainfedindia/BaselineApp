@@ -6,15 +6,15 @@ X-pretty names
 X-fix the change !!
 X-download csv
 X-good repartition of vars
-0-scroll bar (urgent)
+X-scroll bar (urgent)
 X-reduce gap
 X-increase font
 -collapsible -> bigger area, expension
 -overlap of labels
 -code names for village
--color of titles
--size of titles
--csv names
+X-color of titles
+X-size of titles
+X-csv names
 -export pdf
 -mosaic
 -mosaic labels
