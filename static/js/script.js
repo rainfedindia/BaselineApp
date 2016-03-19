@@ -301,21 +301,25 @@
 
              function go() {
 
-                 console.log('A1 : ' + attribute1 + "\n A2 : " + attribute2)
+                 
 
 
                  if ($(specS).val()) {
 
+                    console.log($(specS).val());
+                     isLogX = ($(specS).val().indexOf("logX") >= 0);
+                     isLogY = ($(specS).val().indexOf("logY") >= 0);
+                     isFree = ($(specS).val().indexOf("free") >= 0);
 
-                     isLogX = ($(specS).val().indexOf("logX") > 0);
-                     isLogY = ($(specS).val().indexOf("logY") > 0);
-                     isFree = ($(specS).val().indexOf("free") > 0);
 
                  } else {
                      isLogX = false;
                      isLogY = false;
                      isFree = false;
                  }
+                     console.log(isLogX)
+                     console.log(isLogY)
+                     console.log(isFree)
 
                  if (attribute1 != 'none' && attribute2 == "none" || attribute1 != 'none' && attribute2 == "") {
                      console.log("HEY")
